@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://schemas.tinlance.com/tadl/provenance/v1/provenance.schema.json",
+  "title":"TADL Provenance v1","type":"object","additionalProperties":false,
+  "required":["apiVersion","artifact","nodes"],
+  "properties":{
+    "apiVersion":{"const":"tadl.tinlance.com/v1"},
+    "artifact":{"type":"object","additionalProperties":false,"required":["name","version","digest"],"properties":{"name":{"type":"string"},"version":{"type":"string"},"digest":{"type":"string"}}},
+    "nodes":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["type","name"],"properties":{"type":{"type":"string"},"name":{"type":"string"},"version":{"type":"string"},"digest":{"type":"string"}}}}
+  }
+}
