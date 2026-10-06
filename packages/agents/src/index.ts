@@ -1,0 +1,5 @@
+export type AgentState="DRAFT"|"VALIDATED"|"PUBLISHED"|"RETIRED";
+export interface AgentProfile{readonly name:string;readonly version:string;readonly purpose:string;readonly skills:readonly string[];readonly capabilities:readonly string[];readonly model?:string;readonly maxRiskClass:"R0"|"R1"|"R2"|"R3"|"R4"|"R5";}
+const next:Record<AgentState,readonly AgentState[]>={DRAFT:["VALIDATED"],VALIDATED:["PUBLISHED","DRAFT"],PUBLISHED:["RETIRED"],RETIRED:[]};
+export class AgentLifecycle{private stateValue:AgentState="DRAFT";constructor(readonly profile:AgentProfile){}get state(){return this.stateValue;}transition(to:AgentState){if(!next[this.stateValue].includes(to))throw new Error("invalid agent lifecycle transition");this.stateValue=to;return this.stateValue;}canExecute(){return this.stateValue==="PUBLISHED";}}
+export function validateAgent(profile:AgentProfile):readonly string[]{const e:string[]=[];if(!profile.name||!profile.version)e.push("identity required");if(profile.skills.length===0)e.push("at least one skill is required");if(profile.capabilities.length===0)e.push("at least one capability is required");return e;}
