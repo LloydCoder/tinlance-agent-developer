@@ -1,0 +1,27 @@
+{
+  "schema": "tinlance-agent-ecosystem-lock/v1",
+  "purpose": "Pins the four-repository integration gate to reviewed commits.",
+  "repositories": {
+    "developer": {
+      "repository": "LloydCoder/tinlance-agent-developer",
+      "ref": "e197a661b72e19b4d44f79070f1f0218cf29b0a3"
+    },
+    "os": {
+      "repository": "LloydCoder/tinlance-agent-os",
+      "ref": "062f94b3ccfe209cd4af02775ada0c839cc1fde9"
+    },
+    "platform": {
+      "repository": "LloydCoder/tinlance-agent-platform",
+      "ref": "13841aa3a17263ebae8c02aaabb279f72a086972"
+    },
+    "platform_sdk": {
+      "repository": "LloydCoder/tinlance-agent-platform-sdk",
+      "ref": "ddb3c6d6b2fd067e15600ebe51e82b06208a2fd3"
+    }
+  },
+  "contracts": {
+    "platform_api": "1.1",
+    "governed_execution": "governed-execution.v1",
+    "endpoint": "POST /v1/agent-platform"
+  }
+}
