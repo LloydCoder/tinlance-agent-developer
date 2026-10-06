@@ -33,7 +33,7 @@ jobs:
       - name: Generate SBOM
         run: npm sbom --sbom-format=cyclonedx --sbom-type=application > dist/sbom.cdx.json
       - name: Attest package provenance
-        uses: actions/attest@1e69f48b1f6d9c4c9b4e6e8b1b0f3f8a8f1e9b0
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
         with:
           subject-path: "dist/*.tgz"
       - name: Attest SBOM
