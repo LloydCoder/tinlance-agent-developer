@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {ecosystemConsumers,validateIntegration} from "../dist/packages/core/src/integration.js";
+test("ecosystem list contains core Tinlance products",()=>{assert.ok(ecosystemConsumers.includes("FDSE"));assert.ok(ecosystemConsumers.includes("TADS"));assert.ok(ecosystemConsumers.includes("ReconOS"));});
+test("integration contract preserves Platform authority",()=>assert.doesNotThrow(()=>validateIntegration({consumer:"FDSE",layer:"DOMAIN_PRODUCT",tadlVersion:"1.2.0",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"})));
