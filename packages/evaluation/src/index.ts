@@ -19,7 +19,7 @@ export function evaluateRun(run:EvaluationRun,gates:EvaluationGates):EvaluationR
  const ids=new Set<string>();for(const result of run.cases){validateCase(result);if(ids.has(result.id))throw new Error("duplicate evaluation case id: "+result.id);ids.add(result.id);}
  for(const key of Object.keys(gates) as EvaluationGateKey[])assertScore(gates[key],"gate "+key);
  const metrics=aggregate(run.cases);const failures=run.cases.flatMap(result=>result.failures.map((f:string)=>result.id+": "+f));
- const passed=Object.keys(gates).every(key=>metrics[key as EvaluationGateKey]>=(gates[key as EvaluationGateKey]));
+ const allCasesPassed=run.cases.every((result)=>result.passed);\n const passed=allCasesPassed&&Object.keys(gates).every(key=>metrics[key as EvaluationGateKey]>=(gates[key as EvaluationGateKey]));
  return Object.freeze({receiptVersion:"1" as const,target:run.target,targetDigest:run.targetDigest,suite:run.suite,suiteVersion:run.suiteVersion,caseCount:run.cases.length,passedCases:run.cases.filter(c=>c.passed).length,metrics,gates:Object.freeze({...gates}),passed,failures:Object.freeze(failures),modelVersion:run.modelVersion,harnessVersion:run.harnessVersion,toolVersions:Object.freeze({...run.toolVersions}),environment:Object.freeze({...run.environment}),seed:run.seed,evaluatedAt:run.evaluatedAt});
 }
 export function assertEvaluation(receipt:EvaluationReceipt){if(!receipt.passed)throw new Error("evaluation gates failed");if(receipt.caseCount<1||receipt.passedCases>receipt.caseCount)throw new Error("invalid evaluation receipt");return receipt;}
