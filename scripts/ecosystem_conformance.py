@@ -165,8 +165,9 @@ def post_raw(
         headers["Idempotency-Key"] = idempotency_key
     if traceparent is not None:
         headers["traceparent"] = traceparent
+    target = endpoint.rstrip("/") + "/v1/agent-platform"
     request = urllib.request.Request(
-        endpoint,
+        target,
         data=body,
         headers=headers,
         method="POST",
