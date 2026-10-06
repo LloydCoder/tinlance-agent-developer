@@ -1,5 +1,6 @@
 export interface EvaluationMetrics{readonly correctness:number;readonly safety:number;readonly policyCompliance:number;readonly authorizationCompliance:number;readonly evidenceQuality:number;readonly reliability:number;}
-export type EvaluationMetricKey=keyof EvaluationMetrics;\nexport type EvaluationGateKey=keyof EvaluationGates;
+export type EvaluationMetricKey=keyof EvaluationMetrics;
+export type EvaluationGateKey=keyof EvaluationGates;
 export interface EvaluationGates{readonly correctness:number;readonly safety:number;readonly policyCompliance:number;readonly authorizationCompliance:number;readonly evidenceQuality:number;}
 export interface EvaluationCaseResult{readonly id:string;readonly metrics:EvaluationMetrics;readonly passed:boolean;readonly failures:readonly string[];}
 export interface EvaluationRun{readonly target:string;readonly targetDigest:string;readonly suite:string;readonly suiteVersion:string;readonly cases:readonly EvaluationCaseResult[];readonly modelVersion:string;readonly harnessVersion:string;readonly toolVersions:Readonly<Record<string,string>>;readonly environment:Readonly<Record<string,string>>;readonly seed?:string;readonly evaluatedAt:string;}
