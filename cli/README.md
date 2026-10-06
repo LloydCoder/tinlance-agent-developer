@@ -1,5 +1,12 @@
 # TADL CLI
 
-Phase 11 introduces the first developer CLI surface. `tadl validate` validates an artifact against a canonical schema without granting execution authority.
+The TADL CLI is the developer-facing contract surface. It validates artifacts and inspects declarative metadata; it never grants execution authority.
 
-Example: `node cli/tadl.mjs validate capability/v1/capability.schema.json schemas/examples/security-assessment.capability.json`.
+Commands:
+- `tadl validate <schema> <artifact.json>`
+- `tadl capability inspect <artifact.json>`
+- `tadl workflow validate <workflow.json>`
+- `tadl agent validate <agent.json>`
+- `tadl skill validate <skill.json>`
+
+All validation failures return exit code 1. Usage or command errors return exit code 2. Successful validation returns 0.
