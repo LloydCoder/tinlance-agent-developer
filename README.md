@@ -174,6 +174,7 @@ TADL is currently a source-level developer layer rather than a long-running serv
 - [Security controls](docs/security/CONTROLS.md)
 - [Threat model](docs/security/THREAT-MODEL.md)
 - [Compatibility](docs/compatibility/README.md)
+- [Ecosystem conformance](docs/integration/CONFORMANCE.md)
 - [Phase documentation](docs/architecture/)
 - [LLM-oriented documentation map](llms.txt)
 
