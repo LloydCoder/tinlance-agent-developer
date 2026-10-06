@@ -219,7 +219,7 @@ def validate_authority_boundaries(lock: dict[str, object]) -> None:
     roots = {
         # Only scan product source trees. The conformance harness intentionally
         # imports the other layers and therefore is not itself a dependency.
-        "developer": ROOT / "src",
+        "developer": ROOT / "cli",
         "os": Path("/tmp/tinlance-os/src"),
         "platform_sdk": Path("/tmp/tinlance-platform_sdk/src"),
         "platform": Path("/tmp/tinlance-platform/packages"),
