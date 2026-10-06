@@ -68,7 +68,9 @@ sandbox, secrets, budgets, evidence, audit, observability
 
 `packages/registry` — immutable artifact registry contract.
 
-`packages/provenance` — canonical digests, Ed25519 signing/verification, and SLSA/in-toto provenance contracts.\n\n`packages/security` — executable developer-boundary controls for authority separation and secret-like material detection.
+`packages/provenance` — canonical digests, Ed25519 signing/verification, and SLSA/in-toto provenance contracts.
+
+`packages/security` — executable developer-boundary controls for authority separation and secret-like material detection.
 
 `cli/tadl.mjs` — developer CLI validation surface.
 
