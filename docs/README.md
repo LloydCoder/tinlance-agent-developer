@@ -1,3 +1,3 @@
-# Documentation
+# TADL Documentation
 
-Authoritative documentation is organized by architecture, contracts, security, evaluation, and compatibility.
+Normative architecture, contract, security, evaluation, compatibility, and phase documentation.
