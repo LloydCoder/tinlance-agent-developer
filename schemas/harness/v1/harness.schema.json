@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://schemas.tinlance.com/tadl/harness/v1/harness.schema.json",
+  "title":"TADL Harness Adapter v1","type":"object","additionalProperties":false,
+  "required":["apiVersion","kind","metadata","spec"],
+  "properties":{
+    "apiVersion":{"const":"tadl.tinlance.com/v1"},"kind":{"const":"Harness"},
+    "metadata":{"type":"object","additionalProperties":false,"required":["name","version"],"properties":{"name":{"type":"string"},"version":{"type":"string","pattern":"^[0-9]+\\.[0-9]+\\.[0-9]+$"}}},
+    "spec":{"type":"object","additionalProperties":false,"required":["provider","trust"],"properties":{"provider":{"type":"string"},"trust":{"const":"untrusted"},"features":{"type":"array","items":{"type":"string"}}}}
+  }
+}
