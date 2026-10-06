@@ -1,3 +1,9 @@
-import test from "node:test";import assert from "node:assert/strict";import {ecosystemConsumers,validateIntegration} from "../dist/packages/core/src/integration.js";
+import test from "node:test";import assert from "node:assert/strict";
+import {ecosystemConsumers,validateIntegration,validateEcosystemMatrix} from "../dist/packages/core/src/integration.js";
+const contracts=ecosystemConsumers.map(consumer=>({consumer,layer:"DOMAIN_PRODUCT",tadlVersion:"1.4.0",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"}));
 test("ecosystem list contains core Tinlance products",()=>{assert.ok(ecosystemConsumers.includes("FDSE"));assert.ok(ecosystemConsumers.includes("TADS"));assert.ok(ecosystemConsumers.includes("ReconOS"));});
-test("integration contract preserves Platform authority",()=>assert.doesNotThrow(()=>validateIntegration({consumer:"FDSE",layer:"DOMAIN_PRODUCT",tadlVersion:"1.2.0",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"})));
+test("every declared ecosystem consumer has a valid executable contract",()=>assert.equal(validateEcosystemMatrix(contracts).length,0));
+test("integration contract preserves Platform authority",()=>assert.doesNotThrow(()=>validateIntegration({consumer:"FDSE",layer:"DOMAIN_PRODUCT",tadlVersion:"1.4.0",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"})));
+test("TADL and Agent OS cannot own authority",()=>{assert.throws(()=>validateIntegration({consumer:"Agent OS",layer:"AGENT_OS",tadlVersion:"1.4.0",requiredPlatformContract:"R10",authorityOwner:"DOMAIN_PRODUCT"}),/authority/);assert.throws(()=>validateIntegration({consumer:"FDSE",layer:"TADL",tadlVersion:"1.4.0",requiredPlatformContract:"R10",authorityOwner:"DOMAIN_PRODUCT"}),/authority/);});
+test("unknown consumers and malformed versions are rejected",()=>{assert.throws(()=>validateIntegration({consumer:"Unknown",layer:"DOMAIN_PRODUCT",tadlVersion:"1.4.0",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"}),/unknown/);assert.throws(()=>validateIntegration({consumer:"FDSE",layer:"DOMAIN_PRODUCT",tadlVersion:"v1",requiredPlatformContract:"R10",authorityOwner:"AGENT_PLATFORM"}),/version/);});
+test("matrix detects missing consumers",()=>assert.ok(validateEcosystemMatrix(contracts.slice(1)).some(x=>x.includes(contracts[0].consumer))));
