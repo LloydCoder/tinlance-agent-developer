@@ -1,0 +1,38 @@
+# Tinlance Agent Developer Layer (TADL)
+
+> TADL is Tinlance's declarative developer plane for governed AI-agent artifacts: skills, capabilities, agent profiles, workflows, harness adapters, evaluation, registry, provenance, security checks, and CLI validation.
+
+TADL defines developer intent and artifact contracts. It does not grant execution authority. Tinlance Agent Platform remains authoritative for identity, authorization, policy, approvals, runtime, tools/MCP, sandbox, secrets, budgets, evidence, and audit.
+
+## Getting Started
+
+- [README](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/README.md): Product positioning, quick start, installation, usage, and feature overview.
+- [Getting Started tutorial](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/tutorials/getting-started.md): First source checkout and validation workflow.
+- [CLI reference](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/reference/cli.md): Commands, inputs, outputs, and exit codes.
+
+## Architecture
+
+- [Architecture explanation](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/explanation/architecture.md): Layer boundaries and authority model.
+- [Architecture boundaries](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/architecture/BOUNDARIES.md): Ownership and must-not-own rules.
+- [Lifecycle](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/architecture/LIFECYCLE.md): Developer artifact lifecycle.
+- [Architecture decisions](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/architecture/ADRs.md): Key architectural decisions.
+
+## Reference
+
+- [Schemas](https://github.com/LloydCoder/tinlance-agent-developer/tree/main/schemas): Versioned artifact schemas and examples.
+- [Package documentation](https://github.com/LloydCoder/tinlance-agent-developer/tree/main/packages): Package-level implementation notes.
+- [Security controls](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/security/CONTROLS.md): Supply-chain and trust-boundary controls.
+- [Threat model](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/security/THREAT-MODEL.md): Untrusted-input model and threats.
+- [Compatibility](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/docs/compatibility/README.md): Versioning and compatibility rules.
+
+## Contributing
+
+- [Contributing](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/CONTRIBUTING.md): Development, testing, contract changes, and pull requests.
+- [Code of Conduct](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/CODE_OF_CONDUCT.md): Community standards and enforcement.
+- [Security policy](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/SECURITY.md): Private vulnerability reporting and response targets.
+- [Support](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/SUPPORT.md): Usage support and issue routing.
+
+## Optional
+
+- [Changelog](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/CHANGELOG.md): Release history.
+- [License](https://github.com/LloydCoder/tinlance-agent-developer/blob/main/LICENSE): Apache License 2.0.
