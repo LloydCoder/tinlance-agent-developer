@@ -83,3 +83,8 @@ M13.6 secret governance: TADL secret references are metadata only. Platform-scop
 ## M13.7 — Evidence, audit and non-repudiation
 
 M13.7 evidence/audit boundary: TADL provenance declarations are metadata only. Platform owns evidence integrity, audit causality, execution/intent binding and external attestation; developer artifacts cannot mint authority.
+
+
+## M13.8 — Observability and incident correlation
+
+M13.8 observability boundary: TADL telemetry metadata is non-authoritative. Platform owns normalized trace context, tenant-bound incident correlation and security-event causality; developer metadata cannot widen authority.
