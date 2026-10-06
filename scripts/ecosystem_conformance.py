@@ -258,29 +258,25 @@ def validate_production_runtime_reconciliation() -> None:
     """Require M13.6-M13.8 authority boundaries across the locked stack."""
     required = {
         Path("/tmp/tinlance-platform/docs/production-runtime/M13-6-SECRETS-CREDENTIAL-GOVERNANCE.md"):
-            "Purpose + audience + time validation",
+            ("Purpose + audience + time validation",),
         Path("/tmp/tinlance-platform/docs/production-runtime/M13-7-EVIDENCE-AUDIT-NONREPUDIATION.md"):
-            "Non-Repudiation",
+            ("Non-Repudiation",),
         Path("/tmp/tinlance-platform/docs/production-runtime/M13-8-OBSERVABILITY-INCIDENT-CORRELATION.md"):
-            "Incident correlation",
+            ("Incident correlation",),
         Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
-            "M13.6 — Secrets and credential governance",
-        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
-            "M13.7 — Evidence, audit and non-repudiation",
+            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
         Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
-            "M13.6 — Secrets and credential governance",
-        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
-            "M13.7 — Evidence, audit and non-repudiation",
+            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
         ROOT / "docs/integration/ECOSYSTEM.md":
-            "M13.6 — Secrets and credential governance",
-        ROOT / "docs/integration/ECOSYSTEM.md":
-            "M13.7 — Evidence, audit and non-repudiation",
+            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
     }
-    for path, marker in required.items():
+    for path, markers in required.items():
         if not path.exists():
             raise AssertionError(f"production runtime document is missing: {path}")
-        if marker not in path.read_text(encoding="utf-8"):
-            raise AssertionError(f"production runtime marker missing from {path}: {marker}")
+        content = path.read_text(encoding="utf-8")
+        for marker in markers:
+            if marker not in content:
+                raise AssertionError(f"production runtime marker missing from {path}: {marker}")
 
 
 def validate_authority_boundaries(lock: dict[str, object]) -> None:
