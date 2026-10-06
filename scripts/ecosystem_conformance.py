@@ -254,6 +254,29 @@ def validate_tool_authority_reconciliation() -> None:
             raise AssertionError(f"tool authority marker missing from {path}: {marker}")
 
 
+def validate_production_runtime_reconciliation() -> None:
+    """Require the four-repository stack to expose M13.6-M13.8 governance boundaries."""
+    required = {
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-6-SECRETS-CREDENTIAL-GOVERNANCE.md"):
+            "Purpose + audience + time validation",
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-7-EVIDENCE-AUDIT-NONREPUDIATION.md"):
+            "Non-Repudiation",
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-8-OBSERVABILITY-INCIDENT-CORRELATION.md"):
+            "Incident correlation",
+        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
+            "M13.6–M13.8",
+        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
+            "M13.6–M13.8",
+        ROOT / "docs/integration/ECOSYSTEM.md":
+            "M13.6–M13.8",
+    }
+    for path, marker in required.items():
+        if not path.exists():
+            raise AssertionError(f"production-runtime reconciliation document is missing: {path}")
+        if marker not in path.read_text(encoding="utf-8"):
+            raise AssertionError(f"production-runtime marker missing from {path}: {marker}")
+
+
 def validate_authority_boundaries(lock: dict[str, object]) -> None:
     """Reject accidental dependency inversion into the authority kernel."""
     roots = {
