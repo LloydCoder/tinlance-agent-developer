@@ -6,3 +6,5 @@ test("agent lifecycle requires publication evidence",()=>{const a=new AgentLifec
 test("publication requires passing evaluation and integrity metadata",()=>{const a=new AgentLifecycle(p);a.transition("VALIDATED");assert.throws(()=>a.transition("PUBLISHED",{...evidence,evaluationPassed:false}),/passing evaluation/);assert.throws(()=>a.transition("PUBLISHED",{...evidence,artifactDigest:"bad"}),/artifact digest/);});
 test("invalid agent profiles are rejected",()=>assert.ok(validateAgent({...p,capabilities:[]}).length>0));
 test("agent profile collections are immutable",()=>{const a=new AgentLifecycle(p);assert.equal(Object.isFrozen(a.profile.skills),true);assert.equal(Object.isFrozen(a.profile.capabilities),true);});
+
+test("unverified publication signatures are rejected",()=>{const a=new AgentLifecycle(p);a.transition("VALIDATED");assert.throws(()=>a.transition("PUBLISHED",{...evidence,signatureVerified:false}),/verified/);});
