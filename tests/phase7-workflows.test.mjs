@@ -1,5 +1,10 @@
-import test from "node:test";import assert from "node:assert/strict";import {compileWorkflow,validateWorkflow} from "../dist/packages/workflows/src/index.js";
+import test from "node:test";import assert from "node:assert/strict";
+import {compileWorkflow,validateWorkflow} from "../dist/packages/workflows/src/index.js";
 const w={name:"security-review",version:"1.0.0",steps:[{id:"report",capability:"report.create",dependsOn:["assess"],evidence:[]},{id:"assess",capability:"repository.security.assess",dependsOn:[],evidence:["snapshot"]}]};
 test("workflow compiler produces deterministic topological order",()=>assert.deepEqual(compileWorkflow(w).order,["assess","report"]));
+test("equivalent input ordering compiles identically",()=>{const reversed={...w,steps:[w.steps[1],w.steps[0]]};assert.deepEqual(compileWorkflow(w).order,compileWorkflow(reversed).order);});
 test("workflow cycles are rejected",()=>assert.throws(()=>compileWorkflow({...w,steps:[{...w.steps[0],dependsOn:["report"]},w.steps[1]]}),/cycle/));
-test("production steps require approval metadata",()=>assert.ok(validateWorkflow({...w,steps:[{...w.steps[0],capability:"deployment.production.execute"}]}).length>0));
+test("missing dependencies are rejected",()=>assert.throws(()=>compileWorkflow({...w,steps:[{...w.steps[0],dependsOn:["missing"]},w.steps[1]]}),/missing workflow dependency/));
+test("consequential steps require approval metadata",()=>assert.ok(validateWorkflow({...w,steps:[{...w.steps[0],consequential:true}]}).length>0));
+test("runtime controls are validated",()=>assert.ok(validateWorkflow({...w,steps:[{...w.steps[0],timeoutMs:0,maxAttempts:0}]}).length>=2));
+test("compiled workflow is immutable",()=>{const x=compileWorkflow(w);assert.equal(Object.isFrozen(x),true);assert.equal(Object.isFrozen(x.steps),true);assert.equal(Object.isFrozen(x.order),true);});
