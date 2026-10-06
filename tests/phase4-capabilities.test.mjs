@@ -1,7 +1,14 @@
-import test from "node:test";import assert from "node:assert/strict";import {assertCapability,effectiveCapabilities,riskAtMost} from "../dist/packages/capabilities/src/index.js";
+import test from "node:test";import assert from "node:assert/strict";
+import {assertCapability,effectiveCapabilities,riskAtMost} from "../dist/packages/capabilities/src/index.js";
 const read={name:"repository.security.assess",version:"1.0.0",risk:"R1",authorizations:["repository.read"],tools:["repository.inspect"],approvals:[],evidence:["repository.snapshot"],evaluation:{suite:"smoke",minimumScore:.92}};
 const deploy={...read,name:"deployment.production.execute",risk:"R4",authorizations:["deployment.production"],tools:["deployment.write"],approvals:["human.production"],evidence:["deployment.attestation"]};
+const context={tenantId:"tenant-a",principalId:"agent-1",environment:"production",resource:"repo/customer-a/app",policyDigest:"sha256:policy",grants:[{capability:deploy.name,version:deploy.version,tenantId:"tenant-a",principalId:"agent-1",environment:"production",resourceScopes:["repo/customer-a/*"],maxRisk:"R4",policyDigest:"sha256:policy",expiresAt:"2099-01-01T00:00:00Z"}],approvals:[{capability:deploy.name,version:deploy.version,tenantId:"tenant-a",approvalId:"approval-1",expiresAt:"2099-01-01T00:00:00Z"}]};
 test("risk ordering is monotonic",()=>assert.equal(riskAtMost("R2","R4"),true));
-test("declared capability is not effective without Platform authorization",()=>assert.equal(effectiveCapabilities([read],{authorizedCapabilities:[]}).length,0));
-test("approval is required for high-risk capability",()=>assert.throws(()=>assertCapability({...deploy,approvals:[]}),/approval/));
-test("authorized and approved capability becomes effective",()=>assert.equal(effectiveCapabilities([deploy],{authorizedCapabilities:[deploy.name],approvedCapabilities:[deploy.name]}).length,1));
+test("declared capability is not effective without Platform authorization",()=>assert.equal(effectiveCapabilities([read],{...context,grants:[]}).length,0));
+test("high-risk capability requires approval declaration",()=>assert.throws(()=>assertCapability({...deploy,approvals:[]}),/approval/));
+test("authorized, scoped and approved capability becomes effective",()=>assert.equal(effectiveCapabilities([deploy],context).length,1));
+test("tenant crossover is denied",()=>assert.equal(effectiveCapabilities([deploy],{...context,tenantId:"tenant-b"}).length,0));
+test("principal crossover is denied",()=>assert.equal(effectiveCapabilities([deploy],{...context,principalId:"agent-2"}).length,0));
+test("resource scope crossover is denied",()=>assert.equal(effectiveCapabilities([deploy],{...context,resource:"repo/other/app"}).length,0));
+test("policy digest mismatch is denied",()=>assert.equal(effectiveCapabilities([deploy],{...context,policyDigest:"sha256:other"}).length,0));
+test("expired authorization is denied",()=>assert.equal(effectiveCapabilities([deploy],{...context,grants:context.grants.map(g=>({...g,expiresAt:"2000-01-01T00:00:00Z"}))}).length,0));
