@@ -69,3 +69,7 @@ parallel execution authority.
 ## Budget governance boundary
 
 Consequential execution budget is Platform authority. Requests may carry declared execution limits, but only the Platform execution boundary can reserve, consume or release budget. Reservations are bound to tenant, agent, run, action and resource; quota exhaustion and scope/replay conflicts fail closed. SDK/OS/TADL layers must not implement local budget authority or treat client-side estimates as authorization.
+
+## M13.5 tool authority reconciliation
+
+TADL declares capabilities and tool metadata but does not grant execution authority. The Platform is the sole consequential tool authority; permits are Platform-issued and single-use, while sandbox workspace roots are deployment policy rather than developer-side authority.

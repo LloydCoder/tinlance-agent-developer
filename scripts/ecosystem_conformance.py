@@ -235,6 +235,25 @@ def validate_budget_governance_reconciliation() -> None:
             raise AssertionError(f"budget authority boundary is not reconciled: {path}")
 
 
+def validate_tool_authority_reconciliation() -> None:
+    """Require the locked stack to expose one consequential tool and sandbox authority boundary."""
+    required = {
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-5-SANDBOX-TOOL-MCP-AUTHORITY.md"):
+            "tenant/run/tool/action/resource",
+        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
+            "Platform-issued single-use permit",
+        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
+            "Platform-issued single-use permit",
+        ROOT / "docs/integration/ECOSYSTEM.md":
+            "Platform-issued",
+    }
+    for path, marker in required.items():
+        if not path.exists():
+            raise AssertionError(f"tool authority reconciliation document is missing: {path}")
+        if marker not in path.read_text(encoding="utf-8"):
+            raise AssertionError(f"tool authority marker missing from {path}: {marker}")
+
+
 def validate_authority_boundaries(lock: dict[str, object]) -> None:
     """Reject accidental dependency inversion into the authority kernel."""
     roots = {
@@ -419,6 +438,7 @@ def main() -> None:
     validate_tadl()
     validate_authority_boundaries(lock)
     validate_budget_governance_reconciliation()
+    validate_tool_authority_reconciliation()
     run_contract_checks()
     print("Tinlance Agent Ecosystem conformance: PASS")
 
