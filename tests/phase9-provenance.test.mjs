@@ -1,5 +1,12 @@
-import test from "node:test";import assert from "node:assert/strict";import {generateKeyPairSync} from "node:crypto";import {sha256,signEd25519,verifyEd25519} from "../packages/provenance/src/signing.mjs";
+import test from "node:test";import assert from "node:assert/strict";import {generateKeyPairSync} from "node:crypto";
+import {canonicalJson,sha256,signEd25519,verifyEd25519,createSignatureEnvelope,verifySignatureEnvelope} from "../packages/provenance/src/signing.mjs";
+import {validateProvenance} from "../dist/packages/provenance/src/index.js";
 const {privateKey,publicKey}=generateKeyPairSync("ed25519",{privateKeyEncoding:{type:"pkcs8",format:"pem"},publicKeyEncoding:{type:"spki",format:"pem"}});
-const artifact={kind:"Skill",name:"security-review",version:"1.0.0"};
-test("artifact digest is deterministic",()=>assert.equal(sha256(artifact),sha256(artifact)));
+const artifact={kind:"Skill",name:"security-review",version:"1.0.0",nested:{b:2,a:1}};
+test("canonical JSON is recursively deterministic",()=>assert.equal(canonicalJson({nested:{b:2,a:1}}),canonicalJson({nested:{a:1,b:2}})));
+test("artifact digest is deterministic",()=>assert.equal(sha256(artifact),sha256({version:"1.0.0",nested:{a:1,b:2},name:"security-review",kind:"Skill"})));
 test("Ed25519 signatures verify",()=>{const s=signEd25519(artifact,privateKey);assert.equal(verifyEd25519(artifact,s,publicKey),true);assert.equal(verifyEd25519({...artifact,version:"2.0.0"},s,publicKey),false);});
+test("signature envelope binds key identity and payload digest",()=>{const envelope=createSignatureEnvelope(artifact,privateKey,"tinlance-key-1");assert.equal(verifySignatureEnvelope(artifact,envelope,publicKey),true);assert.equal(verifySignatureEnvelope({...artifact,version:"2.0.0"},envelope,publicKey),false);assert.equal(envelope.keyId,"tinlance-key-1");});
+test("non-canonical values are rejected",()=>assert.throws(()=>canonicalJson({value:NaN}),/non-finite/));
+test("SLSA provenance requires verifiable subject and builder metadata",()=>{const record={type:"https://in-toto.io/Statement/v1",predicateType:"https://slsa.dev/provenance/v1",subject:[{name:"skill",digest:{sha256:"a".repeat(64)}}],predicate:{buildDefinition:{buildType:"https://tinlance.com/tadl/build",externalParameters:{},internalParameters:{},resolvedDependencies:[]},runDetails:{builder:{id:"tinlance-builder"},metadata:{invocationId:"run-1",startedOn:"2026-10-06T00:00:00Z",finishedOn:"2026-10-06T00:01:00Z"}}}};assert.equal(validateProvenance(record).length,0);});
+test("invalid provenance digest is rejected",()=>{const record={type:"https://in-toto.io/Statement/v1",predicateType:"https://slsa.dev/provenance/v1",subject:[{name:"skill",digest:{sha256:"bad"}}],predicate:{buildDefinition:{buildType:"x",externalParameters:{},internalParameters:{},resolvedDependencies:[]},runDetails:{builder:{id:"b"},metadata:{invocationId:"i",startedOn:"x",finishedOn:"y"}}}};assert.ok(validateProvenance(record).length>0);});
