@@ -78,3 +78,8 @@ TADL declares capabilities and tool metadata but does not grant execution author
 ## M13.6 — Secrets and credential governance
 
 M13.6 secret governance: TADL secret references are metadata only. Platform-scoped handles are the only execution resolution authority; unscoped secret resolution is explicitly denied.
+
+
+## M13.7 — Evidence, audit and non-repudiation
+
+M13.7 evidence/audit boundary: TADL provenance declarations are metadata only. Platform owns evidence integrity, audit causality, execution/intent binding and external attestation; developer artifacts cannot mint authority.
