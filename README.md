@@ -190,7 +190,7 @@ The project uses TypeScript and Node.js, GitHub Actions, OpenSSF Scorecard, Code
 <details>
 <summary>Roadmap</summary>
 
-The defined engineering phases 0–13 are implemented in the repository. Future work should extend contracts without moving execution authority into TADL.
+The defined engineering phases 0–13 are implemented in the repository, including Phase 13 enterprise hardening. Future work should extend contracts without moving execution authority into TADL.
 
 </details>
 
