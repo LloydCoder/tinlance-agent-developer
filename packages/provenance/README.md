@@ -1,3 +1,3 @@
 # Provenance
 
-Artifact and execution provenance graph definitions. Authoritative execution evidence remains in Agent Platform.
+Phase 9 establishes content digests, Ed25519 signing/verification helpers, and an SLSA provenance predicate identifier. Production publication must bind signatures to immutable artifact digests and publisher identity.
