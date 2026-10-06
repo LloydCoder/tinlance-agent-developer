@@ -8,15 +8,15 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "7e514efb1fe3e89d0b9cfe83a6f1a71a6c44fbbd"
+      "ref": "1944626548d2c3467b1d3bc3baafa6dcc1435405"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "d9b0068b1bd434b76c4e7787b24ec154df46a9c5"
+      "ref": "808c0301504391a7719c374408a9bfcf56362786"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "b3e82b4c201d34197daad579d8877958f69b88ad"
+      "ref": "e904c9629628c13b06cef838f8048ab0f40cafd4"
     }
   },
   "contracts": {
