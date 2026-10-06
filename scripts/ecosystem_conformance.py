@@ -264,6 +264,12 @@ def validate_production_runtime_reconciliation() -> None:
         Path("/tmp/tinlance-platform/docs/production-runtime/M13-8-OBSERVABILITY-INCIDENT-CORRELATION.md"):
             ("Incident correlation",),
         Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
+            ("M13.8 — Observability and incident correlation",),
+        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
+            ("M13.8 — Observability and incident correlation",),
+        ROOT / "docs/integration/ECOSYSTEM.md":
+            ("M13.8 — Observability and incident correlation",),
+        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
             ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
         Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
             ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
