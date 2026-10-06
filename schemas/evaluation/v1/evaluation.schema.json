@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://schemas.tinlance.com/tadl/evaluation/v1/evaluation.schema.json",
+  "title":"TADL Evaluation Receipt v1","type":"object","additionalProperties":false,
+  "required":["apiVersion","kind","artifact","status","gates"],
+  "properties":{
+    "apiVersion":{"const":"tadl.tinlance.com/v1"},"kind":{"const":"EvaluationReceipt"},
+    "artifact":{"type":"object","additionalProperties":false,"required":["name","version"],"properties":{"name":{"type":"string"},"version":{"type":"string"}}},
+    "status":{"enum":["PASS","FAIL"]},
+    "gates":{"type":"object","additionalProperties":{"type":"number","minimum":0,"maximum":1}},
+    "failures":{"type":"array","items":{"type":"string"}}
+  }
+}
