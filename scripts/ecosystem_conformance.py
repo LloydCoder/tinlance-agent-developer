@@ -215,6 +215,26 @@ def validate_lock() -> dict[str, object]:
     return lock
 
 
+def validate_budget_governance_reconciliation() -> None:
+    """Require the locked four-repository stack to expose one budget authority boundary."""
+    platform_doc = Path("/tmp/tinlance-platform/docs/production-runtime/M13-4-BUDGET-RESOURCE-GOVERNANCE.md")
+    required_docs = (
+        platform_doc,
+        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"),
+        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"),
+        ROOT / "docs/integration/ECOSYSTEM.md",
+    )
+    for path in required_docs:
+        if not path.exists():
+            raise AssertionError(f"budget governance reconciliation document is missing: {path}")
+        content = path.read_text(encoding="utf-8")
+        if path == platform_doc:
+            if "tenant, agent, run, action and resource" not in content:
+                raise AssertionError("Platform budget scope invariant is not documented")
+        elif "Budget governance boundary" not in content:
+            raise AssertionError(f"budget authority boundary is not reconciled: {path}")
+
+
 def validate_authority_boundaries(lock: dict[str, object]) -> None:
     """Reject accidental dependency inversion into the authority kernel."""
     roots = {
@@ -398,6 +418,7 @@ def main() -> None:
     lock = validate_lock()
     validate_tadl()
     validate_authority_boundaries(lock)
+    validate_budget_governance_reconciliation()
     run_contract_checks()
     print("Tinlance Agent Ecosystem conformance: PASS")
 
