@@ -12,7 +12,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "808c0301504391a7719c374408a9bfcf56362786"
+      "ref": "3eb272e01cfd13678c4ffcc4ff5edc54c6db63d8"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
