@@ -7,6 +7,7 @@ export type RegistryEvent =
   | {readonly type:"REVOKED";readonly sequence:number;readonly kind:string;readonly name:string;readonly version:string;readonly at:string}
   | {readonly type:"DEPRECATED";readonly sequence:number;readonly kind:string;readonly name:string;readonly version:string;readonly at:string};
 export class RegistryError extends Error{}
+export function registryDigest(payload:unknown):string{return sha256(payload);}
 const freezeArtifact=(artifact:RegistryArtifact):RegistryArtifact=>Object.freeze({...artifact});
 export class ImmutableRegistry{
  private readonly records=new Map<string,RegistryArtifact>();
@@ -15,7 +16,8 @@ export class ImmutableRegistry{
  publish(artifact:RegistryArtifact):RegistryArtifact{
   const k=this.key(artifact.kind,artifact.name,artifact.version);
   if(this.records.has(k))throw new RegistryError("artifact version already exists");
-  if(!/^sha256:[a-f0-9]{64}$/.test(artifact.digest))throw new RegistryError("artifact digest must be sha256:<64 lowercase hex>");\n  if(artifact.digest!==registryDigest(artifact.payload))throw new RegistryError("artifact digest does not match payload");
+  if(!/^sha256:[a-f0-9]{64}$/.test(artifact.digest))throw new RegistryError("artifact digest must be sha256:<64 lowercase hex>");
+  if(artifact.digest!==registryDigest(artifact.payload))throw new RegistryError("artifact digest does not match payload");
   const frozen=freezeArtifact(artifact); this.records.set(k,frozen);
   this.eventsLog.push(Object.freeze({type:"PUBLISHED",sequence:this.eventsLog.length+1,artifact:frozen,at:artifact.publishedAt}));
   return frozen;
