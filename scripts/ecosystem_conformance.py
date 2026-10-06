@@ -217,10 +217,12 @@ def validate_lock() -> dict[str, object]:
 def validate_authority_boundaries(lock: dict[str, object]) -> None:
     """Reject accidental dependency inversion into the authority kernel."""
     roots = {
-        "developer": ROOT,
-        "os": Path("/tmp/tinlance-os"),
-        "platform_sdk": Path("/tmp/tinlance-platform_sdk"),
-        "platform": Path("/tmp/tinlance-platform"),
+        # Only scan product source trees. The conformance harness intentionally
+        # imports the other layers and therefore is not itself a dependency.
+        "developer": ROOT / "src",
+        "os": Path("/tmp/tinlance-os/src"),
+        "platform_sdk": Path("/tmp/tinlance-platform_sdk/src"),
+        "platform": Path("/tmp/tinlance-platform/packages"),
     }
     forbidden = {
         "developer": ("tinlance_agent_platform_", "tinlance_agent_os"),
