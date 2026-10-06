@@ -68,7 +68,7 @@ sandbox, secrets, budgets, evidence, audit, observability
 
 `packages/registry` — immutable artifact registry contract.
 
-`packages/provenance` — digests, Ed25519 signing/verification, and SLSA provenance identifier.
+`packages/provenance` — canonical digests, Ed25519 signing/verification, and SLSA/in-toto provenance contracts.\n\n`packages/security` — executable developer-boundary controls for authority separation and secret-like material detection.
 
 `cli/tadl.mjs` — developer CLI validation surface.
 
@@ -84,10 +84,10 @@ npm run ci
 npm run forensic-audit
 ```
 
-CI is intentionally fail-closed: structure, schemas, lint, TypeScript compilation, runtime tests, and forensic checks must all pass.
+CI is intentionally fail-closed: structure, schemas, lint, TypeScript compilation, runtime tests, and forensic checks must all pass. Security additionally runs dependency auditing, CodeQL, secret scanning, and CycloneDX SBOM generation. Release workflows produce signed package and SBOM attestations.
 
 ## Security posture
 
 TADL treats skill instructions, workflow inputs, model output, memory, external documents, MCP metadata, tool output, customer repositories, and harness events as untrusted. Authority, secrets, sandbox enforcement, authoritative evidence, approvals, budgets, and audit remain in Agent Platform.
 
-See `SECURITY.md`, `docs/security/THREAT-MODEL.md`, and `docs/security/CONTROLS.md`.
+See `SECURITY.md`, `docs/security/THREAT-MODEL.md`, and `docs/security/CONTROLS.md`. Supply-chain controls are pinned to immutable action commits and release attestations use GitHub OIDC/Sigstore-backed artifact attestations.
