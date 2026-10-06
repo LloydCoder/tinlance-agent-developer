@@ -8,7 +8,7 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "1944626548d2c3467b1d3bc3baafa6dcc1435405"
+      "ref": "7ad78ec381404657d771ed258c89154f3bcfaafd"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
@@ -16,7 +16,7 @@
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "e904c9629628c13b06cef838f8048ab0f40cafd4"
+      "ref": "2783d9b5fa9f338413c32b0f4d9db9ca88f9e940"
     }
   },
   "contracts": {
