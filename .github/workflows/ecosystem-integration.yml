@@ -1,0 +1,64 @@
+name: Ecosystem Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ecosystem-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: TADL + Agent OS + Platform SDK + Platform
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout TADL
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v6.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install TADL
+        run: npm ci --ignore-scripts && npm run build
+
+      - name: Materialize pinned ecosystem repositories
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          lock = json.loads(Path("ecosystem.lock.json").read_text())
+          for name, item in lock["repositories"].items():
+              target = Path("/tmp") / f"tinlance-{name}"
+              subprocess.run(
+                  ["git", "clone", "--quiet", f"https://github.com/{item['repository']}.git", str(target)],
+                  check=True,
+              )
+              subprocess.run(["git", "-C", str(target), "checkout", "--quiet", item["ref"]], check=True)
+          PY
+
+      - name: Install Python integration components
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install /tmp/tinlance-platform /tmp/tinlance-platform_sdk /tmp/tinlance-os
+
+      - name: Run end-to-end contract smoke test
+        run: python scripts/ecosystem_smoke.py
