@@ -292,7 +292,7 @@ def run_contract_checks() -> None:
             ),
         )
         assert adapter.health() is True
-        assert adapter.get_principal().id == SUBJECT
+        assert adapter.get_principal().user_id == SUBJECT
         assert adapter.create_run(
             task_id=str(TASK_ID),
             agent_id=str(AGENT_ID),
