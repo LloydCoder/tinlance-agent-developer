@@ -9,7 +9,7 @@ const name=/^[a-z][a-z0-9.-]{2,127}$/;
 export class AgentLifecycle{
  private stateValue:AgentState="DRAFT";
  private publicationValue:PublicationEvidence|undefined;
- constructor(readonly profile:AgentProfile){const errors=validateAgent(profile);if(errors.length)throw new Error(errors.join("; "));this.profile=Object.freeze({...profile,skills:Object.freeze([...profile.skills]),capabilities:Object.freeze([...profile.capabilities]));}
+ constructor(readonly profile:AgentProfile){const errors=validateAgent(profile);if(errors.length)throw new Error(errors.join("; "));this.profile=Object.freeze({...profile,skills:Object.freeze([...profile.skills]),capabilities:Object.freeze([...profile.capabilities])});}
  get state(){return this.stateValue;}
  get publication(){return this.publicationValue;}
  transition(to:AgentState,evidence?:PublicationEvidence){
