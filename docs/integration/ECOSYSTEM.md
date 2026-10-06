@@ -73,3 +73,8 @@ Consequential execution budget is Platform authority. Requests may carry declare
 ## M13.5 tool authority reconciliation
 
 TADL declares capabilities and tool metadata but does not grant execution authority. The Platform is the sole consequential tool authority; permits are Platform-issued and single-use, while sandbox workspace roots are deployment policy rather than developer-side authority.
+
+
+## M13.6 — Secrets and credential governance
+
+M13.6 secret governance: TADL secret references are metadata only. Platform-scoped handles are the only execution resolution authority; unscoped secret resolution is explicitly denied.
