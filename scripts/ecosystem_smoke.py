@@ -21,7 +21,7 @@ from tinlance_agent_platform_api.service import (
     AgentPlatformAPI,
     APIRequest,
 )
-from tinlance_agent_platform_sdk import AgentPlatform
+from tinlance_agent_platform_sdk.client import AgentPlatform
 from tinlance_agent_os.platform_adapter import AgentPlatformAdapter
 from tinlance_agent_os.transport import (
     HttpPlatformTransport,
