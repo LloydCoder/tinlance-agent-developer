@@ -271,7 +271,7 @@ def run_contract_checks() -> None:
         assert sdk.health().ready is True
         assert sdk.principal.get().user_id == SUBJECT
         assert sdk.agents.list()[0].agent_id == AGENT_ID
-        assert sdk.capabilities.list(AGENT_ID)[0].id == "research.read"
+        assert sdk.capabilities.list(AGENT_ID)[0].capability_id == "research.read"
         run = sdk.runs.create(TASK_ID, AGENT_ID, "conformance run")
         assert_equal(run.run_id, RUN_ID, "SDK run ID")
         assert sdk.runs.events(RUN_ID)
