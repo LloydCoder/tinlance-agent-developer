@@ -1,4 +1,4 @@
-name: CI
+name: Security
 on:
   push:
     branches: [main]
@@ -7,10 +7,10 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: security-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  quality:
+  npm-audit:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -23,5 +23,5 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci --ignore-scripts
-      - name: Verify
-        run: npm run ci
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
