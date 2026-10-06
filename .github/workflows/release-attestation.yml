@@ -1,0 +1,43 @@
+name: Release Attestations
+on:
+  push:
+    branches: [main]
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+concurrency:
+  group: release-attestation-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  attest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci --ignore-scripts
+      - name: Build
+        run: npm run build
+      - name: Package
+        run: npm pack --ignore-scripts --pack-destination dist
+      - name: Generate SBOM
+        run: npm sbom --sbom-format=cyclonedx --sbom-type=application > dist/sbom.cdx.json
+      - name: Attest package provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
+        with:
+          subject-path: "dist/*.tgz"
+      - name: Attest SBOM
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
+        with:
+          subject-path: "dist/*.tgz"
+          sbom-path: "dist/sbom.cdx.json"

@@ -12,7 +12,7 @@ const required = [
   "packages/core/README.md","packages/schemas/README.md","packages/skills/README.md",
   "packages/capabilities/README.md","packages/agents/README.md","packages/workflows/README.md",
   "packages/harnesses/README.md","packages/evaluation/README.md","packages/registry/README.md",
-  "packages/provenance/README.md","packages/security/README.md","cli/README.md"
+  "packages/provenance/README.md","packages/security/README.md","packages/security/src/index.ts","tests/security/developer-boundary.test.mjs",".github/workflows/codeql.yml",".github/workflows/secrets.yml",".github/workflows/release-attestation.yml","cli/README.md"
 ];
 for (const file of required) if (!fs.existsSync(file)) throw new Error(`Missing required path: ${file}`);
 console.log(`Structure OK: ${required.length} required artifacts present.`);
