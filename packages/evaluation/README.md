@@ -1,3 +1,3 @@
 # Evaluation
 
-Evaluation suites, gates, receipts, and later adversarial evaluation infrastructure.
+Phase 8 provides deterministic evaluation receipts and promotion gates over correctness, safety, policy compliance, authorization compliance, and evidence quality. Receipts are evidence of evaluation, not execution authority.

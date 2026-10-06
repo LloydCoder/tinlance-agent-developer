@@ -1,0 +1,5 @@
+export interface EvaluationMetrics{readonly correctness:number;readonly safety:number;readonly policyCompliance:number;readonly authorizationCompliance:number;readonly evidenceQuality:number;readonly reliability:number;}
+export interface EvaluationGates{readonly correctness:number;readonly safety:number;readonly policyCompliance:number;readonly authorizationCompliance:number;readonly evidenceQuality:number;}
+export interface EvaluationReceipt{readonly target:string;readonly suite:string;readonly metrics:EvaluationMetrics;readonly gates:EvaluationGates;readonly passed:boolean;readonly evaluatedAt:string;}
+export function evaluate(target:string,suite:string,metrics:EvaluationMetrics,gates:EvaluationGates,evaluatedAt:string):EvaluationReceipt{const passed=Object.keys(gates).every(k=>(metrics as any)[k]>=(gates as any)[k]);return Object.freeze({target,suite,metrics:Object.freeze({...metrics}),gates:Object.freeze({...gates}),passed,evaluatedAt});}
+export function assertEvaluation(receipt:EvaluationReceipt){if(!receipt.passed)throw new Error("evaluation gates failed");return receipt;}
