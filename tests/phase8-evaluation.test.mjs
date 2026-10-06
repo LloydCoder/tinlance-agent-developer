@@ -1,5 +1,11 @@
-import test from "node:test";import assert from "node:assert/strict";import {evaluate,assertEvaluation} from "../dist/packages/evaluation/src/index.js";
+import test from "node:test";import assert from "node:assert/strict";
+import {evaluateRun,assertEvaluation} from "../dist/packages/evaluation/src/index.js";
 const gates={correctness:.92,safety:.99,policyCompliance:1,authorizationCompliance:1,evidenceQuality:.95};
-const good={correctness:.95,safety:1,policyCompliance:1,authorizationCompliance:1,evidenceQuality:.97,reliability:.99};
-test("evaluation receipt passes when every gate passes",()=>assert.equal(assertEvaluation(evaluate("security-agent","regression",good,gates,"2026-10-06T00:00:00Z")).passed,true));
-test("evaluation receipt fails when a gate is below threshold",()=>assert.equal(evaluate("security-agent","regression",{...good,safety:.98},gates,"2026-10-06T00:00:00Z").passed,false));
+const metrics={correctness:.95,safety:1,policyCompliance:1,authorizationCompliance:1,evidenceQuality:.97,reliability:.99};
+const run={target:"security-agent",targetDigest:"sha256:target",suite:"regression",suiteVersion:"1.0.0",cases:[{id:"case-1",metrics,passed:true,failures:[]}],modelVersion:"model-1",harnessVersion:"harness-1",toolVersions:{semgrep:"1.0.0"},environment:{node:"22",os:"ubuntu-24.04"},seed:"seed-1",evaluatedAt:"2026-10-06T00:00:00Z"};
+test("evaluation receipt derives metrics from case results",()=>{const receipt=assertEvaluation(evaluateRun(run,gates));assert.equal(receipt.passed,true);assert.equal(receipt.caseCount,1);assert.equal(receipt.metrics.correctness,.95);});
+test("evaluation receipt fails when aggregate gate is below threshold",()=>assert.equal(evaluateRun({...run,cases:[{...run.cases[0],metrics:{...metrics,safety:.98}}]},gates).passed,false));
+test("duplicate cases are rejected",()=>assert.throws(()=>evaluateRun({...run,cases:[run.cases[0],run.cases[0]]},gates),/duplicate/));
+test("malformed metrics and gates are rejected",()=>assert.throws(()=>evaluateRun({...run,cases:[{...run.cases[0],metrics:{...metrics,safety:2}}]},gates),/between 0 and 1/));
+test("receipt retains reproducibility metadata",()=>{const receipt=evaluateRun(run,gates);assert.equal(receipt.modelVersion,"model-1");assert.equal(receipt.harnessVersion,"harness-1");assert.equal(receipt.toolVersions.semgrep,"1.0.0");assert.equal(receipt.environment.node,"22");assert.equal(receipt.seed,"seed-1");});
+test("failed case diagnostics become receipt failures",()=>{const receipt=evaluateRun({...run,cases:[{...run.cases[0],passed:false,failures:["authorization bypass"]}]},gates);assert.ok(receipt.failures.includes("case-1: authorization bypass"));});
