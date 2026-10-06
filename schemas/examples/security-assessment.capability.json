@@ -1,0 +1,16 @@
+{
+  "apiVersion":"tadl.tinlance.com/v1",
+  "kind":"Capability",
+  "metadata":{"name":"repository.security.assess","version":"1.0.0"},
+  "risk":{"class":"R2"},
+  "spec":{
+    "inputs":{"repository":{"type":"repository.reference"}},
+    "outputs":{"assessment":{"type":"security.assessment"}},
+    "requires":{
+      "authorizations":["repository.read","security.analysis.execute"],
+      "tools":["github.repository.read","semgrep.scan","gitleaks.scan","trivy.scan"],
+      "evidence":["repository_snapshot","scanner_results","provenance"]
+    },
+    "evaluation":{"suite":"repository-security-assessment-v1","minimumScore":0.92}
+  }
+}
