@@ -1,8 +1,6 @@
 name: Feature request
 description: Propose a focused improvement to TADL.
 title: "[Feature]: "
-labels:
-  - enhancement
 body:
   - type: markdown
     attributes:
