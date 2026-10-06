@@ -241,9 +241,9 @@ def validate_tool_authority_reconciliation() -> None:
         Path("/tmp/tinlance-platform/docs/production-runtime/M13-5-SANDBOX-TOOL-MCP-AUTHORITY.md"):
             "tenant/run/tool/action/resource",
         Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
-            "Platform-issued single-use permit",
+            "M13.5 tool authority reconciliation",
         Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
-            "Platform-issued single-use permit",
+            "M13.5 tool authority reconciliation",
         ROOT / "docs/integration/ECOSYSTEM.md":
             "Platform-issued",
     }
