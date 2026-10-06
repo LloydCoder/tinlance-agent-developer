@@ -22,7 +22,8 @@ from uuid import UUID, uuid4
 
 from tinlance_agent_platform_api.http import serve
 from tinlance_agent_platform_api.service import APIRequest, APIResponse, AgentPlatformAPI
-from tinlance_agent_platform_sdk import AgentPlatform, API_VERSION, GOVERNED_EXECUTION_CONTRACT
+from tinlance_agent_platform_sdk import AgentPlatform
+from tinlance_agent_platform_sdk.client import API_VERSION, GOVERNED_EXECUTION_CONTRACT
 from tinlance_agent_os.platform_adapter import AgentPlatformAdapter
 from tinlance_agent_os.transport import (
     HttpPlatformTransport,
