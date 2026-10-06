@@ -62,3 +62,6 @@ jobs:
 
       - name: Run end-to-end contract smoke test
         run: python scripts/ecosystem_smoke.py
+
+      - name: Run ecosystem conformance suite
+        run: python scripts/ecosystem_conformance.py
