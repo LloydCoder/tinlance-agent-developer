@@ -12,11 +12,11 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "cc2f191cdd35e4bd2867932a4b8a9ef6373a7f31"
+      "ref": "d9b0068b1bd434b76c4e7787b24ec154df46a9c5"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "1217f9985e6b5616c1e239ceb4f78f244c4989d0"
+      "ref": "98ed2d00b4e911b08cbaa5172383cbe65c2a7dde"
     }
   },
   "contracts": {
