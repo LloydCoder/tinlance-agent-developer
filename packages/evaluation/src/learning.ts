@@ -1,0 +1,2 @@
+export interface LearningProposal{readonly id:string;readonly target:string;readonly behaviorDelta:Readonly<Record<string,unknown>>;readonly baselineAuthorityDigest:string;readonly proposedAuthorityDigest:string;readonly evaluationPassed:boolean;}
+export function acceptLearningProposal(p:LearningProposal){if(p.baselineAuthorityDigest!==p.proposedAuthorityDigest)throw new Error("learning proposal changes authority");if(!p.evaluationPassed)throw new Error("learning proposal has not passed evaluation");return Object.freeze({...p});}
