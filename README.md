@@ -1,95 +1,219 @@
+<div align="center">
+
 # Tinlance Agent Developer Layer (TADL)
 
-TADL is the canonical Tinlance developer plane for building, packaging, evaluating, versioning, signing, and distributing governed AI agents.
+**A declarative developer plane for packaging, validating, evaluating, signing, and distributing governed AI-agent artifacts.**
 
-## Architectural position
+[![CI](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/ci.yml/badge.svg)](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/ci.yml)
+[![Security](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/security.yml/badge.svg)](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/security.yml)
+[![CodeQL](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/codeql.yml/badge.svg)](https://github.com/LloydCoder/tinlance-agent-developer/actions/workflows/codeql.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-```
-Developer / Product
-        |
-        v
-TADL — skills, capabilities, agents, workflows, harnesses, evaluation, registry, provenance, CLI
-        |
-        v
-Tinlance Agent OS — workspace, sessions, tasks, orchestration, memory, channels, fleet
-        |
-        v
-Tinlance Agent Platform SDK — programmatic Platform surface
-        |
-        v
-Tinlance Agent Platform — identity, authorization, policy, approvals, runtime, tools/MCP,
-sandbox, secrets, budgets, evidence, audit, observability
-```
+</div>
 
-### Immutable laws
+> **Status:** v1.4.0 · public source repository · source installation only. TADL is not the execution-authority plane.
 
-1. TADL defines behavior; it does not grant execution authority.
-2. Agent OS manages lifecycle/orchestration; it does not become the authority plane.
-3. Agent Platform owns governed execution and authorization.
-4. Harness adapters are untrusted.
-5. Skills cannot grant capabilities.
-6. Learning cannot modify authority.
-7. Domain products retain domain ownership.
+## Visual proof
 
-## Enterprise build phases
+~~~mermaid
+flowchart LR
+    D[Developer / Product] --> T[TADL]
+    T --> O[Agent OS]
+    O --> S[Platform SDK]
+    S --> P[Agent Platform]
+    P --> A[Governed execution authority]
+    T --- SK[Skills]
+    T --- CAP[Capabilities]
+    T --- AG[Agents]
+    T --- WF[Workflows]
+    T --- EV[Evaluation]
+    T --- PR[Provenance]
+~~~
 
-- Phase 0 — architecture foundation
-- Phase 1 — canonical schemas and type system
-- Phase 2 — immutable artifact registry contract
-- Phase 3 — skill package system
-- Phase 4 — governed capability contracts
-- Phase 5 — untrusted harness adapters
-- Phase 6 — agent profiles and lifecycle
-- Phase 7 — workflow compiler
-- Phase 8 — evaluation and certification gates
-- Phase 9 — signing, provenance and supply-chain primitives
-- Phase 10 — constrained learning and optimization
-- Phase 11 — developer CLI
-- Phase 12 — Tinlance ecosystem integration
-- Phase 13 — enterprise hardening and certification readiness
+The diagram reflects the repository's architectural boundary: TADL declares and validates developer intent; Agent OS manages operational lifecycle; Agent Platform remains authoritative for authorization and governed execution.
 
-## Current implementation surface
+## Why TADL
 
-`packages/core` — canonical identifiers, risk classes, trust and integration contracts.
+TADL is designed for teams that need a repeatable developer surface for governed AI agents without moving runtime authority into developer artifacts.
 
-`packages/schemas` — schema loader, validation, and type contracts.
+| Concern | TADL | Agent Platform |
+|---|---|---|
+| Skills and packaging | Owns | Consumes |
+| Capability declarations | Owns declarations | Owns authorization |
+| Agent profiles | Owns | Executes under policy |
+| Workflow definitions | Validates/compiles | Governs consequential actions |
+| Harness adapters | Defines untrusted boundary | Governs execution |
+| Evaluation metadata | Owns developer-side artifacts | Provides authoritative evidence |
+| Signing/provenance | Provides primitives | Enforces promotion/execution policy |
+| Secrets, sandbox, budgets | Must not own | Owns |
 
-`packages/skills` — immutable skill package validation and dependency ordering.
+**Core invariant:** declared capabilities ∩ Platform-authorized capabilities = effective capabilities.
 
-`packages/capabilities` — risk-classified capability contracts and effective-capability calculation.
+## Quick Start
 
-`packages/agents` — versioned agent profiles and lifecycle state machine.
+Prerequisites: Git and Node.js 22+.
 
-`packages/workflows` — declarative DAG validation and compilation.
-
-`packages/harnesses` — untrusted harness adapter boundary.
-
-`packages/evaluation` — evaluation receipts, gates, and constrained learning proposals.
-
-`packages/registry` — immutable artifact registry contract.
-
-`packages/provenance` — canonical digests, Ed25519 signing/verification, and SLSA/in-toto provenance contracts.
-
-`packages/security` — executable developer-boundary controls for authority separation and secret-like material detection.
-
-`cli/tadl.mjs` — developer CLI validation surface.
-
-## Ecosystem boundary
-
-BugFlow, FDSE Toolkit, TwinGuard, AI Shield, ThreatFade, ReconOS, TADS, FAS, Hezqara, FadeReach, and future Tinlance products remain independent domain products. They consume and/or publish TADL artifacts; they are not absorbed into TADL.
-
-## Verification
-
-```bash
+~~~bash
+git clone https://github.com/LloydCoder/tinlance-agent-developer.git
+cd tinlance-agent-developer
 npm ci
+npm run build
+node cli/tadl.mjs help
+~~~
+
+Run the complete repository gate:
+
+~~~bash
 npm run ci
-npm run forensic-audit
-```
+~~~
 
-CI is intentionally fail-closed: structure, schemas, lint, TypeScript compilation, runtime tests, and forensic checks must all pass. Security additionally runs dependency auditing, CodeQL, secret scanning, and CycloneDX SBOM generation. Release workflows produce signed package and SBOM attestations.
+The CI command validates structure and schemas, runs linting, compiles TypeScript, executes tests, and runs the repository forensic audit.
 
-## Security posture
+## Installation
 
-TADL treats skill instructions, workflow inputs, model output, memory, external documents, MCP metadata, tool output, customer repositories, and harness events as untrusted. Authority, secrets, sandbox enforcement, authoritative evidence, approvals, budgets, and audit remain in Agent Platform.
+TADL is currently developed and distributed from source; package.json deliberately marks the package as private, so there is no npm-install command for a published package.
 
-See `SECURITY.md`, `docs/security/THREAT-MODEL.md`, and `docs/security/CONTROLS.md`. Supply-chain controls are pinned to immutable action commits and release attestations use GitHub OIDC/Sigstore-backed artifact attestations.
+### From Git
+
+~~~bash
+git clone https://github.com/LloydCoder/tinlance-agent-developer.git
+cd tinlance-agent-developer
+npm ci
+npm run build
+~~~
+
+### From an existing checkout
+
+~~~bash
+npm ci
+npm run build
+~~~
+
+### Requirements
+
+| Requirement | Supported baseline |
+|---|---|
+| Node.js | 22+ |
+| npm | npm compatible with Node.js 22 |
+| OS | Linux, macOS, or Windows with Git/Node available |
+| Package manager | npm |
+| TypeScript | 7.0.2 via the committed lockfile |
+
+## Usage
+
+TADL currently exposes validation and inspection commands through cli/tadl.mjs.
+
+### Show the command surface
+
+~~~bash
+node cli/tadl.mjs help
+~~~
+
+### Validate an artifact against a schema
+
+~~~bash
+node cli/tadl.mjs validate capability/v1/capability.schema.json schemas/examples/security-assessment.capability.json
+~~~
+
+### Inspect capability governance metadata
+
+~~~bash
+node cli/tadl.mjs capability inspect schemas/examples/security-assessment.capability.json
+~~~
+
+### Validate a workflow or agent
+
+~~~bash
+node cli/tadl.mjs workflow validate <workflow.json>
+node cli/tadl.mjs agent validate <agent.json>
+~~~
+
+Successful validation returns exit code 0; validation failures return 1; invalid commands or missing required arguments return 2.
+
+## Configuration / Options
+
+TADL is currently a source-level developer layer rather than a long-running service.
+
+| Surface | Default | Notes |
+|---|---|---|
+| Node runtime | 22+ | Declared by package.json |
+| Build output | dist/ | Produced by npm run build |
+| Schemas | schemas/ | Canonical repository schema tree |
+| CLI | cli/tadl.mjs | Uses built package modules where required |
+| Test runner | Node built-in test runner | npm test |
+| CI gate | npm run ci | Structure → schemas → lint → build → tests → forensic audit |
+| Package publication | Disabled | package.json sets private=true |
+
+## Features
+
+| Feature | What it provides |
+|---|---|
+| Canonical schemas | Versioned JSON Schema 2020-12 artifact contracts |
+| Skills | Immutable skill-package validation and dependency ordering |
+| Capabilities | Risk-classified capability declarations and effective-capability calculation |
+| Agents | Versioned profiles and explicit lifecycle states |
+| Workflows | Declarative DAG validation and deterministic compilation |
+| Harnesses | Untrusted adapter boundary |
+| Evaluation | Case-level results, aggregate gates, receipts, and constrained learning |
+| Registry | Append-only publication/deprecation/revocation semantics |
+| Provenance | Canonical SHA-256 digests, Ed25519 signatures, SLSA/in-toto primitives |
+| Security | Developer-artifact authority/secret boundary checks |
+| CLI | Local artifact validation and governance inspection |
+| Supply chain | Locked dependencies, pinned Actions, CodeQL, secret scanning, SBOM, attestations |
+
+## Documentation
+
+### Diátaxis map
+
+- **Tutorial:** [Getting started](docs/tutorials/getting-started.md)
+- **How-to:** [Validate and inspect artifacts](docs/how-to/validate-artifacts.md)
+- **Explanation:** [Architecture](docs/explanation/architecture.md)
+- **Reference:** [CLI reference](docs/reference/cli.md)
+- [Architecture boundaries](docs/architecture/BOUNDARIES.md)
+- [Lifecycle](docs/architecture/LIFECYCLE.md)
+- [Security controls](docs/security/CONTROLS.md)
+- [Threat model](docs/security/THREAT-MODEL.md)
+- [Compatibility](docs/compatibility/README.md)
+- [Phase documentation](docs/architecture/)
+- [LLM-oriented documentation map](llms.txt)
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Changes that affect schemas, risk classes, lifecycle, authority boundaries, or compatibility require corresponding documentation and tests.
+
+## License + Acknowledgements
+
+TADL is licensed under the [Apache License 2.0](LICENSE).
+
+The project uses TypeScript and Node.js, GitHub Actions, OpenSSF Scorecard, CodeQL, Gitleaks, CycloneDX SBOM generation, and GitHub artifact attestations as part of its development and supply-chain controls.
+
+<details>
+<summary>Roadmap</summary>
+
+The defined engineering phases 0–13 are implemented in the repository, including Phase 13 enterprise hardening. Future work should extend contracts without moving execution authority into TADL.
+
+</details>
+
+<details>
+<summary>Troubleshooting</summary>
+
+If a command fails after cloning, run:
+
+~~~bash
+node --version
+npm --version
+npm ci
+npm run build
+npm run ci
+~~~
+
+If the CLI cannot find built modules, run npm run build before invoking commands that consume dist/.
+
+</details>
+
+<details>
+<summary>Support</summary>
+
+For usage questions and project guidance, see [SUPPORT.md](SUPPORT.md). Security issues must follow [SECURITY.md](SECURITY.md) and should not be reported in public issues.
+
+</details>
