@@ -32,4 +32,3 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Learning proposals cannot change authoritative authority state.
 
 [Unreleased]: https://github.com/LloydCoder/tinlance-agent-developer/compare/v1.4.0...HEAD
-[1.4.0]: https://github.com/LloydCoder/tinlance-agent-developer/releases/tag/v1.4.0
