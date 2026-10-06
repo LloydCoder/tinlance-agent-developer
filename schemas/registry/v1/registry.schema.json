@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://schemas.tinlance.com/tadl/registry/v1/registry.schema.json",
+  "title":"TADL Registry Entry v1","type":"object","additionalProperties":false,
+  "required":["apiVersion","kind","artifact","trust"],
+  "properties":{
+    "apiVersion":{"const":"tadl.tinlance.com/v1"},"kind":{"const":"RegistryEntry"},
+    "artifact":{"type":"object","additionalProperties":false,"required":["type","name","version"],"properties":{"type":{"enum":["Skill","Capability","Agent","Workflow","Harness"]},"name":{"type":"string"},"version":{"type":"string"}}},
+    "trust":{"enum":["UNKNOWN","UNVERIFIED","VERIFIED","TINLANCE_SIGNED","ENTERPRISE_APPROVED","SYSTEM"]}
+  }
+}
