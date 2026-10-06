@@ -65,3 +65,7 @@ been deployed. Those are the post-M14 production-maturity acceptance gates defin
 FAS, FDSE, TADS, ReconOS, ThreatFade, Hezqara, FDSE Toolkit and FadeReach integrate above
 these stable boundaries. They must consume the Platform authority plane rather than creating
 parallel execution authority.
+
+## Budget governance boundary
+
+Consequential execution budget is Platform authority. Requests may carry declared execution limits, but only the Platform execution boundary can reserve, consume or release budget. Reservations are bound to tenant, agent, run, action and resource; quota exhaustion and scope/replay conflicts fail closed. SDK/OS/TADL layers must not implement local budget authority or treat client-side estimates as authorization.
