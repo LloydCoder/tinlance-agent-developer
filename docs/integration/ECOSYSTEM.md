@@ -7,8 +7,10 @@ flowchart LR
     D[Tinlance Agent Developer / TADL] --> O[Tinlance Agent OS]
     O --> S[Tinlance Agent Platform SDK]
     S --> P[Tinlance Agent Platform]
-    P --> E[Governed execution]
-    P --> V[Authoritative evidence + audit]
+    P --> A[Identity / tenancy]
+    P --> Z[Authorization / policy / approvals]
+    P --> X[Budgets / sandbox / tools / MCP]
+    P --> V[Evidence / audit / observability]
     C[Ecosystem Conformance] -. gates .-> D
     C -. gates .-> O
     C -. gates .-> S
@@ -56,7 +58,7 @@ metadata propagation, transport security, and authority dependency direction.
 The conformance suite proves the versioned contract and security invariants at the reference
 HTTP boundary. It does not prove that production PostgreSQL, external secret management,
 sandbox isolation, enterprise identity, hosted telemetry, backups, or incident response have
-been deployed. Those are M13 production-runtime acceptance gates.
+been deployed. Those are the post-M14 production-maturity acceptance gates defined by M15–M29. Supplemental M13.1–M13.3 hardening labels are retained only for implementation traceability and do not redefine the canonical M0–M14 roadmap.
 
 ## Domain integrations
 
