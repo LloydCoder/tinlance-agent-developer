@@ -4,19 +4,19 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "e197a661b72e19b4d44f79070f1f0218cf29b0a3"
+      "ref": "f3997f379922566ada3ef75a005c41a2cec10988"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "062f94b3ccfe209cd4af02775ada0c839cc1fde9"
+      "ref": "5726b1fabb84b226f413fd14dff6a7f5bb66a0e1"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "13841aa3a17263ebae8c02aaabb279f72a086972"
+      "ref": "3598bb8f88f98f444860dcca74ca7328076b48eb"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "ddb3c6d6b2fd067e15600ebe51e82b06208a2fd3"
+      "ref": "6dd8f257ac5b8df4b913ea6b970aa93825d2a0da"
     }
   },
   "contracts": {
