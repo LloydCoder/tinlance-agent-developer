@@ -7,8 +7,10 @@ flowchart LR
     D[Tinlance Agent Developer / TADL] --> O[Tinlance Agent OS]
     O --> S[Tinlance Agent Platform SDK]
     S --> P[Tinlance Agent Platform]
-    P --> E[Governed execution]
-    P --> V[Authoritative evidence + audit]
+    P --> A[Identity / tenancy]
+    P --> Z[Authorization / policy / approvals]
+    P --> X[Budgets / sandbox / tools / MCP]
+    P --> V[Evidence / audit / observability]
     C[Ecosystem Conformance] -. gates .-> D
     C -. gates .-> O
     C -. gates .-> S
