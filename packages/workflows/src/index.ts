@@ -2,11 +2,11 @@ export interface WorkflowStep{readonly id:string;readonly capability:string;read
 export interface Workflow{readonly name:string;readonly version:string;readonly steps:readonly WorkflowStep[];}
 export interface CompiledWorkflow{readonly name:string;readonly version:string;readonly order:readonly string[];readonly steps:readonly WorkflowStep[];}
 const safeName=/^[a-z][a-z0-9.-]{2,127}$/;const semver=/^\d+\.\d+\.\d+$/;
-const rank=(id:string)=>id.localeCompare(id);
+const compareId=(a:string,b:string)=>a<b?-1:a>b?1:0;
 function freezeStep(step:WorkflowStep):WorkflowStep{return Object.freeze({...step,dependsOn:Object.freeze([...step.dependsOn].sort()),evidence:Object.freeze([...step.evidence])});}
 export function compileWorkflow(workflow:Workflow):CompiledWorkflow{
  const errors=validateWorkflow(workflow);if(errors.length)throw new Error(errors.join("; "));
- const steps=[...workflow.steps].map(freezeStep).sort((a,b)=>rank(a.id)-rank(b.id));
+ const steps=[...workflow.steps].map(freezeStep).sort((a,b)=>compareId(a.id,b.id));
  const byId=new Map(steps.map(s=>[s.id,s]));const state=new Map<string,number>();const order:string[]=[];
  function visit(id:string){const current=state.get(id)||0;if(current===1)throw new Error("workflow dependency cycle");if(current===2)return;const step=byId.get(id);if(!step)throw new Error("missing workflow dependency: "+id);state.set(id,1);for(const dep of [...step.dependsOn].sort())visit(dep);state.set(id,2);order.push(id);}
  const ready=steps.map(s=>s.id);for(const id of ready)visit(id);
