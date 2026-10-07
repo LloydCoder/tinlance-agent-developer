@@ -200,7 +200,7 @@ The project uses TypeScript and Node.js, GitHub Actions, OpenSSF Scorecard, Code
 <details>
 <summary>Roadmap</summary>
 
-The defined TADL engineering phases 0–13 are implemented in the repository. The ecosystem program now concludes at P10 with replication/GA; subsequent work is continuous assurance and must not move execution authority into TADL.
+The defined TADL engineering phases 0–13 are implemented in the repository, including Phase 13 enterprise hardening. The ecosystem program now concludes at P10 with replication/GA; subsequent work is continuous assurance and must not move execution authority into TADL.
 
 </details>
 
