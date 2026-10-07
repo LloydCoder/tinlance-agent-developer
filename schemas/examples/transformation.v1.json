@@ -1,0 +1,90 @@
+{
+  "schema_version": "transformation/v1",
+  "transformation_id": "2f6d7a8a-5a12-4f8b-9a3e-3c1c2f4d8e11",
+  "version": 1,
+  "tenant_ref": "tenant:example",
+  "intent": {
+    "objective": "Reduce payment reconciliation cycle time",
+    "business_metric": "reconciliation_cycle_hours",
+    "success_criteria": [
+      "Produce a reconciled exception report",
+      "Preserve tenant and approval boundaries"
+    ]
+  },
+  "actor": {
+    "principal_ref": "principal:human-001",
+    "agent_ref": "agent:finance-reconciliation",
+    "agent_version": "1.0.0"
+  },
+  "context": {
+    "workspace_ref": "workspace:finance",
+    "task_ref": "task:reconciliation-001",
+    "source_refs": [
+      "source:ledger",
+      "source:bank-statement"
+    ]
+  },
+  "requested_capabilities": [
+    {
+      "capability_ref": "capability:finance.reconcile",
+      "reason": "Required to reconcile ledger and bank transactions"
+    }
+  ],
+  "constraints": {
+    "budget_ref": "budget:task-001",
+    "data_classification": "confidential",
+    "resource_refs": [
+      "resource:ledger",
+      "resource:bank"
+    ]
+  },
+  "governance": {
+    "policy_refs": [
+      "policy:finance.reconciliation"
+    ],
+    "risk_class": "high",
+    "approval_refs": [
+      "approval:task-001"
+    ]
+  },
+  "execution": {
+    "state": "succeeded",
+    "run_ref": "run:transformation-001",
+    "idempotency_key": "transformation-2f6d7a8a-5a12-4f8b-9a3e-3c1c2f4d8e11-v1",
+    "started_at": "2026-10-07T06:00:00Z",
+    "completed_at": "2026-10-07T06:02:00Z"
+  },
+  "outputs": [
+    {
+      "ref": "artifact:reconciliation-report",
+      "kind": "report"
+    }
+  ],
+  "evidence": [
+    {
+      "ref": "evidence:run-001",
+      "kind": "execution"
+    }
+  ],
+  "outcome": {
+    "status": "achieved",
+    "achieved": true,
+    "metrics": [
+      {
+        "name": "reconciliation_cycle_hours",
+        "value": 2,
+        "unit": "hours"
+      }
+    ],
+    "business_effect_refs": [
+      "effect:reduced-close-time"
+    ]
+  },
+  "provenance": {
+    "declared_by": "tadl:p1",
+    "recorded_at": "2026-10-07T06:02:01Z",
+    "source_refs": [
+      "source:request-001"
+    ]
+  }
+}
