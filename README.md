@@ -67,7 +67,7 @@ Run the complete repository gate:
 npm run ci
 ~~~
 
-The CI command validates structure and schemas, runs linting, compiles TypeScript, executes tests, and runs the repository forensic audit.
+The CI command validates structure and schemas, validates the four-repository ecosystem manifest and lock, runs linting, compiles TypeScript, executes tests, and runs the repository forensic audit.
 
 ## Installation
 
@@ -174,6 +174,9 @@ TADL is currently a source-level developer layer rather than a long-running serv
 - [Security controls](docs/security/CONTROLS.md)
 - [Threat model](docs/security/THREAT-MODEL.md)
 - [Compatibility](docs/compatibility/README.md)
+- [P0 ecosystem forensic baseline](docs/ecosystem/P0-BASELINE.md)
+- [Machine-readable ecosystem manifest](docs/ecosystem/ecosystem-manifest.json)
+- [Ecosystem release lock](ecosystem.lock.json)
 - [Ecosystem conformance](docs/integration/CONFORMANCE.md)
 - [Phase documentation](docs/architecture/)
 - [LLM-oriented documentation map](llms.txt)
