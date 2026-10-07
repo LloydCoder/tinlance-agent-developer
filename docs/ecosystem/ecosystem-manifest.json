@@ -1,0 +1,56 @@
+{
+  "schema": "tinlance-agent-system-manifest/v1",
+  "phase": "P0",
+  "baseline_id": "p0-2026-10-07",
+  "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
+  "contracts": {
+    "platform_api": "1.1",
+    "governed_execution": "governed-execution.v1",
+    "endpoint": "POST /v1/agent-platform"
+  },
+  "repositories": [
+    {
+      "id": "developer",
+      "repository": "LloydCoder/tinlance-agent-developer",
+      "role": "declarative developer plane",
+      "authority": "declares and validates intent; never grants execution authority",
+      "reviewed_sha": "f0fc3aa3dbee6485973ccbc68a3afb7dfa1ad379"
+    },
+    {
+      "id": "os",
+      "repository": "LloydCoder/tinlance-agent-os",
+      "role": "operating environment and lifecycle plane",
+      "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
+      "reviewed_sha": "fd563ab020ff9a02cdd4776f4eeddbece5cfc21a"
+    },
+    {
+      "id": "platform_sdk",
+      "repository": "LloydCoder/tinlance-agent-platform-sdk",
+      "role": "typed developer API surface",
+      "authority": "transports typed requests and opaque authoritative results; never authorizes",
+      "reviewed_sha": "58af25924df68eaf1b21330e26f3975efb387711"
+    },
+    {
+      "id": "platform",
+      "repository": "LloydCoder/tinlance-agent-platform",
+      "role": "sole governed execution and authority plane",
+      "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
+      "reviewed_sha": "a7c70fdb205a6328c71a150b27da0392a8b34840"
+    }
+  ],
+  "gate": {
+    "repository_ci": "required",
+    "security_workflows": "required",
+    "ecosystem_conformance": "required",
+    "full_sha_pinning": "required",
+    "authority_boundary": "fail closed",
+    "production_claims": "must distinguish repository evidence from external deployment evidence"
+  },
+  "external_alignment": [
+    "NIST AI Agent Standards Initiative: agent identity, authorization, interoperability and security",
+    "OWASP Top 10 for Agentic Applications 2026: agent-specific adversarial risks",
+    "MCP 2026-07-28: authorization hardening, stateless transport and protocol evolution",
+    "A2A 1.0.x: authenticated agent discovery and horizontal agent collaboration",
+    "OpenSSF OSPS/Scorecard: immutable CI dependencies and supply-chain controls"
+  ]
+}\n
