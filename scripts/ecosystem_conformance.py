@@ -257,24 +257,33 @@ def validate_tool_authority_reconciliation() -> None:
 def validate_production_runtime_reconciliation() -> None:
     """Require M13.6-M13.8 authority boundaries across the locked stack."""
     required = {
-        Path("/tmp/tinlance-platform/docs/production-runtime/M13-6-SECRETS-CREDENTIAL-GOVERNANCE.md"):
-            ("Purpose + audience + time validation",),
-        Path("/tmp/tinlance-platform/docs/production-runtime/M13-7-EVIDENCE-AUDIT-NONREPUDIATION.md"):
-            ("Non-Repudiation",),
-        Path("/tmp/tinlance-platform/docs/production-runtime/M13-8-OBSERVABILITY-INCIDENT-CORRELATION.md"):
-            ("Incident correlation",),
-        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
-            ("M13.8 — Observability and incident correlation",),
-        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
-            ("M13.8 — Observability and incident correlation",),
-        ROOT / "docs/integration/ECOSYSTEM.md":
-            ("M13.8 — Observability and incident correlation",),
-        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"):
-            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
-        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"):
-            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
-        ROOT / "docs/integration/ECOSYSTEM.md":
-            ("M13.6 — Secrets and credential governance", "M13.7 — Evidence, audit and non-repudiation"),
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-6-SECRETS-CREDENTIAL-GOVERNANCE.md"): (
+            "Purpose + audience + time validation",
+        ),
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-7-EVIDENCE-AUDIT-NONREPUDIATION.md"): (
+            "Non-Repudiation",
+        ),
+        Path("/tmp/tinlance-platform/docs/production-runtime/M13-8-OBSERVABILITY-INCIDENT-CORRELATION.md"): (
+            "Incident correlation",
+        ),
+        Path("/tmp/tinlance-platform_sdk/docs/integration/ECOSYSTEM.md"): (
+            "M13.6 — Secrets and credential governance",
+            "M13.7 — Evidence, audit and non-repudiation",
+            "M13.8 — Observability and incident correlation",
+            "Final M13.4-M13.8 authority reconciliation",
+        ),
+        Path("/tmp/tinlance-os/docs/integration/ECOSYSTEM.md"): (
+            "M13.6 — Secrets and credential governance",
+            "M13.7 — Evidence, audit and non-repudiation",
+            "M13.8 — Observability and incident correlation",
+            "Final M13.4-M13.8 authority reconciliation",
+        ),
+        ROOT / "docs/integration/ECOSYSTEM.md": (
+            "M13.6 — Secrets and credential governance",
+            "M13.7 — Evidence, audit and non-repudiation",
+            "M13.8 — Observability and incident correlation",
+            "Final M13.4-M13.8 authority reconciliation",
+        ),
     }
     for path, markers in required.items():
         if not path.exists():

@@ -88,3 +88,16 @@ M13.7 evidence/audit boundary: TADL provenance declarations are metadata only. P
 ## M13.8 — Observability and incident correlation
 
 M13.8 observability boundary: TADL telemetry metadata is non-authoritative. Platform owns normalized trace context, tenant-bound incident correlation and security-event causality; developer metadata cannot widen authority.
+
+
+## Final M13.4-M13.8 authority reconciliation
+
+TADL and the Agent Developer registry declare capabilities, tools, workflows, evaluation metadata and provenance. They do not grant runtime authority.
+
+The four-repository authority invariant is:
+
+**Developer declaration → OS orchestration → SDK transport/client → Platform authorization → Platform permit/control gates → consequential side effect → evidence/audit → observability.**
+
+No registry entry, tool description, workflow, evaluation result, MCP discovery response, Agent Card, or model output can bypass Platform authorization.
+
+The final Platform forensic audit closes the MCP permit, integrity-chain, byte-bound, and telemetry-identifier gaps identified after M13.4-M13.8 implementation.
