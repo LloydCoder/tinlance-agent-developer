@@ -71,3 +71,6 @@ jobs:
 
       - name: Run P3 identity authority certification
         run: python scripts/p3_identity_authority_conformance.py
+
+      - name: Run P5 team delegation certification
+        run: python scripts/p5_team_delegation_conformance.py
