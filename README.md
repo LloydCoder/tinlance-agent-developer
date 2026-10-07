@@ -180,6 +180,7 @@ TADL is currently a source-level developer layer rather than a long-running serv
 - [P2 governed execution certification](docs/ecosystem/P2-GOVERNED-EXECUTION.md)
 - [P3 identity and authority certification](docs/ecosystem/P3-IDENTITY-AUTHORITY.md)
 - [P5 teams and delegation certification](docs/ecosystem/P5-TEAMS-DELEGATION.md)
+- [P10 replication and Agent System GA](docs/ecosystem/P10-REPLICATION-GA.md)
 - [Machine-readable ecosystem manifest](docs/ecosystem/ecosystem-manifest.json)
 - [Ecosystem release lock](ecosystem.lock.json)
 - [Ecosystem conformance](docs/integration/CONFORMANCE.md)
@@ -199,7 +200,7 @@ The project uses TypeScript and Node.js, GitHub Actions, OpenSSF Scorecard, Code
 <details>
 <summary>Roadmap</summary>
 
-The defined engineering phases 0–13 are implemented in the repository, including Phase 13 enterprise hardening. Future work should extend contracts without moving execution authority into TADL.
+The defined TADL engineering phases 0–13 are implemented in the repository. The ecosystem program now concludes at P10 with replication/GA; subsequent work is continuous assurance and must not move execution authority into TADL.
 
 </details>
 
