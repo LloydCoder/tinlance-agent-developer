@@ -59,6 +59,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install /tmp/tinlance-platform /tmp/tinlance-platform_sdk /tmp/tinlance-os
+          python -m pip install -e "/tmp/tinlance-platform/reference_agents[test]" --no-deps
 
       - name: Run end-to-end contract smoke test
         run: python scripts/ecosystem_smoke.py
@@ -74,3 +75,6 @@ jobs:
 
       - name: Run P5 team delegation certification
         run: python scripts/p5_team_delegation_conformance.py
+
+      - name: Run full finite-phase certification
+        run: python scripts/ecosystem_phase_conformance.py
