@@ -13,7 +13,7 @@ const manifest = readJson("docs/ecosystem/ecosystem-manifest.json");
 if (lock.schema !== "tinlance-agent-ecosystem-lock/v1") fail("unexpected lock schema");
 if (manifest.schema !== "tinlance-agent-system-manifest/v1") fail("unexpected manifest schema");
 if (lock.baseline_id !== manifest.baseline_id) fail("baseline IDs differ");
-if (manifest.phase !== "P0") fail("manifest is not the P0 baseline");
+if (!["P0", "P1"].includes(manifest.phase)) fail("unsupported ecosystem baseline phase");
 if (lock.contracts.platform_api !== manifest.contracts.platform_api) fail("Platform API versions differ");
 if (lock.contracts.governed_execution !== manifest.contracts.governed_execution) fail("governed execution contracts differ");
 if (lock.contracts.endpoint !== manifest.contracts.endpoint) fail("Platform endpoints differ");
@@ -41,6 +41,8 @@ if (!platform || !platform.authority.includes("sole authority")) fail("Platform 
 if (!manifest.authority_law.includes("authenticated principal") || !manifest.authority_law.includes("execution context")) {
   fail("effective-authority invariant is incomplete");
 }
+if (manifest.phase === "P1" && manifest.contracts.transformation_schema !== "transformation/v1") fail("P1 transformation contract version is missing");
+if (manifest.phase === "P1" && !manifest.transformation_contract) fail("P1 transformation contract manifest is missing");
 if (manifest.gate.repository_ci !== "required" ||
     manifest.gate.security_workflows !== "required" ||
     manifest.gate.ecosystem_conformance !== "required" ||
