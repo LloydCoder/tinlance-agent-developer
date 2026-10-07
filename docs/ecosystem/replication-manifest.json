@@ -1,0 +1,27 @@
+{
+  "schema": "replication/v1",
+  "purpose": "Deterministic two-replica conformance fixture for proving the four-repository Agent System is parameterized rather than hard-coded to one organization.",
+  "authority_plane": "platform",
+  "workforce_profile": "reference-enterprise",
+  "replicas": [
+    {
+      "id": "reference-enterprise-a",
+      "tenant_id": "tenant-replica-a",
+      "workspace_id": "workspace-replica-a"
+    },
+    {
+      "id": "reference-enterprise-b",
+      "tenant_id": "tenant-replica-b",
+      "workspace_id": "workspace-replica-b"
+    }
+  ],
+  "required_properties": [
+    "same contract versions",
+    "unique tenant identifiers",
+    "unique workspace identifiers",
+    "independent lifecycle state",
+    "no cross-tenant authority",
+    "Platform-only consequential authorization",
+    "no credentials or customer data in fixtures"
+  ]
+}

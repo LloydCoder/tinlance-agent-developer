@@ -1,13 +1,14 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
-  "phase": "P1",
-  "baseline_id": "p1-2026-10-07",
+  "phase": "P10",
+  "baseline_id": "p10-2026-10-07",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
     "governed_execution": "governed-execution.v1",
     "endpoint": "POST /v1/agent-platform",
-    "transformation_schema": "transformation/v1"
+    "transformation_schema": "transformation/v1",
+    "replication_schema": "replication/v1"
   },
   "repositories": [
     {
@@ -15,28 +16,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "declarative developer plane",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "7eb4580940a4486b71be1f9a517e9b11af0a4f1c"
+      "reviewed_sha": "e411a2cfa0fcb7999ceb695b0e9ebc0a470ad49d"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "46b12523d769b9145fb4ef5f0c80cad56f06ae7a"
+      "reviewed_sha": "1c8abf4eeae3accdb500d5bae335ead2a02b5518"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "798251e1927a5cbda1bcc03fd13f85eb7c90d2ea"
+      "reviewed_sha": "ed18be7c9b720bb73e66ee0c078af6034f4ee14d"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "b32d2615668f07cf25dd98c82bbc5ae939070ebd"
+      "reviewed_sha": "e98cceeac597149f2579650b0a98ee4056945223"
     }
   ],
   "gate": {
@@ -64,6 +65,32 @@
       "Transformation data never grants authority",
       "execution success is distinct from business outcome",
       "historical versions are immutable"
+    ]
+  },
+  "replication_contract": {
+    "schema": "replication/v1",
+    "authority_plane": "platform",
+    "replicas": [
+      {
+        "id": "reference-enterprise-a",
+        "tenant_id": "tenant-replica-a",
+        "workspace_id": "workspace-replica-a",
+        "workforce_profile": "reference-enterprise"
+      },
+      {
+        "id": "reference-enterprise-b",
+        "tenant_id": "tenant-replica-b",
+        "workspace_id": "workspace-replica-b",
+        "workforce_profile": "reference-enterprise"
+      }
+    ],
+    "invariants": [
+      "Both replicas use the same four-repository contracts and versioned workforce profile.",
+      "Replica identifiers and tenant/workspace identifiers are unique.",
+      "Tenant isolation is mandatory and cannot be weakened by replication.",
+      "No replica identifier, catalog entry, model output, memory, tool output, or workflow declaration grants authority.",
+      "Platform remains the sole authority plane for both replicas.",
+      "Replication is parameterized; credentials, customer data, and provider secrets are never fixture data."
     ]
   }
 }
