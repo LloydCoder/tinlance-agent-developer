@@ -179,6 +179,7 @@ TADL is currently a source-level developer layer rather than a long-running serv
 - [P1 ecosystem transformation certification](docs/ecosystem/P1-TRANSFORMATION.md)
 - [P2 governed execution certification](docs/ecosystem/P2-GOVERNED-EXECUTION.md)
 - [P3 identity and authority certification](docs/ecosystem/P3-IDENTITY-AUTHORITY.md)
+- [P5 teams and delegation certification](docs/ecosystem/P5-TEAMS-DELEGATION.md)
 - [Machine-readable ecosystem manifest](docs/ecosystem/ecosystem-manifest.json)
 - [Ecosystem release lock](ecosystem.lock.json)
 - [Ecosystem conformance](docs/integration/CONFORMANCE.md)
