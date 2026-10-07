@@ -119,7 +119,7 @@ def main() -> None:
         status, _ = post(
             endpoint, tenant=TENANT, subject=SUBJECT, token=TOKEN,
             payload={"task_id": str(TASK_ID), "intent": "different"},
-            request_id="idempotency-2", idempotency_key="p2-idempotency-key",
+            request_id="idempotency-2", idempotency_key=idempotency_key,
         )
         assert status in {400, 409}, f"idempotency reuse was not rejected: {status}"
     finally:
