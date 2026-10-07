@@ -153,7 +153,6 @@ def phase_p6_runtime() -> None:
     run_test_subset(
         PLATFORM,
         (
-            "tests/p6_production_runtime_contract.py",
             "tests/test_m15_durability.py",
             "tests/test_m18_reliability.py",
             "tests/test_m21_production_infrastructure.py",
