@@ -1,27 +1,32 @@
 {
   "schema": "tinlance-agent-ecosystem-lock/v1",
-  "purpose": "Pins the four-repository integration gate to reviewed commits.",
+  "purpose": "Pins the four-repository integration gate to reviewed commits; the lock is a release baseline, not a live branch pointer.",
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "e6c486aba16e994dc6acb312c946a5bcff1d1b9d"
+      "ref": "e6c486aba16e994dc6acb312c946a5bcff1d1b9d",
+      "role": "declarative developer plane"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "fd563ab020ff9a02cdd4776f4eeddbece5cfc21a"
+      "ref": "fd563ab020ff9a02cdd4776f4eeddbece5cfc21a",
+      "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "a7c70fdb205a6328c71a150b27da0392a8b34840"
+      "ref": "a7c70fdb205a6328c71a150b27da0392a8b34840",
+      "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "58af25924df68eaf1b21330e26f3975efb387711"
+      "ref": "58af25924df68eaf1b21330e26f3975efb387711",
+      "role": "typed developer API surface"
     }
   },
   "contracts": {
     "platform_api": "1.1",
     "governed_execution": "governed-execution.v1",
     "endpoint": "POST /v1/agent-platform"
-  }
+  },
+  "baseline_id": "p0-2026-10-07"
 }
