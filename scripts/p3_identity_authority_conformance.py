@@ -22,15 +22,15 @@ REQUIRED = {
         "audience",
     ),
     "packages/identity/src/tinlance_agent_platform_identity/token_security.py": (
-        "token",
-        "binding",
+        "issuer",
+        "expires_at",
     ),
     "tests/test_identity_jwt.py": (
         "tenant",
-        "expiry",
+        "exp",
     ),
     "tests/test_authorization_enforcement.py": (
-        "deny",
+        "approval",
         "tenant",
     ),
 }
