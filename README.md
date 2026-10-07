@@ -176,6 +176,7 @@ TADL is currently a source-level developer layer rather than a long-running serv
 - [Compatibility](docs/compatibility/README.md)
 - [P0 ecosystem forensic baseline](docs/ecosystem/P0-BASELINE.md)
 - [P1 Transformation model](docs/architecture/PHASE-14-TRANSFORMATION.md)
+- [P1 ecosystem transformation certification](docs/ecosystem/P1-TRANSFORMATION.md)
 - [Machine-readable ecosystem manifest](docs/ecosystem/ecosystem-manifest.json)
 - [Ecosystem release lock](ecosystem.lock.json)
 - [Ecosystem conformance](docs/integration/CONFORMANCE.md)
