@@ -4,7 +4,7 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "a7203ffd0b1400fe11b1f993388b7dd786bda1fd",
+      "ref": "25f93c1039a16a5a5edd25165a83f4ef1beba801",
       "role": "declarative developer plane"
     },
     "os": {
