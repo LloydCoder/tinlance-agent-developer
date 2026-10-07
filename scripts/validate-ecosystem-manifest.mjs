@@ -9,6 +9,7 @@ const isSha = (value) => typeof value === "string" && /^[0-9a-f]{40}$/.test(valu
 
 const lock = readJson("ecosystem.lock.json");
 const manifest = readJson("docs/ecosystem/ecosystem-manifest.json");
+const replication = manifest.phase === "P10" ? readJson("docs/ecosystem/replication-manifest.json") : null;
 
 if (lock.schema !== "tinlance-agent-ecosystem-lock/v1") fail("unexpected lock schema");
 if (manifest.schema !== "tinlance-agent-system-manifest/v1") fail("unexpected manifest schema");
@@ -51,6 +52,14 @@ if (manifest.phase === "P10") {
   const tenantIds = new Set(manifest.replication_contract.replicas.map((replica) => replica.tenant_id));
   if (replicaIds.size !== 2 || tenantIds.size !== 2) fail("P10 replicas and tenant IDs must be unique");
   if (manifest.replication_contract.authority_plane !== "platform") fail("P10 authority plane must remain Platform");
+  if (replication?.schema !== "replication/v1") fail("P10 replication manifest schema is missing");
+  if (replication.authority_plane !== "platform") fail("P10 replication manifest authority plane is invalid");
+  if (replication.workforce_profile !== "reference-enterprise") fail("P10 workforce profile is invalid");
+  if (replication.replicas?.length !== 2) fail("P10 replication manifest requires two replicas");
+  const manifestReplicaIds = new Set(manifest.replication_contract.replicas.map((replica) => replica.id));
+  for (const replica of replication.replicas) {
+    if (!manifestReplicaIds.has(replica.id)) fail(`P10 replication fixture is not in ecosystem manifest: ${replica.id}`);
+  }
 }
 if (manifest.gate.repository_ci !== "required" ||
     manifest.gate.security_workflows !== "required" ||
