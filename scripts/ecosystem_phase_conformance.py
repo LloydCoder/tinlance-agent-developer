@@ -117,7 +117,7 @@ def phase_p4_catalog() -> None:
         "semantic uniqueness",
     )
     require_file(OS, "tests/unit/test_catalog_expansion_20k.py", "20_000", "20K")
-    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "not a permanent maximum")
+    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "not a hard ceiling")
     # The fixture proves the release gate at scale; it is intentionally not
     # presented as 20,000 real-world reviewed archetypes.
     run_test_subset(
@@ -206,7 +206,7 @@ def phase_p8_control_plane() -> None:
     run_test_subset(
         PLATFORM,
         (
-            "tests/test_p20_control_expansion.py",
+            "tests/test_m20_control_expansion.py",
             "tests/test_m23_registry_governance.py",
             "tests/test_m27_sre_compliance.py",
         ),
