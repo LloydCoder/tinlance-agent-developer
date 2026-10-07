@@ -13,9 +13,9 @@ REQUIRED = {
         "workspace_id",
     ),
     OS / "src/tinlance_agent_os/team_graph.py": (
-        "parent",
-        "child",
-        "depth",
+        "node_id",
+        "depends_on",
+        "max_depth",
     ),
     PLATFORM / "packages/multi_agent/src/tinlance_agent_platform_multi_agent/service.py": (
         "parent",
@@ -23,8 +23,8 @@ REQUIRED = {
         "tenant",
     ),
     PLATFORM / "packages/multi_agent/src/tinlance_agent_platform_multi_agent/interoperability.py": (
-        "authenticated",
-        "delegation",
+        "descriptive",
+        "RemoteDelegation",
     ),
 }
 
