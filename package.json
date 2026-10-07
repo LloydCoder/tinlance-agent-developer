@@ -1,1 +1,27 @@
-{"name":"@tinlance/agent-developer","version":"1.4.0","private":true,"description":"Tinlance Agent Developer Layer","license":"Apache-2.0","type":"module","engines":{"node":">=22"},"bin":{"tadl":"./cli/tadl.mjs"},"scripts":{"build":"rm -rf dist && tsc","test":"node --test tests/**/*.test.mjs","lint":"node scripts/lint.mjs","validate:schemas":"node scripts/validate-schemas.mjs","validate:structure":"node scripts/validate-structure.mjs","forensic-audit":"node scripts/forensic-audit.mjs","ci":"npm run validate:structure && npm run validate:schemas && npm run lint && npm run build && npm test && npm run forensic-audit"},"devDependencies":{"typescript":"^7.0.2"}}
+{
+  "name": "@tinlance/agent-developer",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Tinlance Agent Developer Layer",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "tadl": "./cli/tadl.mjs"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "test": "node --test tests/**/*.test.mjs",
+    "lint": "node scripts/lint.mjs",
+    "validate:schemas": "node scripts/validate-schemas.mjs",
+    "validate:structure": "node scripts/validate-structure.mjs",
+    "forensic-audit": "node scripts/forensic-audit.mjs",
+    "ci": "npm run validate:structure && npm run validate:schemas && npm run validate:ecosystem && npm run lint && npm run build && npm test && npm run forensic-audit",
+    "validate:ecosystem": "node scripts/validate-ecosystem-manifest.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
