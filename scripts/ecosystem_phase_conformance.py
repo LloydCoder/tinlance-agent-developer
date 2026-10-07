@@ -117,7 +117,7 @@ def phase_p4_catalog() -> None:
         "semantic uniqueness",
     )
     require_file(OS, "tests/unit/test_catalog_expansion_20k.py", "20_000", "20K")
-    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "not a hard ceiling")
+    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "TARGET_COUNT == 20_000")
     # The fixture proves the release gate at scale; it is intentionally not
     # presented as 20,000 real-world reviewed archetypes.
     run_test_subset(
@@ -274,6 +274,18 @@ def phase_p10_replication() -> None:
         "does not claim",
     )
     require_file(ROOT, "scripts/validate-ecosystem-manifest.mjs", "replication/v1")
+    sdk_lock = str(load_json(ROOT, "ecosystem.lock.json").get("repositories", {}).get("platform_sdk", {}).get("ref", ""))
+    reference_agents = PLATFORM / "reference_agents/pyproject.toml"
+    if reference_agents.is_file():
+        reference_text = reference_agents.read_text(encoding="utf-8")
+        if sdk_lock not in reference_text:
+            FAILURES.append("P10 reference agents do not pin the locked SDK revision")
+    else:
+        FAILURES.append("P10 reference-agent package metadata is missing")
+    if (PLATFORM / "packages/sdk/src/tinlance_agent_platform_sdk").exists():
+        FAILURES.append("P10 Platform ships a colliding tinlance_agent_platform_sdk namespace")
+    if not (PLATFORM / "packages/sdk/src/tinlance_agent_platform_domain_sdk").exists():
+        FAILURES.append("P10 Platform internal SDK namespace is missing")
     run_node_test_subset(ROOT, ("tests/contract/architecture-boundaries.test.mjs",), "P10 TADL")
 
 
