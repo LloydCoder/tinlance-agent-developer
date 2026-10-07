@@ -90,6 +90,7 @@ def main() -> None:
     thread.start()
     endpoint = f"http://127.0.0.1:{server.server_port}"
     try:
+        idempotency_key = str(UUID("00000000-0000-0000-0000-000000000204"))
         status, _ = post(
             endpoint, tenant=TENANT, subject=SUBJECT, token="forged-token",
             payload={"task_id": str(TASK_ID)}, request_id="invalid-token",
@@ -111,7 +112,7 @@ def main() -> None:
         status, _ = post(
             endpoint, tenant=TENANT, subject=SUBJECT, token=TOKEN,
             payload={"task_id": str(TASK_ID), "intent": "first"},
-            request_id="idempotency-1", idempotency_key="p2-idempotency-key",
+            request_id="idempotency-1", idempotency_key=idempotency_key,
         )
         assert status < 500, f"baseline idempotent request failed unexpectedly: {status}"
 
