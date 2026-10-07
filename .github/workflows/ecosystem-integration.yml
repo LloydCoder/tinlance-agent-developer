@@ -65,3 +65,6 @@ jobs:
 
       - name: Run ecosystem conformance suite
         run: python scripts/ecosystem_conformance.py
+
+      - name: Run P2 adversarial certification
+        run: python scripts/p2_adversarial_conformance.py
