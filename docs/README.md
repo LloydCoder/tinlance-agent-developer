@@ -19,3 +19,8 @@ cross-repository phase map is [Finite phase certification matrix](ecosystem/PHAS
 P9 is documented in [Reference Enterprise Certification](ecosystem/P9-REFERENCE-ENTERPRISE.md).
 The integration workflow executes dedicated P2/P3/P5 gates plus the full
 P1/P4/P6/P7/P8/P9/P10 certification against the reviewed ecosystem lock.
+
+
+## Final forensic audit
+
+The finite P0–P10 sequence and its post-merge findings are recorded in [FINAL-AUDIT.md](forensics/FINAL-AUDIT.md). It distinguishes repository certification from external production assurance.
