@@ -185,7 +185,7 @@ def phase_p8_control_plane() -> None:
     require_files(
         PLATFORM,
         (
-            "tests/test_p20_control_expansion.py",
+            "tests/test_m20_control_expansion.py",
             "tests/test_m23_registry_governance.py",
             "tests/test_m27_sre_compliance.py",
         ),
