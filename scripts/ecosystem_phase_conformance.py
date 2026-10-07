@@ -67,6 +67,20 @@ def load_json(root: Path, relative: str) -> dict[str, object]:
     return value
 
 
+def run_node_test_subset(cwd: Path, paths: tuple[str, ...], label: str) -> None:
+    result = subprocess.run(
+        ["node", "--test", *paths],
+        cwd=cwd,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        FAILURES.append(
+            f"{label} tests failed:\\n{result.stdout[-4000:]}\\n{result.stderr[-2000:]}"
+        )
+
+
 def phase_p1_transformation() -> None:
     require_file(ROOT, "docs/ecosystem/P1-TRANSFORMATION.md", "transformation/v1")
     require_file(ROOT, "docs/ecosystem/ecosystem-manifest.json", "transformation/v1")
@@ -79,7 +93,7 @@ def phase_p1_transformation() -> None:
         "packages/contracts/src/tinlance_agent_platform_contracts/transformation.py",
         "Transformation",
     )
-    run_test_subset(ROOT, ("tests/contract/schema-contracts.test.mjs",), "P1 TADL")
+    run_node_test_subset(ROOT, ("tests/contract/schema-contracts.test.mjs",), "P1 TADL")
     run_test_subset(OS, ("tests/test_transformation.py",), "P1 Agent OS")
     run_test_subset(SDK, ("tests/test_transformation.py",), "P1 SDK")
     run_test_subset(PLATFORM, ("tests/contracts/test_transformation.py",), "P1 Platform")
@@ -103,7 +117,7 @@ def phase_p4_catalog() -> None:
         "semantic uniqueness",
     )
     require_file(OS, "tests/unit/test_catalog_expansion_20k.py", "20_000", "20K")
-    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "not a permanent")
+    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "not a permanent maximum")
     # The fixture proves the release gate at scale; it is intentionally not
     # presented as 20,000 real-world reviewed archetypes.
     run_test_subset(
@@ -129,7 +143,7 @@ def phase_p6_runtime() -> None:
     require_files(
         PLATFORM,
         (
-            "tests/p6_production_runtime_contract.py",
+            "tests/test_p6_production_runtime_contract.py",
             "tests/test_m15_durability.py",
             "tests/test_m18_reliability.py",
             "tests/test_m21_production_infrastructure.py",
@@ -261,7 +275,7 @@ def phase_p10_replication() -> None:
         "does not claim",
     )
     require_file(ROOT, "scripts/validate-ecosystem-manifest.mjs", "replication/v1")
-    run_test_subset(ROOT, ("tests/contract/architecture-boundaries.test.mjs",), "P10 TADL")
+    run_node_test_subset(ROOT, ("tests/contract/architecture-boundaries.test.mjs",), "P10 TADL")
 
 
 def main() -> int:
