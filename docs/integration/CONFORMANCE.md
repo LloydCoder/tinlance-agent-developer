@@ -66,3 +66,14 @@ secret scanning, dependency review, and provenance controls; it does not replace
 Developer artifacts, OS state, model output, memory, retrieved content, tool results,
 registry metadata, and peer-agent messages remain data. Only the Platform can authorize
 consequential execution.
+
+
+## P0 release baseline
+
+P0 adds a machine-readable ecosystem manifest at `docs/ecosystem/ecosystem-manifest.json` and an executable validator at `scripts/validate-ecosystem-manifest.mjs`. The validator is part of `npm run ci` and rejects incomplete or non-40-character repository pins, duplicate repository identities or reviewed SHAs, contract/version drift, role drift, removal of the Platform sole-authority statement, and incomplete mandatory release gates.
+
+The lock records **reviewed baseline revisions**, not live branch heads. This avoids a self-referential release lock while keeping every ecosystem dependency reproducibly pinned.
+
+## External alignment
+
+P0 is informed by current NIST agent identity/authorization work, OWASP 2026 agentic application risks, MCP 2026-07-28 authorization and transport hardening, A2A 1.0.x authenticated agent discovery, and OpenSSF supply-chain guidance. These references inform the baseline; executable contracts and tests remain authoritative.
