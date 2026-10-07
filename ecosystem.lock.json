@@ -9,17 +9,17 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "8bba7444ad53a911b75d8f01c78c6e386c9067f7",
+      "ref": "1c8abf4eeae3accdb500d5bae335ead2a02b5518",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "0599b6b544a9daa708b2d7e0d10272454a6cddf6",
+      "ref": "e98cceeac597149f2579650b0a98ee4056945223",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "798251e1927a5cbda1bcc03fd13f85eb7c90d2ea",
+      "ref": "ed18be7c9b720bb73e66ee0c078af6034f4ee14d",
       "role": "typed developer API surface"
     }
   },
