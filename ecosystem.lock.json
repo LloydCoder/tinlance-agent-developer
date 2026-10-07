@@ -4,29 +4,30 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "e6c486aba16e994dc6acb312c946a5bcff1d1b9d",
+      "ref": "7eb4580940a4486b71be1f9a517e9b11af0a4f1c",
       "role": "declarative developer plane"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "fd563ab020ff9a02cdd4776f4eeddbece5cfc21a",
+      "ref": "46b12523d769b9145fb4ef5f0c80cad56f06ae7a",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "a7c70fdb205a6328c71a150b27da0392a8b34840",
+      "ref": "b32d2615668f07cf25dd98c82bbc5ae939070ebd",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "58af25924df68eaf1b21330e26f3975efb387711",
+      "ref": "798251e1927a5cbda1bcc03fd13f85eb7c90d2ea",
       "role": "typed developer API surface"
     }
   },
   "contracts": {
     "platform_api": "1.1",
     "governed_execution": "governed-execution.v1",
-    "endpoint": "POST /v1/agent-platform"
+    "endpoint": "POST /v1/agent-platform",
+    "transformation_schema": "transformation/v1"
   },
-  "baseline_id": "p0-2026-10-07"
+  "baseline_id": "p1-2026-10-07"
 }
