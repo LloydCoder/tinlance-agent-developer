@@ -13,7 +13,7 @@ const manifest = readJson("docs/ecosystem/ecosystem-manifest.json");
 if (lock.schema !== "tinlance-agent-ecosystem-lock/v1") fail("unexpected lock schema");
 if (manifest.schema !== "tinlance-agent-system-manifest/v1") fail("unexpected manifest schema");
 if (lock.baseline_id !== manifest.baseline_id) fail("baseline IDs differ");
-if (!["P0", "P1"].includes(manifest.phase)) fail("unsupported ecosystem baseline phase");
+if (!/^P(?:0|[1-9]|10)$/.test(manifest.phase)) fail("unsupported ecosystem baseline phase");
 if (lock.contracts.platform_api !== manifest.contracts.platform_api) fail("Platform API versions differ");
 if (lock.contracts.governed_execution !== manifest.contracts.governed_execution) fail("governed execution contracts differ");
 if (lock.contracts.endpoint !== manifest.contracts.endpoint) fail("Platform endpoints differ");
@@ -43,6 +43,15 @@ if (!manifest.authority_law.includes("authenticated principal") || !manifest.aut
 }
 if (manifest.phase === "P1" && manifest.contracts.transformation_schema !== "transformation/v1") fail("P1 transformation contract version is missing");
 if (manifest.phase === "P1" && !manifest.transformation_contract) fail("P1 transformation contract manifest is missing");
+if (manifest.phase === "P10") {
+  if (manifest.contracts.replication_schema !== "replication/v1") fail("P10 replication contract version is missing");
+  if (!manifest.replication_contract) fail("P10 replication contract manifest is missing");
+  if (manifest.replication_contract.replicas?.length !== 2) fail("P10 requires exactly two replication fixtures");
+  const replicaIds = new Set(manifest.replication_contract.replicas.map((replica) => replica.id));
+  const tenantIds = new Set(manifest.replication_contract.replicas.map((replica) => replica.tenant_id));
+  if (replicaIds.size !== 2 || tenantIds.size !== 2) fail("P10 replicas and tenant IDs must be unique");
+  if (manifest.replication_contract.authority_plane !== "platform") fail("P10 authority plane must remain Platform");
+}
 if (manifest.gate.repository_ci !== "required" ||
     manifest.gate.security_workflows !== "required" ||
     manifest.gate.ecosystem_conformance !== "required" ||
