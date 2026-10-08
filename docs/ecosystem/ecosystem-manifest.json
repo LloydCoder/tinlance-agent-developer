@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "p10-2026-10-07",
+  "baseline_id": "tsic-18-agent-system-2026-10-08",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -16,28 +16,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "declarative developer plane",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "25f93c1039a16a5a5edd25165a83f4ef1beba801"
+      "reviewed_sha": "84c321fcc66ab776636fef458e0c3dcdc990b8b8"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "1c8abf4eeae3accdb500d5bae335ead2a02b5518"
+      "reviewed_sha": "d87426c73517dc88b0c26178831d618e49406708"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "ed18be7c9b720bb73e66ee0c078af6034f4ee14d"
+      "reviewed_sha": "25b68bed44287b477532f1359c80959c1c3635e7"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "4dc31612a3fa4eb98947fdcab1a56be1630d52b2"
+      "reviewed_sha": "069f80dc7c54d256552aea65a0dd02544a239f75"
     }
   ],
   "gate": {
@@ -55,6 +55,11 @@
     "A2A 1.0.x: authenticated agent discovery and horizontal agent collaboration",
     "OpenSSF OSPS/Scorecard: immutable CI dependencies and supply-chain controls"
   ],
+  "tsic_integration_authority": {
+    "repository": "LloydCoder/tinlance-system-integration",
+    "ref": "40f13e83d270888a31e9801aa9de1d6d5c55af71",
+    "adapter": "tsic-agent-developer-reference"
+  },
   "transformation_contract": {
     "schema": "schemas/transformation/v1/transformation.schema.json",
     "example": "schemas/examples/transformation.v1.json",

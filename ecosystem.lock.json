@@ -1,12 +1,7 @@
 {
   "schema": "tinlance-agent-ecosystem-lock/v1",
-  "purpose": "Pins the five-repository integration gate to reviewed commits; TSIC is the canonical ecosystem integration and certification authority and the lock is a release baseline, not a live branch pointer.",
+  "purpose": "Pins the four-repository integration gate to reviewed commits; TSIC is the canonical ecosystem integration and certification authority and the lock is a release baseline, not a live branch pointer.",
   "repositories": {
-    "tsic": {
-      "repository": "LloydCoder/tinlance-system-integration",
-      "ref": "40f13e83d270888a31e9801aa9de1d6d5c55af71",
-      "role": "canonical ecosystem integration and certification authority"
-    },
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
       "ref": "84c321fcc66ab776636fef458e0c3dcdc990b8b8",
