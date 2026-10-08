@@ -17,6 +17,10 @@ flowchart LR
     C -. gates .-> P
 ```
 
+## Canonical ecosystem authority
+
+TSIC is the canonical ecosystem integration, compatibility, conformance, and certification authority. TADL is a developer-validation consumer of TSIC contracts. Agent Platform remains the sole consequential execution authority.
+
 ## Authority model
 
 - **Agent Developer (TADL):** packages, validates, evaluates, signs, and distributes developer artifacts. It declares capabilities but never grants them.
