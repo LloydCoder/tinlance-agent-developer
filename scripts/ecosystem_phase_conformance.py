@@ -246,8 +246,8 @@ def phase_p10_replication() -> None:
     replication = load_json(ROOT, "docs/ecosystem/replication-manifest.json")
     if manifest.get("phase") != "P10":
         FAILURES.append("P10 manifest phase is not P10")
-    if manifest.get("baseline_id") != "p10-2026-10-07":
-        FAILURES.append("P10 baseline ID drifted")
+    if manifest.get("baseline_id") != "tsic-18-agent-system-2026-10-08":
+        FAILURES.append("P10 baseline ID drifted from the TSIC-18 reviewed baseline")
     if replication.get("schema") != "replication/v1":
         FAILURES.append("replication manifest schema drifted")
     if replication.get("authority_plane") != "platform":
