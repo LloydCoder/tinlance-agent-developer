@@ -37,6 +37,16 @@ for (const [id, entry] of lockEntries) {
 }
 if (manifest.repositories.length !== 4) fail("manifest must contain exactly four repositories");
 
+const authority = lock.integration_authority;
+if (!authority || authority.repository !== "LloydCoder/tinlance-system-integration" || !isSha(authority.ref)) {
+  fail("TSIC integration authority is missing or not pinned to a full commit SHA");
+}
+if (authority.adapter !== "tsic-agent-developer-reference") fail("TSIC TADL adapter binding is missing");
+const manifestAuthority = manifest.tsic_integration_authority;
+if (!manifestAuthority || manifestAuthority.repository !== authority.repository || manifestAuthority.ref !== authority.ref || manifestAuthority.adapter !== authority.adapter) {
+  fail("TSIC integration authority differs between lock and manifest");
+}
+
 const platform = manifest.repositories.find((item) => item.id === "platform");
 if (!platform || !platform.authority.includes("sole authority")) fail("Platform sole-authority statement is missing");
 if (!manifest.authority_law.includes("authenticated principal") || !manifest.authority_law.includes("execution context")) {
