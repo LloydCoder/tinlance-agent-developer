@@ -55,6 +55,9 @@ jobs:
               subprocess.run(["git", "-C", str(target), "checkout", "--quiet", item["ref"]], check=True)
           PY
 
+      - name: Run canonical TSIC authority gate
+        run: python scripts/tsic_conformance.py
+
       - name: Install Python integration components
         run: |
           python -m pip install --upgrade pip
