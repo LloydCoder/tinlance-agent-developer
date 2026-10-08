@@ -14,7 +14,7 @@
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "role": "declarative developer plane",
+      "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
       "reviewed_sha": "84c321fcc66ab776636fef458e0c3dcdc990b8b8"
     },
