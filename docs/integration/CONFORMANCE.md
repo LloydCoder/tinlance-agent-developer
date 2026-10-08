@@ -1,7 +1,6 @@
 # Tinlance Agent Ecosystem Conformance v1
 
-The conformance suite is the executable acceptance layer between the four independently
-released repositories:
+TSIC is the canonical ecosystem integration and certification authority. The TADL conformance suite remains the developer-plane executable validation consumer between the independently released repositories:
 
 ```mermaid
 flowchart LR
@@ -45,6 +44,10 @@ python -m pip install /tmp/tinlance-platform /tmp/tinlance-platform_sdk /tmp/tin
 
 python scripts/ecosystem_conformance.py
 ```
+
+## TSIC authority gate
+
+The ecosystem workflow first materializes the immutable five-repository baseline from ecosystem.lock.json and executes scripts/tsic_conformance.py. That gate verifies the TSIC repository identity, TADL developer-validation role, canonical contract bindings, and the invariant that TADL cannot grant execution authority. Local TADL conformance may add stricter developer-plane checks but cannot redefine a TSIC ecosystem contract.
 
 ## CI rule
 
