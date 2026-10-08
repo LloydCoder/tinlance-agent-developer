@@ -244,10 +244,14 @@ def phase_p9_reference_enterprise() -> None:
 def phase_p10_replication() -> None:
     manifest = load_json(ROOT, "docs/ecosystem/ecosystem-manifest.json")
     replication = load_json(ROOT, "docs/ecosystem/replication-manifest.json")
+    lock = load_json(ROOT, "ecosystem.lock.json")
     if manifest.get("phase") != "P10":
         FAILURES.append("P10 manifest phase is not P10")
-    if manifest.get("baseline_id") != "tsic-18-agent-system-2026-10-08":
-        FAILURES.append("P10 baseline ID drifted from the TSIC-18 reviewed baseline")
+    locked_baseline = lock.get("baseline_id")
+    if not isinstance(locked_baseline, str) or not locked_baseline:
+        FAILURES.append("ecosystem lock does not declare a baseline ID")
+    elif manifest.get("baseline_id") != locked_baseline:
+        FAILURES.append("P10 baseline ID does not match the reviewed ecosystem lock")
     if replication.get("schema") != "replication/v1":
         FAILURES.append("replication manifest schema drifted")
     if replication.get("authority_plane") != "platform":

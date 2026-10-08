@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "tsic-18-agent-system-2026-10-08",
+  "baseline_id": "tsic-19-agent-system-2026-10-08",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -16,28 +16,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "84c321fcc66ab776636fef458e0c3dcdc990b8b8"
+      "reviewed_sha": "4fac75ba9f14d438d045b877685b2695b4da2c5b"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "d87426c73517dc88b0c26178831d618e49406708"
+      "reviewed_sha": "8da4aceca56ff58792b81545f3992c5e4493bda4"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "25b68bed44287b477532f1359c80959c1c3635e7"
+      "reviewed_sha": "615eef529831fdfbe37e050e45d9a1a8c4472291"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "816931338e742d123c8500c352c1bf74bf83cb1d"
+      "reviewed_sha": "4f524c51f24ace3fa96b5f2fbd716d0270c16aae"
     }
   ],
   "gate": {
@@ -57,7 +57,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "40f13e83d270888a31e9801aa9de1d6d5c55af71",
+    "ref": "bdb5b7f9f2295562ad8681c591a8a927500b4d8c",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
