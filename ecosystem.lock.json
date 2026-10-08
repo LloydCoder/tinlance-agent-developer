@@ -1,25 +1,30 @@
 {
   "schema": "tinlance-agent-ecosystem-lock/v1",
-  "purpose": "Pins the four-repository integration gate to reviewed commits; the lock is a release baseline, not a live branch pointer.",
+  "purpose": "Pins the five-repository integration gate to reviewed commits; TSIC is the canonical ecosystem integration and certification authority and the lock is a release baseline, not a live branch pointer.",
   "repositories": {
+    "tsic": {
+      "repository": "LloydCoder/tinlance-system-integration",
+      "ref": "40f13e83d270888a31e9801aa9de1d6d5c55af71",
+      "role": "canonical ecosystem integration and certification authority"
+    },
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "25f93c1039a16a5a5edd25165a83f4ef1beba801",
-      "role": "declarative developer plane"
+      "ref": "84c321fcc66ab776636fef458e0c3dcdc990b8b8",
+      "role": "developer validation consumer"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "1c8abf4eeae3accdb500d5bae335ead2a02b5518",
+      "ref": "d87426c73517dc88b0c26178831d618e49406708",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "4dc31612a3fa4eb98947fdcab1a56be1630d52b2",
+      "ref": "069f80dc7c54d256552aea65a0dd02544a239f75",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "ed18be7c9b720bb73e66ee0c078af6034f4ee14d",
+      "ref": "25b68bed44287b477532f1359c80959c1c3635e7",
       "role": "typed developer API surface"
     }
   },
@@ -30,5 +35,10 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1"
   },
-  "baseline_id": "p10-2026-10-07"
+  "baseline_id": "tsic-18-agent-system-2026-10-08",
+  "integration_authority": {
+    "repository": "LloydCoder/tinlance-system-integration",
+    "ref": "40f13e83d270888a31e9801aa9de1d6d5c55af71",
+    "adapter": "tsic-agent-developer-reference"
+  }
 }
