@@ -46,6 +46,16 @@ jobs:
           from pathlib import Path
 
           lock = json.loads(Path("ecosystem.lock.json").read_text())
+          authority = lock["integration_authority"]
+          tsic_target = Path("/tmp/tinlance-tsic")
+          subprocess.run(
+              ["git", "clone", "--quiet", f"https://github.com/{authority['repository']}.git", str(tsic_target)],
+              check=True,
+          )
+          subprocess.run(
+              ["git", "-C", str(tsic_target), "checkout", "--quiet", authority["ref"]],
+              check=True,
+          )
           for name, item in lock["repositories"].items():
               target = Path("/tmp") / f"tinlance-{name}"
               subprocess.run(
