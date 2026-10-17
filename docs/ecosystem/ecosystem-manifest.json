@@ -23,21 +23,21 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "8da4aceca56ff58792b81545f3992c5e4493bda4"
+      "reviewed_sha": "dd2119e4ace0bd0ca5dbae083badbb5d9909670b"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "615eef529831fdfbe37e050e45d9a1a8c4472291"
+      "reviewed_sha": "61712794078b967aa84e3db21dd006b19136bcba"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "9125f46f526030fdeced492b6df281c4745f77e9"
+      "reviewed_sha": "eaa0dc1ffa01e378705674f8d8715afb4a5cd6d0"
     }
   ],
   "gate": {
