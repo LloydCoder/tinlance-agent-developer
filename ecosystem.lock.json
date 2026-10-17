@@ -30,7 +30,7 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1"
   },
-  "baseline_id": "ecosystem-p2-identity-tenancy-2026-10-17",
+  "baseline_id": "ecosystem-p3-event-delivery-2026-10-17",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "9d4361a16ae1a5570eee49d6baf499f61e222a20",
