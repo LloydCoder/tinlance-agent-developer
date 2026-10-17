@@ -1,6 +1,8 @@
 """P3 identity and authority conformance against the locked Platform revision."""
 
 from pathlib import Path
+import subprocess
+import sys
 
 PLATFORM = Path("/tmp/tinlance-platform")
 
@@ -46,9 +48,34 @@ def main() -> None:
         for marker in markers:
             if marker.lower() not in content:
                 missing.append(f"{relative}: missing marker {marker!r}")
+    # Marker checks are necessary but not sufficient. Execute the real locked
+    # Platform regression suites for issuer/audience/token lifecycle, approval
+    # binding, and attestation revocation/expiry.
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pytest",
+            "-q",
+            "tests/test_identity_jwt.py",
+            "tests/test_authorization_enforcement.py",
+            "tests/test_m22_identity_crypto_attestation.py",
+        ],
+        cwd=PLATFORM,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        missing.append(
+            "Platform P3 identity regression tests failed:\\n"
+            + result.stdout[-4000:]
+            + "\\n"
+            + result.stderr[-2500:]
+        )
     if missing:
-        raise SystemExit("P3 identity/authority certification failed:\n" + "\n".join(missing))
-    print("P3 identity/authority certification: PASS")
+        raise SystemExit("P3 identity/authority certification failed:\\n" + "\\n".join(missing))
+    print("P3 identity/authority certification: PASS (markers + executable regression tests)")
 
 
 if __name__ == "__main__":
