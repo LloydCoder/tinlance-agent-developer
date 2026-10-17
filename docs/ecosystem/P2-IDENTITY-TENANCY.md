@@ -21,6 +21,9 @@ The effective request identity is the signed, validated identity-provider assert
 6. Existing adversarial coverage used a reference/static principal resolver. It tested forged tenant/subject and cross-tenant cancellation, but did not exercise a verified JWT through the real HTTP resolver and revocation boundary.
 7. Existing OS and SDK tests carry tenant/subject context, but that transport context must never replace Platform verification.
 
+
+8. The strengthened adversarial regression found that foreign-tenant `runs.events` and `runs.evidence` reads returned HTTP 200 with empty arrays. Although no foreign payload was returned, the reference gateway did not explicitly authorize the run ID before the read. Platform PR #106 adds ownership checks and tests for same-tenant, foreign-tenant and unknown-run reads; P2 cannot close until that PR is merged and the refreshed cross-repository gate passes.
+
 ## Required implementation and evidence
 
 - [ ] Explicit HTTPS issuer and JWKS endpoint; no token-controlled key URLs.
