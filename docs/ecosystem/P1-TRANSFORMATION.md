@@ -34,7 +34,7 @@ No implementation treats Transformation data as an authorization grant.
 
 P1 is certified only after all four repository PRs were individually green and merged, and this ecosystem baseline validates against their merged revisions.
 
-P2 must not start until this certification branch itself passes the complete TADL CI/security/ecosystem gate.
+P2 may begin only after the ecosystem P0 gate is certified and merged. The P1 contract remains pinned to the four exact reviewed revisions above.
 
 
 ## P1 forensic remediation record — 2026-10-17
@@ -45,7 +45,7 @@ The canonical schema, example validation, schema-level outcome consistency, and 
 - OS version-specific provenance on immutable lifecycle versions (PR #133; CI, CodeQL, OpenSSF Scorecard passed).
 - Platform context source-reference preservation (PR #102; CI, CodeQL, Secret Scan, R10 Certification, Reference Agents passed).
 
-The reviewed lock and manifest were then refreshed to the exact merged OS/SDK/Platform revisions and the reviewed TADL/TSIC baseline. This branch must now pass the full TADL CI/security/real-SDK-schema-validation/Ecosystem Integration suite before merge. The final certification update must record the merged lock-refresh commit and its successful workflow run.
+The reviewed lock and manifest were refreshed to the exact merged OS/SDK/Platform revisions and a reviewed TSIC baseline. The final P1 certification evidence below records the successful full TADL CI/security/real-SDK-schema-validation/Ecosystem Integration suite.
 
 P1 does not certify external production deployment. It certifies the canonical transformation contract and its tested cross-repository representation only.
 
@@ -64,3 +64,10 @@ P1 does not certify external production deployment. It certifies the canonical t
 The refreshed lock was exercised against the exact reviewed OS, SDK, Platform and TSIC SHAs recorded above. The ecosystem gate passed the real SDK Transformation serialization/schema validation and the finite phase conformance suite. The separate P1 remediation PRs for OS provenance, Platform context source references, and reference-agent SDK pinning were merged only after their required checks passed.
 
 P1 is certified for the Transformation contract. P2 may now begin, using the same strict rule: audit, fix, test, certify, and merge before advancing.
+
+
+## P1 serial-release reconciliation after P0 — 2026-10-17
+
+P0 is now certified for the reviewed repository baseline and reference integration scope. The TADL lock/manifest closeout merged as `7a85cdcc63efabf4c9b9a0b0371696131aa4a0b4` and pins TSIC implementation commit `9d4361a16ae1a5570eee49d6baf499f61e222a20`. The four transformation implementation SHAs above remain unchanged and match the reviewed lock. The post-merge TADL Ecosystem Integration run [39063986193](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39063986193) passed on that merged TADL revision; all TADL CI, security, CodeQL, secret scan, Scorecard, and release-attestation checks also passed.
+
+P1 is contract-certified and eligible as the completed predecessor to P2. This remains a repository/reference certification; live production infrastructure is explicitly outside this certificate and remains unverified.
