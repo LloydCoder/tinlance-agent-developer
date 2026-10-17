@@ -26,7 +26,7 @@ A valid authenticated principal is not itself authorization. Policy, registered 
 
 ## Executable evidence
 
-The Platform candidate PR [#105](https://github.com/LloydCoder/tinlance-agent-platform/pull/105) adds the concrete `JWKSPrincipalResolver`, a single-host SQLite reference revocation store, and deterministic unit plus local HTTP-boundary tests. The SQLite adapter is not a production multi-instance revocation service; production must inject a shared durable backend.
+Platform PR [#105](https://github.com/LloydCoder/tinlance-agent-platform/pull/105) is merged at `f7ed027a1db33b13594502131784105302cabc09`. It adds the concrete `JWKSPrincipalResolver`, a single-host SQLite reference revocation store, and deterministic unit plus local HTTP-boundary tests. Its pre-merge CI, CodeQL, secret scan, R10 certification and reference-agent checks passed on the exact PR head; post-merge checks and ecosystem certification remain pending. The SQLite adapter is not a production multi-instance revocation service; production must inject a shared durable backend.
 
 The TADL candidate phase gate adds `tests/test_identity_resolver.py` to the locked Platform regression set in addition to JWT verification, authorization enforcement and cryptographic attestation tests. The phase is not certified by source-marker checks alone.
 
