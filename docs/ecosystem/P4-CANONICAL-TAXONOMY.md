@@ -2,7 +2,7 @@
 
 **Owner:** Agent OS catalog layer  
 **Certification scope:** fail-closed validation of the 20K-scale canonical taxonomy release contract and the continuous-evolution invariants.  
-**Status:** implementation candidate; not certified until the OS implementation PR is merged and the exact four-repository ecosystem gate is green.
+**Status:** certified for repository-level taxonomy gate correctness. A real 20,000-entry published inventory is not claimed.
 
 ## Scope and invariants
 
@@ -32,11 +32,35 @@ The tests use synthetic fixtures to prove that the gates reject invalid inventor
 
 ## P4 exit criteria
 
-- [ ] Agent OS implementation PR is merged after all required checks pass on the exact head.
-- [ ] TADL gate is pinned to the exact merged OS SHA and runs every P4-critical test suite.
-- [ ] The four-repository lock and manifest agree on all repository SHAs and the P4 candidate state.
-- [ ] CI, security analysis, architecture checks, and ecosystem conformance are green.
-- [ ] Post-merge evidence is recorded against the exact merged revision.
-- [ ] The phase matrix and manifest are reconciled; P5 remains blocked until P4 is certified.
+- [x] Agent OS implementation PR #134 is merged at `6a37934a2e602c6f31c2c6b943500af92d528f5b` after required checks passed.
+- [x] TADL gate is pinned to the exact merged OS SHA and runs every P4-critical test suite.
+- [x] The four-repository lock and manifest agree on all repository SHAs and the certified P4 state.
+- [x] CI, security analysis, architecture checks, and ecosystem conformance are green.
+- [x] Post-merge evidence is recorded against the exact merged revision.
+- [x] The phase matrix and manifest are reconciled; P5 is the only next phase eligible to begin.
 
 Repository certification is not production deployment certification.
+
+
+## P4 post-merge certification evidence — 2026-10-17
+
+**Agent OS implementation PR:** [#134](https://github.com/LloydCoder/tinlance-agent-os/pull/134)  
+**Merged OS revision:** `6a37934a2e602c6f31c2c6b943500af92d528f5b`
+
+Post-merge OS checks on the exact merged revision:
+- CI: [39070315559](https://github.com/LloydCoder/tinlance-agent-os/actions/runs/39070315559) — success
+- CodeQL: [39070315562](https://github.com/LloydCoder/tinlance-agent-os/actions/runs/39070315562) — success
+- OpenSSF Scorecard: [39070315583](https://github.com/LloydCoder/tinlance-agent-os/actions/runs/39070315583) — success
+
+**TADL candidate certification PR:** [#60](https://github.com/LloydCoder/tinlance-agent-developer/pull/60)  
+**Merged TADL revision:** `a8815a13fd7c37047733bc3388130fa96215999a`
+
+Post-merge TADL checks on the exact merged revision:
+- CI: [39070717902](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717902) — success
+- Ecosystem Integration: [39070717855](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717855) — success
+- Security: [39070717984](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717984) — success
+- Secret Scan: [39070717917](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717917) — success
+- Release Attestations: [39070717893](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717893) — success
+- OpenSSF Scorecard: [39070717883](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39070717883) — success
+
+The gate validates the correctness of the taxonomy release/evolution controls using synthetic fixtures. It does not claim that a real-world reviewed 20,000-entry inventory has been published. External production deployment remains unverified.
