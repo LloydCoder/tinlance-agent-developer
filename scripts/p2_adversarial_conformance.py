@@ -100,13 +100,13 @@ def oversized_content_length(endpoint: str) -> tuple[int, dict[str, object]]:
     host = endpoint.removeprefix("http://").split(":", 1)[0]
     port = int(endpoint.rsplit(":", 1)[1])
     request = (
-        "POST /v1/agent-platform HTTP/1.1\\r\\n"
-        f"Host: {host}:{port}\\r\\n"
-        "Content-Type: application/json\\r\\n"
-        "X-Tinlance-API-Version: 1.1\\r\\n"
-        "X-Request-ID: p2-oversized-content-length\\r\\n"
-        f"Content-Length: {MAX_REQUEST_BYTES + 1}\\r\\n"
-        "Connection: close\\r\\n\\r\\n"
+        "POST /v1/agent-platform HTTP/1.1\r\n"
+        f"Host: {host}:{port}\r\n"
+        "Content-Type: application/json\r\n"
+        "X-Tinlance-API-Version: 1.1\r\n"
+        "X-Request-ID: p2-oversized-content-length\r\n"
+        f"Content-Length: {MAX_REQUEST_BYTES + 1}\r\n"
+        "Connection: close\r\n\r\n"
     ).encode("ascii")
     with socket.create_connection((host, port), timeout=5) as connection:
         connection.sendall(request)
@@ -117,8 +117,8 @@ def oversized_content_length(endpoint: str) -> tuple[int, dict[str, object]]:
                 break
             chunks.append(chunk)
     response = b"".join(chunks)
-    head, _, body = response.partition(b"\\r\\n\\r\\n")
-    status_line = head.split(b"\\r\\n", 1)[0].decode("ascii", errors="replace")
+    head, _, body = response.partition(b"\r\n\r\n")
+    status_line = head.split(b"\r\n", 1)[0].decode("ascii", errors="replace")
     try:
         status = int(status_line.split()[1])
         parsed = json.loads(body.decode("utf-8"))
@@ -127,7 +127,6 @@ def oversized_content_length(endpoint: str) -> tuple[int, dict[str, object]]:
     if not isinstance(parsed, dict):
         raise AssertionError("oversized-request response body must be an object")
     return status, parsed
-
 
 def assert_status(
     actual: int, expected: int, description: str, body: dict[str, object]
