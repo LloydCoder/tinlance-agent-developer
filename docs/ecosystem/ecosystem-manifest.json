@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end production certification. P0 and P1 are certified against reviewed repository/reference evidence. P2 is the only next eligible phase. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not evidence that similarly numbered canonical phases are complete. External production readiness remains unverified.",
+    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end production certification. P0 and P1 are certified against reviewed repository/reference evidence. P2 is the only next eligible phase. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not evidence that similarly numbered canonical phases are complete. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
     "sequence_release": "ready_for_p2"
   }
 }
