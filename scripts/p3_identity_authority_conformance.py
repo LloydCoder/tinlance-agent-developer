@@ -33,7 +33,7 @@ REQUIRED = {
     ),
     "packages/identity/src/tinlance_agent_platform_identity/revocation.py": (
         "is_revoked",
-        "fail",
+        "revoked_tokens",
     ),
     "tests/test_identity_jwt.py": (
         "tenant",
