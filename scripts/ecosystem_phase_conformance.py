@@ -1,11 +1,11 @@
-"""Full ecosystem phase certification for the Tinlance Agent System.
+"""Cross-cutting component regression gate for the Tinlance Agent System.
 
-This gate complements repository-local CI. It verifies that the exact locked
-four-repository baseline still contains executable/documented evidence for
-every finite ecosystem phase P0-P10, including the final replication boundary.
-
-It deliberately distinguishes repository evidence from external production
-infrastructure and never treats descriptive metadata as authority.
+This script runs the P1 Transformation contract checks and supporting
+catalog/runtime/evaluation/control-plane/workforce/replication component suites
+against exact locked repository revisions. These component suites are not, by
+themselves, certification of a similarly numbered canonical ecosystem phase.
+The canonical sequence and its current state are defined by PHASE-MATRIX.md and
+ecosystem-manifest.json. External production infrastructure remains unverified.
 """
 
 from __future__ import annotations
@@ -181,7 +181,7 @@ def phase_p1_transformation() -> None:
     validate_real_sdk_transformation_payload()
 
 
-def phase_p4_catalog() -> None:
+def check_catalog_release_gate() -> None:
     require_file(
         OS,
         "docs/P4-20K-CANONICAL-MILESTONE.md",
@@ -261,11 +261,11 @@ def phase_p4_catalog() -> None:
             "tests/unit/test_catalog_taxonomy.py",
             "tests/unit/test_catalog_pipeline.py",
         ),
-        "P4 catalog",
+        "cross-cutting catalog release gate",
     )
 
 
-def phase_p6_runtime() -> None:
+def check_production_runtime_contract() -> None:
     require_file(
         PLATFORM,
         "docs/production-runtime/P6-PRODUCTION-RUNTIME-CONTRACT.md",
@@ -293,11 +293,11 @@ def phase_p6_runtime() -> None:
             "tests/test_m21_production_infrastructure.py",
             "tests/test_m25_reliability_dr.py",
         ),
-        "P6 runtime",
+        "cross-cutting production-runtime contract",
     )
 
 
-def phase_p7_evaluation() -> None:
+def check_evaluation_safety_gate() -> None:
     require_file(
         PLATFORM,
         "docs/P7-EVALUATION-SAFETY.md",
@@ -316,11 +316,11 @@ def phase_p7_evaluation() -> None:
     run_test_subset(
         PLATFORM,
         ("tests/test_p7_evaluation_safety.py", "tests/test_m24_adversarial_security.py"),
-        "P7 evaluation",
+        "cross-cutting evaluation-safety gate",
     )
 
 
-def phase_p8_control_plane() -> None:
+def check_enterprise_control_plane() -> None:
     require_file(
         PLATFORM,
         "docs/P8-ENTERPRISE-CONTROL-PLANE.md",
@@ -345,11 +345,11 @@ def phase_p8_control_plane() -> None:
             "tests/test_m23_registry_governance.py",
             "tests/test_m27_sre_compliance.py",
         ),
-        "P8 control plane",
+        "cross-cutting enterprise-control-plane gate",
     )
 
 
-def phase_p9_reference_enterprise() -> None:
+def check_reference_enterprise_workforce() -> None:
     require_file(
         PLATFORM,
         "reference_agents/docs/WORKFORCE.md",
@@ -371,21 +371,21 @@ def phase_p9_reference_enterprise() -> None:
             "reference_agents/tests/test_agents.py",
             "reference_agents/tests/test_contract_boundary.py",
         ),
-        "P9 reference workforce",
+        "cross-cutting reference-enterprise workforce",
     )
 
 
-def phase_p10_replication() -> None:
+def check_replication_contract_integrity() -> None:
     manifest = load_json(ROOT, "docs/ecosystem/ecosystem-manifest.json")
     replication = load_json(ROOT, "docs/ecosystem/replication-manifest.json")
     lock = load_json(ROOT, "ecosystem.lock.json")
     if manifest.get("phase") != "P10":
-        FAILURES.append("P10 manifest phase is not P10")
+        FAILURES.append("manifest contract-surface marker must remain P10 for replication artifact validation")
     locked_baseline = lock.get("baseline_id")
     if not isinstance(locked_baseline, str) or not locked_baseline:
         FAILURES.append("ecosystem lock does not declare a baseline ID")
     elif manifest.get("baseline_id") != locked_baseline:
-        FAILURES.append("P10 baseline ID does not match the reviewed ecosystem lock")
+        FAILURES.append("replication contract baseline ID does not match the reviewed ecosystem lock")
     if replication.get("schema") != "replication/v1":
         FAILURES.append("replication manifest schema drifted")
     if replication.get("authority_plane") != "platform":
@@ -428,25 +428,63 @@ def phase_p10_replication() -> None:
     run_node_test_subset(ROOT, ("tests/contract/architecture-boundaries.test.mjs",), "P10 TADL")
 
 
+def validate_canonical_phase_map() -> None:
+    matrix = ROOT / "docs/ecosystem/PHASE-MATRIX.md"
+    if not matrix.is_file():
+        FAILURES.append("canonical phase matrix is missing")
+        return
+    content = matrix.read_text(encoding="utf-8", errors="replace").lower()
+    expected = {
+        "p0": "forensic baseline and reconciliation",
+        "p1": "canonical contracts",
+        "p2": "identity, tenancy",
+        "p3": "event delivery",
+        "p4": "trace context and evidence lineage",
+        "p5": "registries and lifecycle governance",
+        "p6": "model/tool routing and mediation",
+        "p7": "real adapters and integration boundaries",
+        "p8": "budgets, quotas, capacity and cost enforcement",
+        "p9": "mcp/a2a interoperability and security",
+        "p10": "end-to-end recovery and production certification",
+    }
+    for phase, scope in expected.items():
+        if scope not in content:
+            FAILURES.append(f"canonical phase map {phase} scope mismatch; expected {scope!r}")
+    manifest = load_json(ROOT, "docs/ecosystem/ecosystem-manifest.json")
+    state = manifest.get("certification_state", {})
+    if not isinstance(state, dict):
+        FAILURES.append("canonical certification state is missing")
+        return
+    if state.get("sequence_release") not in {
+        "ready_for_p2", "p2_in_progress", "ready_for_p3", "p3_in_progress",
+        "ready_for_p4", "p4_in_progress", "ready_for_p5", "p5_in_progress",
+        "ready_for_p6", "p6_in_progress", "ready_for_p7", "p7_in_progress",
+        "ready_for_p8", "p8_in_progress", "ready_for_p9", "p9_in_progress",
+        "ready_for_p10", "p10_in_progress", "p10_complete",
+    }:
+        FAILURES.append("canonical sequence release state is invalid or still uses the legacy phase map")
+
+
 def main() -> int:
-    # P0 is the enclosing manifest/lock gate; P2/P3/P5 have dedicated
-    # certification scripts in the existing workflow. This script closes the
-    # previously missing P1/P4/P6/P7/P8/P9/P10 coverage.
+    # This is a supporting component regression gate, not a substitute for
+    # the serial canonical phase-specific exit gate.
+    validate_canonical_phase_map()
     phase_p1_transformation()
-    phase_p4_catalog()
-    phase_p6_runtime()
-    phase_p7_evaluation()
-    phase_p8_control_plane()
-    phase_p9_reference_enterprise()
-    phase_p10_replication()
+    check_catalog_release_gate()
+    check_production_runtime_contract()
+    check_evaluation_safety_gate()
+    check_enterprise_control_plane()
+    check_reference_enterprise_workforce()
+    check_replication_contract_integrity()
 
     if FAILURES:
-        print("full ecosystem phase certification: FAIL")
+        print("ecosystem component regression gate: FAIL")
         for failure in FAILURES:
             print(f"- {failure}")
         return 1
-    print("full ecosystem phase certification: PASS")
-    print("P1/P4/P6/P7/P8/P9/P10 are green against the locked four-repository baseline.")
+    print("ecosystem component regression gate: PASS")
+    print("P1 Transformation and supporting component regression suites passed against the locked baseline.")
+    print("Canonical P2-P10 completion still requires its own phase-specific gates and post-phase audits.")
     return 0
 
 

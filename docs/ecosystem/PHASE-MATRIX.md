@@ -1,66 +1,74 @@
-# Tinlance Agent System — Finite Phase Certification Matrix
+# Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
-**Baseline:** ecosystem certification sequence P0–P10 / 2026-10-17
+**Canonical sequence:** P0–P10  
+**Baseline:** ecosystem-p0-p1-canonical-sequence-2026-10-17  
+**Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
-## Phase namespace and current certification state
+## Phase namespace and current state
 
-The ecosystem P0–P10 sequence below is the release/certification sequence across TADL, Agent OS, Platform SDK, and Agent Platform. It is distinct from the **TADL internal implementation phases** documented under `docs/architecture/PHASE-0.md` through `PHASE-10.md`. The internal phase numbers describe the TADL artifact/tooling build; they are not aliases for ecosystem P0–P10. This distinction prevents the same phase number from being interpreted as the same deliverable in different sequences.
+The ecosystem certification sequence is distinct from:
+- TADL's internal artifact/tooling implementation phases;
+- repository-specific milestones such as Platform M13/M23 or SDK M0–M11;
+- TSIC's independent system-of-systems certification sequence TSIC-00…TSIC-19;
+- cross-cutting capability suites such as taxonomy release, team delegation, evaluation, and reference-workforce checks.
 
-As of 2026-10-17, the evidence ledger is:
+Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-- **P0 — certified:** reviewed four-repository lock, authority/phase namespace reconciliation, TSIC exact-SHA reference E2E, evidence ledger, and required CI/security/ecosystem checks passed on reviewed commits. Live production remains unverified.
-- **P1 — certified:** canonical Transformation contract is certified against the reviewed four-repository revisions. P0 is now closed, so the next serial phase is P2. See `docs/ecosystem/P1-TRANSFORMATION.md` for exact reviewed SHAs and workflow evidence.
-- **P2–P10 — not yet certified in this serial release sequence:** implementation artifacts or older workflow records may exist, but no phase may be advanced solely because a repository file or legacy registry says it is complete. Each phase must satisfy the gate and post-phase audit defined here.
+As of 2026-10-17, P0 and P1 are certified for the reviewed repository/reference scope. P2–P10 remain not started in this canonical sequence until each phase's own exit gate passes. External production deployment remains unverified.
 
-The TSIC TSIC-00…TSIC-19 integration registry is a separate system-of-systems certification sequence. It must not be treated as the same numbering as ecosystem P0–P10. Crosswalks between the two sequences must identify exact requirement IDs and evidence rather than assuming numeric equivalence.
+## Canonical phase sequence
 
-
-The manifest's `phase: "P10"` field is retained as a **contract-surface scope marker** because the validator must also validate the replication/v1 artifacts. It is not a claim that ecosystem P10 is certified. `certification_state` is the authoritative serial release ledger: P0 and P1 are now certified, `sequence_release` is `ready_for_p2`, and P2–P10 remain `not_started` until their own gates pass.
-
-
-This matrix is the ecosystem-level release map for the four repositories. A
-phase is not considered ecosystem-complete merely because one repository says
-it is complete: the phase must have an owner, executable evidence, and a
-cross-repository gate where the phase crosses repository boundaries.
-
-| Phase | Primary owner | Scope | Cross-repo gate |
+| Phase | Scope | Primary ownership | Minimum exit evidence |
 |---|---|---|---|
-| P0 | TADL | Four-repository lock, manifest, authority boundary | `validate-ecosystem-manifest.mjs` + ecosystem workflow |
-| P1 | TADL + all four | Transformation contract from declaration to outcome | `ecosystem_phase_conformance.py` |
-| P2 | TADL + Platform | Governed execution and adversarial boundary | `p2_adversarial_conformance.py` |
-| P3 | Platform | Agent identity and authority | `p3_identity_authority_conformance.py` |
-| P4 | Agent OS | 20K-scale canonical taxonomy gate and continuous evolution | `ecosystem_phase_conformance.py` + OS catalog tests |
-| P5 | OS + Platform | Attenuated teams and delegation | `p5_team_delegation_conformance.py` |
-| P6 | Platform | Production-runtime readiness contract | `ecosystem_phase_conformance.py` + runtime tests |
-| P7 | Platform | Continuous evaluation and safety gates | `ecosystem_phase_conformance.py` + evaluation/security tests |
-| P8 | Platform | Enterprise control plane | `ecosystem_phase_conformance.py` + control-plane tests |
-| P9 | Platform | Reference enterprise workforce | `ecosystem_phase_conformance.py` + workforce tests |
-| P10 | TADL + all four | Parameterized replication and Agent System GA | `ecosystem_phase_conformance.py` + replication manifest |
-
-## Completion semantics
-
-The finite sequence ends at P10. After P10, new work enters continuous
-assurance: protocol updates, vulnerability response, interoperability,
-performance/economic tuning, new reference workloads, independent assessment,
-and compatibility maintenance.
-
-A green repository workflow proves the checks executed by that workflow. It
-does not prove that external PostgreSQL, KMS/HSM, secret-management,
-sandbox, telemetry, backup/restore, incident-response, or independent
-assessment infrastructure exists outside the repositories.
+| P0 | Forensic baseline and reconciliation | TADL + TSIC, all four implementation repos | Reviewed four-repo lock; authority and phase namespace reconciled; PR inventory disposition; stale phase claims reconciled; exact-SHA CI/security/conformance evidence; explicit external-deployment limitations |
+| P1 | Canonical contracts | TADL + OS + SDK + Platform | Versioned canonical schemas; lossless typed representations; contract and compatibility tests; real SDK payload validated against canonical schema; all four repos green and pinned |
+| P2 | Identity, tenancy, authentication and authorization | Platform, with OS/SDK/TADL consumers | Issuer/audience/expiry/revocation checks; tenant isolation; subject and workload identity; fail-closed authorization; cross-tenant adversarial tests; no duplicate authority in OS/SDK |
+| P3 | Event delivery and durability | Platform, with OS/SDK consumers | Canonical event envelope; outbox/inbox semantics; deduplication/idempotency; retries, ordering scope, dead-letter/replay and restart recovery; exact cross-repo tests |
+| P4 | Trace context and evidence lineage | Platform + OS + SDK + TSIC | W3C trace context propagation; request/task/run/span correlation; evidence provenance and integrity; audit lineage; failure/retry trace tests; no invented or orphaned evidence |
+| P5 | Registries and lifecycle governance | OS + Platform + TADL; SDK typed surface where applicable | Publisher/resource identity; immutable versions/digests; provenance/SBOM/signature references; compatibility; quarantine/revocation/deprecation; registry metadata cannot grant authority |
+| P6 | Model/tool routing and mediation | Platform | Policy-aware route selection; capability/model/provider compatibility; budget/risk-aware decisions; fallback/retry boundaries; decision evidence; no bypass of Platform authority |
+| P7 | Real adapters and integration boundaries | Platform + SDK + OS; TSIC certification | Real adapter contracts and error normalization; identity/trace propagation; timeouts, retries and cancellation; untrusted-input isolation; contract tests against real or deterministic provider-compatible endpoints |
+| P8 | Budgets, quotas, capacity and cost enforcement | Platform, with OS/SDK consumers | Atomic budget reservation/settlement; tenant/org limits; concurrency and capacity caps; cancellation/refund semantics; overrun and race tests; auditable cost evidence |
+| P9 | MCP/A2A interoperability and security | Platform + SDK + OS + TSIC | Authenticated protocol entry points; scoped identity and tenant propagation; Origin/SSRF protections where applicable; protocol-version compatibility; remote-agent trust; approval and tool authority enforced by Platform |
+| P10 | End-to-end recovery and production certification | All four repos + TSIC | Exact-SHA system-of-systems execution; multi-tenant positive/negative paths; event, trace, evidence, registry, routing, adapter and budget integration; failure injection/restart/replay; operational and external-deployment evidence clearly separated |
 
 ## Authority invariant
 
-`effective authority = authenticated principal ∩ tenant ∩ registered capability
-∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret
-scope ∩ execution context`
+`effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context`
 
-Descriptive declarations, memory, retrieved data, catalog entries, model
-output, tool output, MCP metadata, A2A messages, evaluations, attestations,
-and transformation outcomes do not independently grant authority.
+Agent Platform is the sole consequential-execution and authorization authority. Agent OS owns workspace/session/task/workflow lifecycle composition. SDK transports typed contracts and opaque authoritative results. TADL declares, validates and packages artifacts. TSIC defines integration contracts and certifies conformance; it is not a runtime.
+
+Declarations, memory, retrieved content, model output, tool output, catalog entries, registry metadata, MCP metadata, A2A messages, evaluations and transformation outcomes do not independently grant authority.
+
+## Crosswalk for existing capability suites
+
+Existing code contains valuable gates whose historical filenames used numbers from a different phase map. They remain useful regression suites but **do not certify the similarly numbered canonical phase**:
+
+- Agent Catalog 20K taxonomy, semantic uniqueness and evolution controls: cross-cutting catalog release gate; not canonical P4.
+- Team graph/delegation and attenuated child authority: cross-cutting delegation gate; not canonical P5.
+- Platform production-runtime, evaluation-safety, enterprise-control-plane and reference-workforce suites: component-level readiness gates to be assigned as evidence to the relevant canonical phase; none alone certifies P6–P10.
+- Replication manifest and deterministic replica checks: supporting P10 evidence, not production certification by themselves.
+- Existing adversarial and identity scripts are regression suites. Canonical P2 is identity/tenancy; canonical P3 is event delivery; canonical P4 is trace/evidence lineage. Their gates must be explicitly wired to those scopes before the corresponding phase is certified.
+
+The implementation may reuse existing code and tests, but the canonical phase owner must reconcile their semantics, run them against exact locked SHAs, and add any missing cross-repository integration or adversarial evidence. No phase status is inherited merely because a legacy script passes.
+
+## Serial release rules
+
+1. Only the first uncertified phase may be in progress.
+2. A phase is complete only when its implementation, focused tests, cross-repository conformance, applicable security checks, failure/recovery evidence, documentation, lock and manifest are reconciled and merged.
+3. CI must be green on the exact reviewed PR head before merge and post-merge checks must be green on the merge commit.
+4. The post-phase forensic audit records actual evidence, limitations, and unresolved risks.
+5. A passing repository workflow does not prove external production infrastructure is deployed. Live persistence, KMS/HSM or secret manager, sandbox fleet, telemetry, backup/restore, incident response, capacity and production identity remain unverified until directly evidenced.
 
 ## Standards watch
 
-The design is maintained against the current NIST agent identity/authorization
-work, OWASP Top 10 for Agentic Applications 2026, MCP 2026-07-28, and A2A 1.0.x.
-Protocol versions are compatibility inputs, not authority sources.
+Use stable, versioned standards as compatibility inputs, not as authority sources:
+- W3C Trace Context and OpenTelemetry context propagation for P4.
+- CloudEvents semantics or a documented compatible envelope for P3, including producer-scoped event identity and duplicate detection.
+- OCI distribution/artifact digest and referrer concepts as relevant to P5 supply-chain metadata.
+- Current MCP Streamable HTTP and authorization specifications plus a versioned A2A release for P9. Validate `Origin`, authentication, transport security and server-side tool authorization.
+- OpenSSF supply-chain controls for immutable CI dependencies, provenance and attestations.
+
+## Current release state
+
+P0 and P1 are certified for the reviewed repository/reference scope only. P2 is the next eligible phase. P2–P10 must remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.

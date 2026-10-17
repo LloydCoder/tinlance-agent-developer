@@ -37,3 +37,26 @@ test("P1 transformation requires provenance and rejects contradictory achieved o
     false
   );
 });
+
+
+test("canonical ecosystem phase map uses the approved P0-P10 sequence", () => {
+  const matrix = fs.readFileSync("docs/ecosystem/PHASE-MATRIX.md", "utf8");
+  const expected = [
+    "P0 | Forensic baseline and reconciliation",
+    "P1 | Canonical contracts",
+    "P2 | Identity, tenancy, authentication and authorization",
+    "P3 | Event delivery and durability",
+    "P4 | Trace context and evidence lineage",
+    "P5 | Registries and lifecycle governance",
+    "P6 | Model/tool routing and mediation",
+    "P7 | Real adapters and integration boundaries",
+    "P8 | Budgets, quotas, capacity and cost enforcement",
+    "P9 | MCP/A2A interoperability and security",
+    "P10 | End-to-end recovery and production certification",
+  ];
+  for (const scope of expected) assert.ok(matrix.includes(scope), `missing canonical scope: ${scope}`);
+  assert.ok(matrix.includes("do not certify the similarly numbered canonical phase"));
+  const manifest = JSON.parse(fs.readFileSync("docs/ecosystem/ecosystem-manifest.json", "utf8"));
+  assert.equal(manifest.certification_state.sequence, "ecosystem-p0-p10");
+  assert.equal(manifest.certification_state.production, "unverified");
+});

@@ -1,4 +1,4 @@
-"""P5 team/delegation conformance against locked OS and Platform revisions."""
+"""Cross-cutting team/delegation regression against locked OS and Platform revisions. Delegation is not canonical ecosystem P5."""
 
 from pathlib import Path
 
@@ -39,8 +39,8 @@ def main() -> None:
             if marker.lower() not in content:
                 failures.append(f"{path}: missing {marker!r}")
     if failures:
-        raise SystemExit("P5 team/delegation certification failed:\n" + "\n".join(failures))
-    print("P5 team/delegation certification: PASS")
+        raise SystemExit("team/delegation regression failed:\n" + "\n".join(failures))
+    print("cross-cutting team/delegation regression: PASS")
 
 
 if __name__ == "__main__":

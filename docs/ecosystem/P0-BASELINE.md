@@ -1,7 +1,7 @@
 # P0 — Ecosystem Forensic Baseline
 
-**Status:** CERTIFIED — reviewed structural/reference baseline; external production readiness remains unverified  
-**Baseline ID:** `p0-2026-10-17`  
+**Status:** CERTIFIED — canonical phase map, reviewed structural/reference baseline; external production readiness remains unverified  
+**Baseline ID:** `ecosystem-p0-p1-canonical-sequence-2026-10-17`  
 **Phase:** P0 — Ecosystem Forensic Baseline
 
 ## Purpose
@@ -65,7 +65,7 @@ P0 records alignment with NIST's current agent identity/authorization and intero
 
 P0 is complete only when this manifest validates, the TADL CI gate is green, the ecosystem conformance workflow is green against the reviewed baseline, and the four repositories remain within their authority boundaries.
 
-P1 may not start before those conditions are met.
+P1 may not start before those conditions are met. P1 Transformation is separately certified against its exact reviewed four-repository revisions.
 
 
 ## Phase sequence namespace
@@ -79,7 +79,7 @@ This P0 is the **ecosystem release baseline** and is governed by `docs/ecosystem
 - **Post-merge evidence PR #63:** merged as `957f52399cf6cefea8e8fa4c24bc64a06a99c966`; it pins the phase evidence ledger to the reviewed TSIC implementation SHA and exact successful workflow run IDs.
 - **TADL lock/manifest PR #53:** merged as `7a85cdcc63efabf4c9b9a0b0371696131aa4a0b4`; the lock pins the reviewed TSIC implementation SHA, and the manifest now explicitly records P0/P1 certification and the serial gate to P2.
 - TADL CI, Security, Secret Scan, CodeQL, Release Attestations, Scorecard and Ecosystem Integration passed on the merged TADL SHA. [Ecosystem Integration](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39063986193).
-- The phase matrix distinguishes ecosystem P0–P10 from TADL internal phases and TSIC-00…TSIC-19. The manifest validator fails closed if downstream phases are marked active/certified while P0 is open.
+- The canonical phase matrix distinguishes ecosystem P0–P10 from TADL internal phases and TSIC-00…TSIC-19. It now defines P0 baseline/reconciliation; P1 contracts; P2 identity/tenancy; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end production certification. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not phase completion claims. The manifest validator fails closed if downstream phases are marked active/certified while P0 is open.
 - The protected live Platform smoke workflow exists, but it has not been dispatched. Therefore live deployment, production identity, persistence, secrets, sandbox isolation, backup/restore and incident-response readiness remain **unverified** and are not included in this P0 certification.
 
-P0 is complete for the **repository baseline, reviewed lock, structural checks, and reference integration evidence**. P1 Transformation is already certified. The next serial phase is P2; it must pass its own implementation, adversarial, cross-repository, CI/security and forensic exit gate before P3 can start.
+P0 is complete for the **canonical phase-map reconciliation, repository baseline, reviewed lock, structural checks, and reference integration evidence**. P1 Transformation is already certified. The next serial phase is P2 identity/tenancy; it must pass its own implementation, adversarial, cross-repository, CI/security and forensic exit gate before P3 event delivery can start.
