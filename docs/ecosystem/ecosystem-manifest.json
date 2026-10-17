@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "tsic-19-agent-system-p3-2026-10-17",
+  "baseline_id": "tsic-19-agent-system-p4-candidate-2026-10-17",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -23,7 +23,7 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "fa895ac047a94e9bf87234dbaaca44d70ef43efc"
+      "reviewed_sha": "6a37934a2e602c6f31c2c6b943500af92d528f5b"
     },
     {
       "id": "platform_sdk",
@@ -104,7 +104,7 @@
     "p1": "certified",
     "p2": "certified",
     "p3": "certified",
-    "p4": "not_started",
+    "p4": "in_progress",
     "p5": "not_started",
     "p6": "not_started",
     "p7": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. certification_state is the authoritative release-gate status. P0-P3 are certified against the reviewed four-repository lock and post-merge CI/security/ecosystem evidence. P4 is the only next phase eligible to begin. External production readiness remains unverified.",
-    "sequence_release": "ready_for_p4"
+    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. P0-P3 are certified against reviewed four-repository locks and post-merge evidence. P4 is in candidate validation against the exact merged Agent OS taxonomy implementation; P5-P10 remain blocked until P4 post-merge certification. External production readiness remains unverified.",
+    "sequence_release": "p4_in_progress"
   }
 }
