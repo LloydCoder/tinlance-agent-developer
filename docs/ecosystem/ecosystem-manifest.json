@@ -113,6 +113,6 @@
     "p10": "not_started",
     "production": "unverified",
     "note": "P0-P3 are certified against reviewed four-repository locks and post-merge evidence. P4 is in candidate validation against the exact merged Agent OS taxonomy implementation; P5-P10 remain blocked until P4 post-merge certification. External production readiness remains unverified.",
-    "sequence_release": "p4_candidate_validation"
+    "sequence_release": "p4_in_progress"
   }
 }
