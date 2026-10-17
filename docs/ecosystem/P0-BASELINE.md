@@ -1,6 +1,6 @@
 # P0 — Ecosystem Forensic Baseline
 
-**Status:** implementation baseline  
+**Status:** IN PROGRESS — not certified green until the reviewed lock, cross-repository phase namespace, authority boundary, and TSIC structural/reference gates pass on the exact reviewed revisions  
 **Baseline ID:** `p0-2026-10-07`  
 **Phase:** P0 — Ecosystem Forensic Baseline
 
@@ -66,3 +66,8 @@ P0 records alignment with NIST's current agent identity/authorization and intero
 P0 is complete only when this manifest validates, the TADL CI gate is green, the ecosystem conformance workflow is green against the reviewed baseline, and the four repositories remain within their authority boundaries.
 
 P1 may not start before those conditions are met.
+
+
+## Phase sequence namespace
+
+This P0 is the **ecosystem release baseline** and is governed by `docs/ecosystem/PHASE-MATRIX.md`. It is not the TADL-internal implementation Phase 0 documented under `docs/architecture/PHASE-0.md`. Internal TADL phase documents explicitly identify their namespace so their numbering cannot be mistaken for ecosystem P0–P10.
