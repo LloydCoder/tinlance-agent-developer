@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p0-p1-canonical-sequence-2026-10-17",
+  "baseline_id": "ecosystem-p2-identity-tenancy-2026-10-17",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -37,7 +37,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "1cd2cd2c32628ce5079979b935ed346bebd4733c"
+      "reviewed_sha": "f7ed027a1db33b13594502131784105302cabc09"
     }
   ],
   "gate": {
@@ -102,7 +102,7 @@
     "sequence": "ecosystem-p0-p10",
     "p0": "certified",
     "p1": "certified",
-    "p2": "not_started",
+    "p2": "in_progress",
     "p3": "not_started",
     "p4": "not_started",
     "p5": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end production certification. P0 and P1 are certified against reviewed repository/reference evidence. P2 is the only next eligible phase. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not evidence that similarly numbered canonical phases are complete. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
-    "sequence_release": "ready_for_p2"
+    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0 and P1 are certified against reviewed repository/reference evidence. P2 identity/tenancy is in progress against the exact merged Platform identity resolver and revocation implementation; later phases remain not_started. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not evidence that similarly numbered canonical phases are complete. External production readiness remains unverified.",
+    "sequence_release": "p2_in_progress"
   }
 }
