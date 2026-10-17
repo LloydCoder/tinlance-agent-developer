@@ -11,7 +11,7 @@
 | TADL / developer | Pending this PR's merge SHA; record the exact SHA in the post-merge certification update. |
 | Agent OS | `dd2119e4ace0bd0ca5dbae083badbb5d9909670b` |
 | Platform SDK | `61712794078b967aa84e3db21dd006b19136bcba` |
-| Agent Platform | `eaa0dc1ffa01e378705674f8d8715afb4a5cd6d0` |
+| Agent Platform | `c294acad0489e1165e2a3d89dcbcf24c21639d5e` |
 
 ## Certified contract
 
