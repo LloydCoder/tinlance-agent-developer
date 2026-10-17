@@ -88,6 +88,16 @@ def phase_p1_transformation() -> None:
     require_file(ROOT, "schemas/examples/transformation.v1.json", "outcome")
     require_file(OS, "src/tinlance_agent_os/transformation.py", "Transformation")
     require_file(SDK, "src/tinlance_agent_platform_sdk/transformation.py", "Transformation")
+    sdk_transformation = SDK / "src/tinlance_agent_platform_sdk/transformation.py"
+    if sdk_transformation.is_file():
+        sdk_source = sdk_transformation.read_text(encoding="utf-8", errors="replace")
+        for marker in ('"provenance"', '"declared_by"', '"recorded_at"'):
+            if marker not in sdk_source:
+                FAILURES.append(f"SDK Transformation serializer is missing canonical provenance marker {marker}")
+        if '"constraints": {}' in sdk_source:
+            FAILURES.append("SDK Transformation serializer drops caller-supplied constraints")
+        if 'if self.achieved and self.status != "achieved"' not in sdk_source:
+            FAILURES.append("SDK Transformation outcome permits achieved=true with a non-achieved status")
     require_file(
         PLATFORM,
         "packages/contracts/src/tinlance_agent_platform_contracts/transformation.py",
