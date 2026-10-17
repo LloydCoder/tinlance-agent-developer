@@ -8,6 +8,7 @@ infrastructure certification.
 from __future__ import annotations
 
 import json
+import socket
 import sys
 import threading
 import urllib.error
@@ -91,6 +92,41 @@ def post(
             return response.status, json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         return exc.code, json.loads(exc.read().decode("utf-8"))
+
+
+
+def oversized_content_length(endpoint: str) -> tuple[int, dict[str, object]]:
+    """Assert header-level size rejection without streaming a megabyte to the server."""
+    host = endpoint.removeprefix("http://").split(":", 1)[0]
+    port = int(endpoint.rsplit(":", 1)[1])
+    request = (
+        "POST /v1/agent-platform HTTP/1.1\\r\\n"
+        f"Host: {host}:{port}\\r\\n"
+        "Content-Type: application/json\\r\\n"
+        "X-Tinlance-API-Version: 1.1\\r\\n"
+        "X-Request-ID: p2-oversized-content-length\\r\\n"
+        f"Content-Length: {MAX_REQUEST_BYTES + 1}\\r\\n"
+        "Connection: close\\r\\n\\r\\n"
+    ).encode("ascii")
+    with socket.create_connection((host, port), timeout=5) as connection:
+        connection.sendall(request)
+        chunks: list[bytes] = []
+        while True:
+            chunk = connection.recv(4096)
+            if not chunk:
+                break
+            chunks.append(chunk)
+    response = b"".join(chunks)
+    head, _, body = response.partition(b"\\r\\n\\r\\n")
+    status_line = head.split(b"\\r\\n", 1)[0].decode("ascii", errors="replace")
+    try:
+        status = int(status_line.split()[1])
+        parsed = json.loads(body.decode("utf-8"))
+    except (IndexError, ValueError, json.JSONDecodeError) as exc:
+        raise AssertionError(f"invalid oversized-request response: {response[:500]!r}") from exc
+    if not isinstance(parsed, dict):
+        raise AssertionError("oversized-request response body must be an object")
+    return status, parsed
 
 
 def assert_status(
@@ -185,12 +221,8 @@ def main() -> None:
         )
         assert_status(status, 415, "non-JSON request", body)
 
-        status, body = post(
-            endpoint,
-            operation="health",
-            raw_body=b"x" * (MAX_REQUEST_BYTES + 1),
-        )
-        assert_status(status, 413, "oversized request", body)
+        status, body = oversized_content_length(endpoint)
+        assert_status(status, 413, "oversized Content-Length", body)
 
         # Real registered agent, run lifecycle, and HTTP idempotency semantics.
         create_payload = {
@@ -298,7 +330,7 @@ def main() -> None:
             operation="tools.execute",
             payload=tool_payload,
             token=AUTHORIZED_TOKEN,
-            idempotency_key="p2-risk-downgrade-execution-0001",
+            idempotency_key=f"test-risk-downgrade-{uuid4()}",
         )
         assert_status(status, 409, "critical tool risk downgrade", downgraded)
         assert downgraded.get("error") == ExecutionErrorCode.AUTHORIZATION_DENIED.value
@@ -314,7 +346,7 @@ def main() -> None:
             operation="tools.execute",
             payload=correctly_classified,
             token=AUTHORIZED_TOKEN,
-            idempotency_key="p2-critical-execution-0001",
+            idempotency_key=f"test-critical-execution-{uuid4()}",
         )
         assert_status(status, 200, "critical action without approval", gated)
         execution = gated.get("payload", {})
