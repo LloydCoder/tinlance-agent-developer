@@ -100,7 +100,7 @@
   },
   "certification_state": {
     "sequence": "ecosystem-p0-p10",
-    "p0": "in_progress",
+    "p0": "certified",
     "p1": "certified",
     "p2": "not_started",
     "p3": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. Certification status and release sequencing are recorded here.",
-    "sequence_release": "blocked_at_p0"
+    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. certification_state is the authoritative release-gate status. P0 is certified against the reviewed lock and reference workflows; external production readiness remains unverified.",
+    "sequence_release": "ready_for_p2"
   }
 }
