@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p2-identity-tenancy-2026-10-17  
+**Baseline:** ecosystem-p3-event-delivery-2026-10-17  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-17, P0, P1 and P2 are certified for the reviewed repository/reference scope. P3 event delivery/durability is the next eligible phase; P4–P10 remain not started until each prior phase's own exit gate passes. External production deployment remains unverified.
+As of 2026-10-17, P0, P1 and P2 are certified for the reviewed repository/reference scope. P3 event delivery/durability is in progress; P4–P10 remain not started until each prior phase's own exit gate passes. External production deployment remains unverified.
 
 ## Canonical phase sequence
 
@@ -71,4 +71,4 @@ Use stable, versioned standards as compatibility inputs, not as authority source
 
 ## Current release state
 
-P0, P1 and P2 are certified for the reviewed repository/reference scope only. P3 event delivery/durability is the next eligible phase; P4–P10 remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.
+P0, P1 and P2 are certified for the reviewed repository/reference scope only. P3 event delivery/durability is the only phase in progress; P4–P10 remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.
