@@ -8,8 +8,8 @@ const files=[
 "schemas/capability/v1/capability.schema.json","schemas/agent/v1/agent.schema.json",
 "schemas/workflow/v1/workflow.schema.json","schemas/harness/v1/harness.schema.json",
 "schemas/evaluation/v1/evaluation.schema.json","schemas/provenance/v1/provenance.schema.json",
-"schemas/registry/v1/registry.schema.json","schemas/transformation/v1/transformation.schema.json"];
-test("all Phase 0 schemas use JSON Schema 2020-12",()=>{
+"schemas/registry/v1/registry.schema.json","schemas/transformation/v1/transformation.schema.json","schemas/event-envelope/v1/event-envelope.schema.json"];
+test("all canonical schemas use JSON Schema 2020-12",()=>{
  for(const f of files){const s=JSON.parse(fs.readFileSync(f,"utf8"));assert.equal(s.$schema,"https://json-schema.org/draft/2020-12/schema",f);}
 });
 
@@ -59,4 +59,31 @@ test("canonical ecosystem phase map uses the approved P0-P10 sequence", () => {
   const manifest = JSON.parse(fs.readFileSync("docs/ecosystem/ecosystem-manifest.json", "utf8"));
   assert.equal(manifest.certification_state.sequence, "ecosystem-p0-p10");
   assert.equal(manifest.certification_state.production, "unverified");
+});
+
+
+test("P3 canonical event envelope example conforms to the versioned schema", () => {
+  const example = JSON.parse(fs.readFileSync("schemas/examples/event-envelope.v1.json", "utf8"));
+  const result = validateArtifact("event-envelope/v1/event-envelope.schema.json", example);
+  assert.equal(result.valid, true, JSON.stringify(result.errors));
+});
+
+test("P3 event envelope rejects missing tenant context, invalid trace IDs and undeclared fields", () => {
+  const example = JSON.parse(fs.readFileSync("schemas/examples/event-envelope.v1.json", "utf8"));
+  const missingTenant = { ...example };
+  delete missingTenant.tenantid;
+  assert.equal(
+    validateArtifact("event-envelope/v1/event-envelope.schema.json", missingTenant).valid,
+    false
+  );
+  const zeroTrace = { ...example, traceid: "0".repeat(32) };
+  assert.equal(
+    validateArtifact("event-envelope/v1/event-envelope.schema.json", zeroTrace).valid,
+    false
+  );
+  const undeclared = { ...example, auth_token: "must-not-be-in-event" };
+  assert.equal(
+    validateArtifact("event-envelope/v1/event-envelope.schema.json", undeclared).valid,
+    false
+  );
 });
