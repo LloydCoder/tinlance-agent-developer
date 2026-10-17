@@ -34,6 +34,6 @@ test("P1 transformation requires provenance and rejects contradictory achieved o
   };
   assert.equal(
     validateArtifact("transformation/v1/transformation.schema.json", contradictory).valid,
-    true
+    false
   );
 });
