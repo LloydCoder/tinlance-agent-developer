@@ -52,6 +52,31 @@ if (!platform || !platform.authority.includes("sole authority")) fail("Platform 
 if (!manifest.authority_law.includes("authenticated principal") || !manifest.authority_law.includes("execution context")) {
   fail("effective-authority invariant is incomplete");
 }
+
+const certification = manifest.certification_state;
+const allowedStatuses = new Set(["not_started", "in_progress", "certified"]);
+if (!certification || certification.sequence !== "ecosystem-p0-p10") {
+  fail("explicit ecosystem P0-P10 certification state is missing");
+}
+if (certification.production !== "unverified") {
+  fail("production readiness cannot be asserted by repository-only certification");
+}
+for (let phase = 0; phase <= 10; phase += 1) {
+  const key = `p${phase}`;
+  if (!allowedStatuses.has(certification[key])) fail(`invalid certification status: ${key}`);
+}
+if (certification.p0 !== "certified" && certification.sequence_release !== "blocked_at_p0") {
+  fail("serial release must remain blocked while P0 is not certified");
+}
+if (certification.p0 === "certified" && certification.p1 !== "certified") {
+  fail("P1 contract must be certified before releasing P2");
+}
+if (certification.p0 === "certified" && certification.sequence_release !== "ready_for_p2") {
+  fail("serial release state must advance to P2 only after P0 and P1 are certified");
+}
+if (manifest.phase === "P10" && !String(certification.note || "").includes("contract-surface")) {
+  fail("manifest phase scope must not be confused with certification status");
+}
 if (manifest.phase === "P1" && manifest.contracts.transformation_schema !== "transformation/v1") fail("P1 transformation contract version is missing");
 if (manifest.phase === "P1" && !manifest.transformation_contract) fail("P1 transformation contract manifest is missing");
 if (manifest.phase === "P10") {
