@@ -84,8 +84,8 @@ jobs:
       - name: Run governed-execution adversarial regression (cross-cutting)
         run: python scripts/p2_adversarial_conformance.py
 
-      - name: Run canonical P2 identity and tenancy regression
-        run: python scripts/p3_identity_authority_conformance.py
+      - name: Run canonical P2 identity and tenancy conformance
+        run: python scripts/p2_identity_tenancy_conformance.py
 
       - name: Run cross-cutting team delegation regression
         run: python scripts/p5_team_delegation_conformance.py
