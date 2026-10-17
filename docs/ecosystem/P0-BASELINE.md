@@ -1,7 +1,7 @@
 # P0 — Ecosystem Forensic Baseline
 
 **Status:** CERTIFIED — canonical phase map, reviewed structural/reference baseline; external production readiness remains unverified  
-**Baseline ID:** `ecosystem-p0-p1-canonical-sequence-2026-10-17`  
+**Initial P0 baseline ID:** `ecosystem-p0-p1-canonical-sequence-2026-10-17` (historical; the ecosystem lock advances to a new baseline ID for each active phase).  
 **Phase:** P0 — Ecosystem Forensic Baseline
 
 ## Purpose
