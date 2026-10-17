@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "tsic-19-agent-system-2026-10-08",
+  "baseline_id": "tsic-19-agent-system-2026-10-17",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -16,7 +16,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "4fac75ba9f14d438d045b877685b2695b4da2c5b"
+      "reviewed_sha": "25fac21a8912bf58f0a9fc65e6ed1cbede70bbee"
     },
     {
       "id": "os",
@@ -37,7 +37,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "4f524c51f24ace3fa96b5f2fbd716d0270c16aae"
+      "reviewed_sha": "9125f46f526030fdeced492b6df281c4745f77e9"
     }
   ],
   "gate": {
@@ -57,7 +57,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "bdb5b7f9f2295562ad8681c591a8a927500b4d8c",
+    "ref": "619db9e264cdc71369de621c981bfc2ba1615a1d",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
