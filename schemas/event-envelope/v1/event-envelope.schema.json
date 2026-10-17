@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.tinlance.com/event-envelope/v1/event-envelope.schema.json",
+  "title": "Tinlance CloudEvents-compatible Event Envelope v1",
+  "description": "Versioned event envelope for durable, tenant-scoped event delivery across the Tinlance Agent System. Required extension attributes bind events to tenant, execution, trace and correlation context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "specversion",
+    "id",
+    "source",
+    "type",
+    "time",
+    "subject",
+    "datacontenttype",
+    "tenantid",
+    "executionid",
+    "traceid",
+    "correlationid",
+    "data"
+  ],
+  "properties": {
+    "specversion": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "source": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^com\\.tinlance\\.[a-z0-9]+(?:[.-][a-z0-9]+)*$",
+      "maxLength": 256
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "datacontenttype": {
+      "const": "application/json"
+    },
+    "dataschema": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "tenantid": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "executionid": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "traceid": {
+      "type": "string",
+      "pattern": "^(?!0{32}$)[0-9a-f]{32}$"
+    },
+    "correlationid": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "idempotencykey": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "data": {
+      "type": "object",
+      "maxProperties": 64
+    }
+  }
+}
