@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "tsic-19-agent-system-p3-candidate-2026-10-17",
+  "baseline_id": "tsic-19-agent-system-p3-2026-10-17",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -16,7 +16,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "dc9e69ce991058cadd8f930473ea3c52cf6918cc"
+      "reviewed_sha": "11316564e7d08bafea11cdfd401f1af134f39069"
     },
     {
       "id": "os",
@@ -103,7 +103,7 @@
     "p0": "certified",
     "p1": "certified",
     "p2": "certified",
-    "p3": "in_progress",
+    "p3": "certified",
     "p4": "not_started",
     "p5": "not_started",
     "p6": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. certification_state is the authoritative release-gate status. P0-P2 are certified. P3 identity/authority certification is in progress against the reviewed P2 baseline; P4-P10 remain not started. External production readiness remains unverified.",
-    "sequence_release": "p3_in_progress"
+    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. certification_state is the authoritative release-gate status. P0-P3 are certified against the reviewed four-repository lock and post-merge CI/security/ecosystem evidence. P4 is the only next phase eligible to begin. External production readiness remains unverified.",
+    "sequence_release": "ready_for_p4"
   }
 }

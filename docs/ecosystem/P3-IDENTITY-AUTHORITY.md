@@ -33,3 +33,22 @@ The P3 workflow must do more than check for source-code markers. Against the exa
 - `tests/test_m22_identity_crypto_attestation.py`: token claim/time/nonce validation, active key lifecycle, attestation expiry, and revocation semantics.
 
 The phase gate still distinguishes contract-level tests from production identity-provider/JWKS deployment. A successful run does not prove live issuer configuration, JWKS reachability, KMS/HSM deployment, operational revocation propagation, or production tenant configuration.
+
+
+## P3 post-merge certification evidence — 2026-10-17
+
+**Implementation PR:** [#58](https://github.com/LloydCoder/tinlance-agent-developer/pull/58)  
+**Merged implementation revision:** `11316564e7d08bafea11cdfd401f1af134f39069`  
+**Reviewed Platform revision:** `1cd2cd2c32628ce5079979b935ed346bebd4733c`
+
+Post-merge workflow evidence on the exact merged TADL revision:
+
+- CI: [39067911789](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911789) — success
+- Ecosystem Integration: [39067911822](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911822) — success
+- CodeQL: [39067911785](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911785) — success
+- Security: [39067911791](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911791) — success
+- Secret Scan: [39067911842](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911842) — success
+- Scorecard: [39067912766](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067912766) — success
+- Release Attestations: [39067911827](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39067911827) — success
+
+The exact locked identity/JWKS, approval-binding, and attestation revocation/expiry regression suites passed. The certification is limited to repository/reference behavior; live identity-provider configuration, JWKS availability, KMS/HSM operations, production revocation propagation, and production tenant configuration remain unverified.
