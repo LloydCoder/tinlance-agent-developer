@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P2 are certified against the reviewed four-repository lock and post-merge CI/security/ecosystem evidence. P3 is the only next phase eligible to begin. External production readiness remains unverified.",
+    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. certification_state is the authoritative release-gate status. P0-P2 are certified against the reviewed four-repository lock and post-merge CI/security/ecosystem evidence. P3 is the only next phase eligible to begin. External production readiness remains unverified.",
     "sequence_release": "ready_for_p3"
   }
 }
