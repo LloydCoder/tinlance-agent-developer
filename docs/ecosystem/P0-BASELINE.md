@@ -1,7 +1,7 @@
 # P0 — Ecosystem Forensic Baseline
 
-**Status:** IN PROGRESS — not certified green until the reviewed lock, cross-repository phase namespace, authority boundary, and TSIC structural/reference gates pass on the exact reviewed revisions  
-**Baseline ID:** `p0-2026-10-07`  
+**Status:** CERTIFIED — reviewed structural/reference baseline; external production readiness remains unverified  
+**Baseline ID:** `p0-2026-10-17`  
 **Phase:** P0 — Ecosystem Forensic Baseline
 
 ## Purpose
@@ -71,3 +71,15 @@ P1 may not start before those conditions are met.
 ## Phase sequence namespace
 
 This P0 is the **ecosystem release baseline** and is governed by `docs/ecosystem/PHASE-MATRIX.md`. It is not the TADL-internal implementation Phase 0 documented under `docs/architecture/PHASE-0.md`. Internal TADL phase documents explicitly identify their namespace so their numbering cannot be mistaken for ecosystem P0–P10.
+
+
+## P0 certification evidence — 2026-10-17
+
+- **TSIC implementation PR #62:** merged as `9d4361a16ae1a5570eee49d6baf499f61e222a20`; all 30 checks on that exact SHA passed. [TSIC-01 reference E2E](https://github.com/LloydCoder/tinlance-system-integration/actions/runs/39063755995), [TSIC CI](https://github.com/LloydCoder/tinlance-system-integration/actions/runs/39063755897), and [final TSIC-38 forensic certification](https://github.com/LloydCoder/tinlance-system-integration/actions/runs/39063755859) are recorded in the evidence ledger.
+- **Post-merge evidence PR #63:** merged as `957f52399cf6cefea8e8fa4c24bc64a06a99c966`; it pins the phase evidence ledger to the reviewed TSIC implementation SHA and exact successful workflow run IDs.
+- **TADL lock/manifest PR #53:** merged as `7a85cdcc63efabf4c9b9a0b0371696131aa4a0b4`; the lock pins the reviewed TSIC implementation SHA, and the manifest now explicitly records P0/P1 certification and the serial gate to P2.
+- TADL CI, Security, Secret Scan, CodeQL, Release Attestations, Scorecard and Ecosystem Integration passed on the merged TADL SHA. [Ecosystem Integration](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39063986193).
+- The phase matrix distinguishes ecosystem P0–P10 from TADL internal phases and TSIC-00…TSIC-19. The manifest validator fails closed if downstream phases are marked active/certified while P0 is open.
+- The protected live Platform smoke workflow exists, but it has not been dispatched. Therefore live deployment, production identity, persistence, secrets, sandbox isolation, backup/restore and incident-response readiness remain **unverified** and are not included in this P0 certification.
+
+P0 is complete for the **repository baseline, reviewed lock, structural checks, and reference integration evidence**. P1 Transformation is already certified. The next serial phase is P2; it must pass its own implementation, adversarial, cross-repository, CI/security and forensic exit gate before P3 can start.

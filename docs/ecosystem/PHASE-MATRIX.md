@@ -8,14 +8,14 @@ The ecosystem P0–P10 sequence below is the release/certification sequence acro
 
 As of 2026-10-17, the evidence ledger is:
 
-- **P0 — in progress:** lock/authority/phase-namespace reconciliation and the TSIC reference-versus-live certification boundary are being repaired and must pass the exact PR checks before P0 can be certified.
-- **P1 — contract-certified, release-blocked by P0:** canonical Transformation contract evidence exists; this does not permit P2 to begin until P0 is green and merged. See `docs/ecosystem/P1-TRANSFORMATION.md` for exact reviewed SHAs and workflow evidence.
+- **P0 — certified:** reviewed four-repository lock, authority/phase namespace reconciliation, TSIC exact-SHA reference E2E, evidence ledger, and required CI/security/ecosystem checks passed on reviewed commits. Live production remains unverified.
+- **P1 — certified:** canonical Transformation contract is certified against the reviewed four-repository revisions. P0 is now closed, so the next serial phase is P2. See `docs/ecosystem/P1-TRANSFORMATION.md` for exact reviewed SHAs and workflow evidence.
 - **P2–P10 — not yet certified in this serial release sequence:** implementation artifacts or older workflow records may exist, but no phase may be advanced solely because a repository file or legacy registry says it is complete. Each phase must satisfy the gate and post-phase audit defined here.
 
 The TSIC TSIC-00…TSIC-19 integration registry is a separate system-of-systems certification sequence. It must not be treated as the same numbering as ecosystem P0–P10. Crosswalks between the two sequences must identify exact requirement IDs and evidence rather than assuming numeric equivalence.
 
 
-The manifest's `phase: "P10"` field is retained as a **contract-surface scope marker** because the validator must also validate the replication/v1 artifacts. It is not a claim that ecosystem P10 is certified. `certification_state` is the authoritative serial release ledger: while P0 is open, `sequence_release` must remain `blocked_at_p0`; only after P0 and P1 are certified may it advance to `ready_for_p2`.
+The manifest's `phase: "P10"` field is retained as a **contract-surface scope marker** because the validator must also validate the replication/v1 artifacts. It is not a claim that ecosystem P10 is certified. `certification_state` is the authoritative serial release ledger: P0 and P1 are now certified, `sequence_release` is `ready_for_p2`, and P2–P10 remain `not_started` until their own gates pass.
 
 
 This matrix is the ecosystem-level release map for the four repositories. A
