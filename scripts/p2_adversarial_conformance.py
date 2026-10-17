@@ -279,6 +279,17 @@ def main() -> None:
         )
         assert_status(status, 403, "cross-tenant run cancellation", body)
 
+        for operation in ("runs.events", "runs.evidence"):
+            status, body = post(
+                endpoint,
+                operation=operation,
+                tenant=OTHER_TENANT,
+                subject=OTHER_SUBJECT,
+                token=OTHER_TOKEN,
+                payload={"run_id": run_id},
+            )
+            assert_status(status, 403, f"cross-tenant {operation}", body)
+
         status, body = post(
             endpoint,
             operation="approvals.decide",
