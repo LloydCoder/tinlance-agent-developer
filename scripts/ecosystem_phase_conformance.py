@@ -93,7 +93,9 @@ def phase_p1_transformation() -> None:
         sdk_source = sdk_transformation.read_text(encoding="utf-8", errors="replace")
         for marker in ('"provenance"', '"declared_by"', '"recorded_at"'):
             if marker not in sdk_source:
-                FAILURES.append(f"SDK Transformation serializer is missing canonical provenance marker {marker}")
+                FAILURES.append(
+                    f"SDK Transformation serializer is missing canonical provenance marker {marker}"
+                )
         if '"constraints": {}' in sdk_source:
             FAILURES.append("SDK Transformation serializer drops caller-supplied constraints")
         if 'if self.achieved and self.status != "achieved"' not in sdk_source:
