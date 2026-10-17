@@ -38,9 +38,9 @@ The effective request identity is the signed, validated identity-provider assert
 
 ## Implementation record
 
-Platform PR #105 adds a strict JWT/JWKS verifier profile, a concrete `JWKSPrincipalResolver`, a revocation-checker contract with a durable single-host SQLite reference adapter, and real local HTTP-boundary tests. The adapter fails closed when revocation status is unavailable. The SQLite adapter is not a substitute for a shared, highly available production revocation service.
+Platform PR #105 merged at `f7ed027a1db33b13594502131784105302cabc09`. It adds a strict JWT/JWKS verifier profile, a concrete `JWKSPrincipalResolver`, a revocation-checker contract with a durable single-host SQLite reference adapter, and real local HTTP-boundary tests. The adapter fails closed when revocation status is unavailable. The SQLite adapter is not a substitute for a shared, highly available production revocation service.
 
-The Platform PR is not phase completion evidence until it is merged and all required exact-head and post-merge checks pass. The TADL phase gate must then pin the merged Platform SHA and execute the actual Platform, OS and SDK test suites.
+P2 remains in progress until all required post-merge checks on that exact Platform commit pass, the TADL phase gate pins the merged SHA, the actual Platform/OS/SDK tests and adversarial cross-tenant reads pass, and the TADL conformance PR is merged and green.
 
 ## Standards and threat model
 
