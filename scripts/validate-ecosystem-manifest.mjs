@@ -61,21 +61,44 @@ if (!certification || certification.sequence !== "ecosystem-p0-p10") {
 if (certification.production !== "unverified") {
   fail("production readiness cannot be asserted by repository-only certification");
 }
+const phaseStatuses = [];
 for (let phase = 0; phase <= 10; phase += 1) {
   const key = `p${phase}`;
-  if (!allowedStatuses.has(certification[key])) fail(`invalid certification status: ${key}`);
+  const status = certification[key];
+  if (!allowedStatuses.has(status)) fail(`invalid certification status: ${key}`);
+  phaseStatuses.push(status);
 }
-if (certification.p0 !== "certified" && certification.sequence_release !== "blocked_at_p0") {
-  fail("serial release must remain blocked while P0 is not certified");
+const firstIncomplete = phaseStatuses.findIndex((status) => status !== "certified");
+if (firstIncomplete !== -1) {
+  if (phaseStatuses.slice(firstIncomplete + 1).some((status) => status !== "not_started")) {
+    fail("serial certification violation: later phases cannot start before the current phase is certified");
+  }
+  if (phaseStatuses.filter((status) => status === "in_progress").length > 1) {
+    fail("only one ecosystem phase may be in progress at a time");
+  }
+  if (phaseStatuses[firstIncomplete] === "in_progress" &&
+      phaseStatuses.slice(0, firstIncomplete).some((status) => status !== "certified")) {
+    fail("a phase cannot be in progress before all predecessors are certified");
+  }
 }
-if (certification.p0 !== "certified" && Array.from({ length: 8 }, (_, index) => certification[`p${index + 2}`]).some((status) => status !== "not_started")) {
-  fail("P2-P10 cannot be marked active or certified while P0 is open");
+let expectedRelease;
+if (firstIncomplete === -1) {
+  expectedRelease = "p10_complete";
+} else if (firstIncomplete === 0) {
+  expectedRelease = phaseStatuses[0] === "in_progress" ? "p0_in_progress" : "blocked_at_p0";
+} else if (firstIncomplete === 1) {
+  expectedRelease = phaseStatuses[1] === "in_progress" ? "p1_in_progress" : "blocked_at_p1";
+} else if (phaseStatuses[firstIncomplete] === "in_progress") {
+  expectedRelease = `p${firstIncomplete}_in_progress`;
+} else {
+  expectedRelease = `ready_for_p${firstIncomplete}`;
 }
-if (certification.p0 === "certified" && certification.p1 !== "certified") {
-  fail("P1 contract must be certified before releasing P2");
+if (certification.sequence_release !== expectedRelease) {
+  fail(`serial release state mismatch: expected ${expectedRelease}`);
 }
-if (certification.p0 === "certified" && certification.sequence_release !== "ready_for_p2") {
-  fail("serial release state must advance to P2 only after P0 and P1 are certified");
+if (certification.p0 === "certified" && certification.p1 !== "certified" &&
+    phaseStatuses.slice(2).some((status) => status !== "not_started")) {
+  fail("P2-P10 cannot be active or certified until P1 is certified");
 }
 if (manifest.phase === "P10" && !String(certification.note || "").includes("contract-surface")) {
   fail("manifest phase scope must not be confused with certification status");
