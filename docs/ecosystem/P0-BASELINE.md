@@ -83,3 +83,20 @@ This P0 is the **ecosystem release baseline** and is governed by `docs/ecosystem
 - The protected live Platform smoke workflow exists, but it has not been dispatched. Therefore live deployment, production identity, persistence, secrets, sandbox isolation, backup/restore and incident-response readiness remain **unverified** and are not included in this P0 certification.
 
 P0 is complete for the **canonical phase-map reconciliation, repository baseline, reviewed lock, structural checks, and reference integration evidence**. P1 Transformation is already certified. The next serial phase is P2 identity/tenancy; it must pass its own implementation, adversarial, cross-repository, CI/security and forensic exit gate before P3 event delivery can start.
+
+
+## Canonical phase-map reconciliation — post-merge evidence
+
+The canonical phase-map correction merged to TADL main as `3e556bd8035ee7d1bdf4cd3bf881eb62670ac777`. The reviewed ecosystem lock and manifest pin that exact commit, which contains the approved P0–P10 mapping and the cross-cutting regression-gate distinction.
+
+| Required workflow | Run | Result |
+|---|---:|---|
+| CI | [39071531691](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531691) | success |
+| CodeQL | [39071531814](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531814) | success |
+| Security / npm audit | [39071531764](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531764) | success |
+| Secret Scan | [39071531751](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531751) | success |
+| Ecosystem Integration | [39071531697](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531697) | success |
+| OpenSSF Scorecard | [39071531804](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531804) | success |
+| Release Attestations | [39071531609](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39071531609) | success |
+
+The exact-commit integration run passed the canonical phase-map validator, the P1 Transformation payload/schema checks, the governed-execution adversarial regression, the canonical P2 identity/tenancy regression, the cross-cutting team-delegation regression, and the supporting component regression suites. This is repository/reference evidence only. Canonical P2 identity/tenancy has not yet been certified as an ecosystem phase; it is the next phase eligible to start.
