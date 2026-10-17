@@ -190,24 +190,76 @@ def phase_p4_catalog() -> None:
         "provenance",
         "review evidence",
         "continuous taxonomy",
+        "Synthetic test fixtures",
+    )
+    require_file(
+        OS,
+        "src/tinlance_agent_os/catalog_semantics.py",
+        "canonical_semantic_key",
+        "normalize_semantic_token",
+        "NFKC",
+        "casefold",
     )
     require_file(
         OS,
         "src/tinlance_agent_os/catalog_expansion_20k.py",
         "TARGET_COUNT = 20_000",
         "MIN_DOMAINS = 50",
+        "canonical_semantic_key",
         "semantic uniqueness",
+        "inventory_digest",
     )
-    require_file(OS, "tests/unit/test_catalog_expansion_20k.py", "20_000", "20K")
-    require_file(OS, "tests/unit/test_catalog_20k_ga_semantics.py", "TARGET_COUNT == 20_000")
-    # The fixture proves the release gate at scale; it is intentionally not
-    # presented as 20,000 real-world reviewed archetypes.
+    require_file(
+        OS,
+        "src/tinlance_agent_os/catalog_release.py",
+        "10K",
+        "canonical_semantic_key",
+        "review evidence for every entry",
+        "inventory_digest",
+    )
+    require_file(
+        OS,
+        "src/tinlance_agent_os/catalog_forensics.py",
+        "audit_canonical_inventory",
+        "semantic archetype duplicates",
+        "audit_digest",
+    )
+    require_file(
+        OS,
+        "src/tinlance_agent_os/catalog_governance.py",
+        "prepare_evolution_release",
+        "semantic duplicates",
+        "deprecated",
+        "governance evidence",
+    )
+    require_files(
+        OS,
+        (
+            "tests/unit/test_catalog_expansion_20k.py",
+            "tests/unit/test_catalog_20k_ga_semantics.py",
+            "tests/unit/test_catalog_governance.py",
+            "tests/unit/test_catalog_forensics.py",
+            "tests/unit/test_catalog_release.py",
+            "tests/unit/test_catalog_candidates.py",
+            "tests/unit/test_catalog_semantic_identity.py",
+            "tests/unit/test_catalog_taxonomy.py",
+            "tests/unit/test_catalog_pipeline.py",
+        ),
+    )
+    # Synthetic fixtures prove the fail-closed release gate at scale; they are
+    # not represented as 20,000 real-world reviewed archetypes.
     run_test_subset(
         OS,
         (
             "tests/unit/test_catalog_expansion_20k.py",
             "tests/unit/test_catalog_20k_ga_semantics.py",
             "tests/unit/test_catalog_governance.py",
+            "tests/unit/test_catalog_forensics.py",
+            "tests/unit/test_catalog_release.py",
+            "tests/unit/test_catalog_candidates.py",
+            "tests/unit/test_catalog_semantic_identity.py",
+            "tests/unit/test_catalog_taxonomy.py",
+            "tests/unit/test_catalog_pipeline.py",
         ),
         "P4 catalog",
     )
