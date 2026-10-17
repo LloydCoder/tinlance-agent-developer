@@ -4,7 +4,7 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "4fac75ba9f14d438d045b877685b2695b4da2c5b",
+      "ref": "25fac21a8912bf58f0a9fc65e6ed1cbede70bbee",
       "role": "developer validation consumer"
     },
     "os": {
@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "4f524c51f24ace3fa96b5f2fbd716d0270c16aae",
+      "ref": "9125f46f526030fdeced492b6df281c4745f77e9",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -30,10 +30,10 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1"
   },
-  "baseline_id": "tsic-19-agent-system-2026-10-08",
+  "baseline_id": "tsic-19-agent-system-2026-10-17",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "bdb5b7f9f2295562ad8681c591a8a927500b4d8c",
+    "ref": "619db9e264cdc71369de621c981bfc2ba1615a1d",
     "adapter": "tsic-agent-developer-reference"
   }
 }
