@@ -1,6 +1,19 @@
 # Tinlance Agent System — Finite Phase Certification Matrix
 
-**Baseline:** P10 / 2026-10-07
+**Baseline:** ecosystem certification sequence P0–P10 / 2026-10-17
+
+## Phase namespace and current certification state
+
+The ecosystem P0–P10 sequence below is the release/certification sequence across TADL, Agent OS, Platform SDK, and Agent Platform. It is distinct from the **TADL internal implementation phases** documented under `docs/architecture/PHASE-0.md` through `PHASE-10.md`. The internal phase numbers describe the TADL artifact/tooling build; they are not aliases for ecosystem P0–P10. This distinction prevents the same phase number from being interpreted as the same deliverable in different sequences.
+
+As of 2026-10-17, the evidence ledger is:
+
+- **P0 — in progress:** lock/authority/phase-namespace reconciliation and the TSIC reference-versus-live certification boundary are being repaired and must pass the exact PR checks before P0 can be certified.
+- **P1 — certified:** canonical Transformation contract; see `docs/ecosystem/P1-TRANSFORMATION.md` for exact reviewed SHAs and workflow evidence.
+- **P2–P10 — not yet certified in this serial release sequence:** implementation artifacts or older workflow records may exist, but no phase may be advanced solely because a repository file or legacy registry says it is complete. Each phase must satisfy the gate and post-phase audit defined here.
+
+The TSIC TSIC-00…TSIC-19 integration registry is a separate system-of-systems certification sequence. It must not be treated as the same numbering as ecosystem P0–P10. Crosswalks between the two sequences must identify exact requirement IDs and evidence rather than assuming numeric equivalence.
+
 
 This matrix is the ecosystem-level release map for the four repositories. A
 phase is not considered ecosystem-complete merely because one repository says
