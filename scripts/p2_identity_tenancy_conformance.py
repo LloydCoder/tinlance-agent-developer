@@ -94,9 +94,13 @@ def main() -> int:
         FAILURES.append(f"manifest sequence_release must be {expected_release}")
     if state.get("production") != "unverified":
         FAILURES.append("repository-only P2 tests cannot certify production deployment")
-    for phase in range(3, 11):
-        if state.get(f"p{phase}") != "not_started":
-            FAILURES.append(f"P{phase} must remain not_started until P2 is certified")
+    if p2_status == "in_progress":
+        for phase in range(3, 11):
+            if state.get(f"p{phase}") != "not_started":
+                FAILURES.append(f"P{phase} must remain not_started until P2 is certified")
+    # Once P2 is certified, the shared manifest validator owns serial-state
+    # enforcement for P3 and later phases; the P2 regression must remain usable
+    # as a cross-cutting gate during every subsequent phase.
 
     for name, root in (
         ("platform", PLATFORM),
