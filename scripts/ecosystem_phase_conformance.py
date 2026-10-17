@@ -90,6 +90,7 @@ def validate_real_sdk_transformation_payload() -> None:
         from tinlance_agent_platform_sdk import (
             Transformation,
             TransformationOutcome,
+            TransformationProvenance,
             TransformationReference,
         )
     except ImportError as exc:
@@ -118,7 +119,10 @@ def validate_real_sdk_transformation_payload() -> None:
             output_refs=(TransformationReference("artifact:result", "result"),),
             evidence_refs=(TransformationReference("evidence:result", "execution"),),
             outcome=TransformationOutcome("achieved", True),
-            provenance=None,
+            provenance=TransformationProvenance(
+                declared_by="tadl:p1",
+                recorded_at="2026-10-17T18:00:00Z",
+            ),
         )
         payload = item.as_payload()
     except Exception as exc:
