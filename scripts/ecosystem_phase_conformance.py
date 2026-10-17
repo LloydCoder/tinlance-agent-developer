@@ -81,6 +81,71 @@ def run_node_test_subset(cwd: Path, paths: tuple[str, ...], label: str) -> None:
         )
 
 
+def validate_real_sdk_transformation_payload() -> None:
+    """Validate a serialized SDK model against the canonical TADL schema."""
+    sdk_source = str(SDK / "src")
+    if sdk_source not in sys.path:
+        sys.path.insert(0, sdk_source)
+    try:
+        from tinlance_agent_platform_sdk import (
+            Transformation,
+            TransformationOutcome,
+            TransformationReference,
+        )
+    except ImportError as exc:
+        FAILURES.append(f"cannot import locked SDK Transformation model: {exc}")
+        return
+    from uuid import UUID
+
+    try:
+        item = Transformation(
+            transformation_id=UUID("2f6d7a8a-5a12-4f8b-9a3e-3c1c2f4d8e11"),
+            tenant_ref="tenant:conformance",
+            version=1,
+            objective="Validate canonical transformation contract",
+            success_criteria=("Produce a schema-valid payload",),
+            principal_ref="principal:conformance",
+            agent_ref="agent:conformance",
+            agent_version="1.0.0",
+            workspace_ref="workspace:conformance",
+            task_ref="task:conformance",
+            requested_capabilities=(("capability:conformance.read", "validate contract"),),
+            policy_refs=("policy:conformance",),
+            risk_class="low",
+            idempotency_key="transformation-conformance-v1",
+            execution_state="succeeded",
+            run_ref="run:conformance",
+            output_refs=(TransformationReference("artifact:result", "result"),),
+            evidence_refs=(TransformationReference("evidence:result", "execution"),),
+            outcome=TransformationOutcome("achieved", True),
+            provenance=None,
+        )
+        payload = item.as_payload()
+    except Exception as exc:
+        FAILURES.append(f"SDK Transformation fixture failed: {type(exc).__name__}: {exc}")
+        return
+    validator = (
+        'import { validateArtifact } from "./packages/schemas/src/index.mjs";'
+        'let raw = ""; for await (const chunk of process.stdin) raw += chunk;'
+        'const result = validateArtifact("transformation/v1/transformation.schema.json", JSON.parse(raw));'
+        'if (!result.valid) { console.error(JSON.stringify(result.errors)); process.exit(1); }'
+    )
+    result = subprocess.run(
+        ["node", "--input-type=module", "-e", validator],
+        cwd=ROOT,
+        input=json.dumps(payload),
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        FAILURES.append(
+            "serialized SDK Transformation payload violates canonical schema: "
+            + result.stderr[-2500:]
+            + result.stdout[-1500:]
+        )
+
+
 def phase_p1_transformation() -> None:
     require_file(ROOT, "docs/ecosystem/P1-TRANSFORMATION.md", "transformation/v1")
     require_file(ROOT, "docs/ecosystem/ecosystem-manifest.json", "transformation/v1")
@@ -109,6 +174,7 @@ def phase_p1_transformation() -> None:
     run_test_subset(OS, ("tests/test_transformation.py",), "P1 Agent OS")
     run_test_subset(SDK, ("tests/test_transformation.py",), "P1 SDK")
     run_test_subset(PLATFORM, ("tests/contracts/test_transformation.py",), "P1 Platform")
+    validate_real_sdk_transformation_payload()
 
 
 def phase_p4_catalog() -> None:
