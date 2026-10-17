@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-17, P0 and P1 are certified for the reviewed repository/reference scope. P2–P10 remain not started in this canonical sequence until each phase's own exit gate passes. External production deployment remains unverified.
+As of 2026-10-17, P0 and P1 are certified for the reviewed repository/reference scope. P2 identity/tenancy is in progress against the merged Platform implementation while cross-repository certification runs. P3–P10 remain not started until each prior phase's own exit gate passes. External production deployment remains unverified.
 
 ## Canonical phase sequence
 
@@ -71,4 +71,4 @@ Use stable, versioned standards as compatibility inputs, not as authority source
 
 ## Current release state
 
-P0 and P1 are certified for the reviewed repository/reference scope only. P2 is the next eligible phase. P2–P10 must remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.
+P0 and P1 are certified for the reviewed repository/reference scope only. P2 identity/tenancy is the only phase in progress; P3–P10 remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.
