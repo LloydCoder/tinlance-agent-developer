@@ -11,7 +11,7 @@
 | TADL / developer | `818ca441d0708187152beb501ea0abe634417f07` |
 | Agent OS | `fa895ac047a94e9bf87234dbaaca44d70ef43efc` |
 | Platform SDK | `8a41d6dce2fe778ab25c33dfa315328d06ec4908` |
-| Agent Platform | `dc6ec112edefcc398289b594e72b468d36bbbf26` |
+| Agent Platform | `8ad20e37f5d559c757e360fbaf49bdf81e6e3e26` |
 
 ## Certified contract
 
