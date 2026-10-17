@@ -86,10 +86,12 @@ def main() -> int:
         state = {}
     if state.get("p0") != "certified" or state.get("p1") != "certified":
         FAILURES.append("P2 cannot start before canonical P0 and P1 are certified")
-    if state.get("p2") != "in_progress":
-        FAILURES.append("manifest must mark canonical P2 in_progress while this gate is active")
-    if state.get("sequence_release") != "p2_in_progress":
-        FAILURES.append("manifest sequence_release must be p2_in_progress")
+    p2_status = state.get("p2")
+    if p2_status not in {"in_progress", "certified"}:
+        FAILURES.append("manifest must mark canonical P2 in_progress or certified while this gate runs")
+    expected_release = "p2_in_progress" if p2_status == "in_progress" else "ready_for_p3"
+    if state.get("sequence_release") != expected_release:
+        FAILURES.append(f"manifest sequence_release must be {expected_release}")
     if state.get("production") != "unverified":
         FAILURES.append("repository-only P2 tests cannot certify production deployment")
     for phase in range(3, 11):
