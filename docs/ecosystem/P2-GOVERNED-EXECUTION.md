@@ -13,7 +13,9 @@ The P2 adversarial suite must fail closed for:
 - request-body subject spoofing;
 - conflicting reuse of an idempotency key;
 - cross-tenant execution attempts;
-- authority metadata supplied by an untrusted caller.
+- authority metadata supplied by an untrusted caller;
+- caller-selected risk that attempts to downgrade the immutable registered tool risk;
+- critical tool execution that produces output before required approval.
 
 The suite is intentionally contract-level. It does not treat the reference HTTP server as production infrastructure.
 
@@ -25,4 +27,4 @@ No Transformation field, model output, memory item, retrieved document, tool res
 
 ## Exit gate
 
-P2 is complete only when the adversarial certification script and the existing ecosystem conformance suite are green against the P1 ecosystem lock, plus all repository security workflows remain green.
+P2 is complete only when the adversarial certification script and the existing ecosystem conformance suite are green against a reviewed P2 candidate lock derived from the certified P1 baseline. The P2 lock must pin the merged registered-tool-risk enforcement commit rather than accidentally testing against the older P1 Platform revision. CI, CodeQL, security, secret scan and ecosystem integration must all be green on the exact candidate head before merge. The manifest must mark P2 in progress while this gate is being evaluated, and P3-P10 must remain not started. After merge, refresh the lock to exact merged SHAs and record a post-merge certification run.
