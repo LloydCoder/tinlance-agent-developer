@@ -9,6 +9,8 @@ const required = [
   "schemas/workflow/v1/workflow.schema.json","schemas/harness/v1/harness.schema.json",
   "schemas/evaluation/v1/evaluation.schema.json","schemas/provenance/v1/provenance.schema.json",
   "schemas/registry/v1/registry.schema.json",
+  "schemas/event-envelope/v1/event-envelope.schema.json",
+  "schemas/examples/event-envelope.v1.json",
   "packages/core/README.md","packages/schemas/README.md","packages/skills/README.md",
   "packages/capabilities/README.md","packages/agents/README.md","packages/workflows/README.md",
   "packages/harnesses/README.md","packages/evaluation/README.md","packages/registry/README.md",
