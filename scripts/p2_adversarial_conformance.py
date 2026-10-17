@@ -1,4 +1,4 @@
-"""P2 adversarial certification against the real Platform reference gateway.
+"""Cross-cutting governed-execution adversarial regression against the real Platform reference gateway. The legacy filename is not a canonical ecosystem phase assignment.
 
 This test exercises the Platform HTTP boundary, identity binding, tenant
 isolation, idempotency, registered-tool risk enforcement, approval gating and
@@ -19,7 +19,7 @@ from uuid import UUID, uuid4
 PLATFORM_SOURCE = Path("/tmp/tinlance-platform")
 if not PLATFORM_SOURCE.is_dir():
     raise SystemExit(
-        "P2 requires the Platform source checked out from ecosystem.lock.json at "
+        "The adversarial regression suite requires the Platform source checked out from ecosystem.lock.json at "
         "/tmp/tinlance-platform"
     )
 sys.path.insert(0, str(PLATFORM_SOURCE))
