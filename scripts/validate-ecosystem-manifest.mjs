@@ -68,6 +68,9 @@ for (let phase = 0; phase <= 10; phase += 1) {
 if (certification.p0 !== "certified" && certification.sequence_release !== "blocked_at_p0") {
   fail("serial release must remain blocked while P0 is not certified");
 }
+if (certification.p0 !== "certified" && Array.from({ length: 8 }, (_, index) => certification[`p${index + 2}`]).some((status) => status !== "not_started")) {
+  fail("P2-P10 cannot be marked active or certified while P0 is open");
+}
 if (certification.p0 === "certified" && certification.p1 !== "certified") {
   fail("P1 contract must be certified before releasing P2");
 }
