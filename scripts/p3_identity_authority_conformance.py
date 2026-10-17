@@ -1,4 +1,4 @@
-"""P3 identity and authority conformance against the locked Platform revision."""
+"""Canonical P2 identity/tenancy regression against the locked Platform revision. The legacy filename is retained for compatibility."""
 
 from pathlib import Path
 import subprocess
@@ -68,14 +68,14 @@ def main() -> None:
     )
     if result.returncode:
         missing.append(
-            "Platform P3 identity regression tests failed:\\n"
+            "Platform P2 identity regression tests failed:\\n"
             + result.stdout[-4000:]
             + "\\n"
             + result.stderr[-2500:]
         )
     if missing:
-        raise SystemExit("P3 identity/authority certification failed:\\n" + "\\n".join(missing))
-    print("P3 identity/authority certification: PASS (markers + executable regression tests)")
+        raise SystemExit("P2 identity/tenancy regression failed:\\n" + "\\n".join(missing))
+    print("P2 identity/tenancy regression: PASS (markers + executable regression tests)")
 
 
 if __name__ == "__main__":
