@@ -16,7 +16,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "3e556bd8035ee7d1bdf4cd3bf881eb62670ac777"
+      "reviewed_sha": "0347f96c3f1498a178c3723111eca98de80fd6eb"
     },
     {
       "id": "os",
@@ -102,7 +102,7 @@
     "sequence": "ecosystem-p0-p10",
     "p0": "certified",
     "p1": "certified",
-    "p2": "in_progress",
+    "p2": "certified",
     "p3": "not_started",
     "p4": "not_started",
     "p5": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0 and P1 are certified against reviewed repository/reference evidence. P2 is in progress against the merged Platform JWT/JWKS resolver, revocation and object-level tenant-read authorization fixes; later phases remain not_started. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not similarly numbered phase certification. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
-    "sequence_release": "p2_in_progress"
+    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0, P1 and P2 are certified for exact reviewed repository/reference evidence. P3 is the next eligible phase; P4-P10 remain not_started until prior phase gates pass. P2 covers strict JWT/JWKS validation, verified principal binding, token revocation fail-closed behavior, tenant isolation for run cancellation/events/evidence, and exact-SHA OS/SDK context regression. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not similarly numbered phase certification. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
+    "sequence_release": "ready_for_p3"
   }
 }
