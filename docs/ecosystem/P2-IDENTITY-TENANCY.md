@@ -1,7 +1,7 @@
 # P2 — Identity, Tenancy, Authentication and Authorization
 
 **Canonical phase:** P2 in `docs/ecosystem/PHASE-MATRIX.md`  
-**Status:** IN PROGRESS — candidate implementation under review; not certified.  
+**Status:** IN PROGRESS — implementation PRs merged; exact-SHA ecosystem certification pending.  
 **Authority owner:** Agent Platform. OS, SDK and TADL are consumers and may not create a second authorization authority.
 
 ## Scope
@@ -28,7 +28,9 @@ A valid authenticated principal is not itself authorization. Policy, registered 
 
 Platform PR [#105](https://github.com/LloydCoder/tinlance-agent-platform/pull/105) is merged at `f7ed027a1db33b13594502131784105302cabc09`. It adds the concrete `JWKSPrincipalResolver`, a single-host SQLite reference revocation store, and deterministic unit plus local HTTP-boundary tests. Its pre-merge CI, CodeQL, secret scan, R10 certification and reference-agent checks passed on the exact PR head; post-merge checks and ecosystem certification remain pending. The SQLite adapter is not a production multi-instance revocation service; production must inject a shared durable backend.
 
-The TADL candidate phase gate adds `tests/test_identity_resolver.py` to the locked Platform regression set in addition to JWT verification, authorization enforcement and cryptographic attestation tests. The phase is not certified by source-marker checks alone.
+The TADL phase gate adds `tests/test_identity_resolver.py` to the locked Platform regression set in addition to JWT verification, authorization enforcement and OS/SDK tenant-context tests. The phase is not certified by source-marker checks alone.
+
+A follow-up adversarial run then found a separate object-level authorization gap: foreign-tenant `runs.events` and `runs.evidence` reads returned HTTP 200 with empty arrays. Platform PR [#106](https://github.com/LloydCoder/tinlance-agent-platform/pull/106) is merged at `c094160a243382b043f40bb642f758a30e6203ff`; it now checks run ownership before either read and denies both foreign-tenant and unknown run IDs. The P2 adversarial suite now explicitly tests both operations. This fix must be included in the reviewed lock before P2 certification.
 
 Standards reviewed for this phase:
 - [RFC 9068 — JWT Profile for OAuth 2.0 Access Tokens](https://www.rfc-editor.org/rfc/rfc9068.html)
@@ -38,12 +40,12 @@ These standards inform the access-token profile; exact executable tests and the 
 
 ## Serial-release exit gate
 
-- [ ] Platform PR #105 passes CI, CodeQL, secret scan, R10 certification and reference-agent checks on the exact head.
-- [ ] Platform PR #105 is merged only after every required pre-merge check is green.
-- [ ] TADL's candidate lock pins the exact candidate Platform SHA; the P2 gate executes the concrete resolver and revocation tests against that SHA.
+- [x] Platform PR #105 passed CI, CodeQL, secret scan, R10 certification and reference-agent checks on the exact head, then merged at `f7ed027a1db33b13594502131784105302cabc09`.
+- [x] Platform PR #106 adds object-level tenant ownership checks to `runs.events` and `runs.evidence`, with same-tenant, foreign-tenant and unknown-run regressions; it merged at `c094160a243382b043f40bb642f758a30e6203ff` after pre-merge checks passed.
+- [ ] TADL's candidate lock pins the exact merged Platform SHA `c094160a243382b043f40bb642f758a30e6203ff`; the P2 gate executes the concrete resolver, revocation, and object-level read-authorization tests against that SHA.
 - [ ] Cross-tenant, cross-subject, invalid-signature, wrong issuer/audience, expiry, malformed claims and revoked-token tests pass.
 - [ ] Revocation-backend failure returns authentication failure and never calls the request handler.
-- [ ] P2 adversarial and existing governed-execution regression suites pass without weakening previously certified P1 invariants.
+- [ ] P2 adversarial and existing governed-execution regression suites pass, including foreign-tenant `runs.events` and `runs.evidence` denial, without weakening previously certified P1 invariants.
 - [ ] TADL CI, CodeQL, security, secret scan, supply-chain/attestation and Ecosystem Integration are green on the exact candidate head.
 - [ ] The four-repository lock and manifest pin full reviewed SHAs and set only P2 to `in_progress` during certification.
 - [ ] After merge, the lock is refreshed to the exact Platform merge SHA and post-merge checks are green.
