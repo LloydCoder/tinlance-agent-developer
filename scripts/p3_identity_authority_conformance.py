@@ -27,6 +27,14 @@ REQUIRED = {
         "issuer",
         "expires_at",
     ),
+    "packages/identity/src/tinlance_agent_platform_identity/resolver.py": (
+        "revocation_checker",
+        "validate_principal",
+    ),
+    "packages/identity/src/tinlance_agent_platform_identity/revocation.py": (
+        "is_revoked",
+        "revoked_tokens",
+    ),
     "tests/test_identity_jwt.py": (
         "tenant",
         "exp",
@@ -49,8 +57,9 @@ def main() -> None:
             if marker.lower() not in content:
                 missing.append(f"{relative}: missing marker {marker!r}")
     # Marker checks are necessary but not sufficient. Execute the real locked
-    # Platform regression suites for issuer/audience/token lifecycle, approval
-    # binding, and attestation revocation/expiry.
+    # Platform regression suites for JWT claim validation, the concrete HTTP
+    # principal resolver, revocation persistence/outage behavior, tenant binding,
+    # approval binding, and attestation revocation/expiry.
     result = subprocess.run(
         [
             sys.executable,
@@ -58,6 +67,7 @@ def main() -> None:
             "pytest",
             "-q",
             "tests/test_identity_jwt.py",
+            "tests/test_identity_resolver.py",
             "tests/test_authorization_enforcement.py",
             "tests/test_m22_identity_crypto_attestation.py",
         ],
