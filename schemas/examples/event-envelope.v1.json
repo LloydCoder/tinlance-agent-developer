@@ -1,0 +1,19 @@
+{
+  "specversion": "1.0",
+  "id": "2f6d7a8a-5a12-4f8b-9a3e-3c1c2f4d8e11",
+  "source": "urn:tinlance:agent-platform:execution",
+  "type": "com.tinlance.agent.run.created.v1",
+  "time": "2026-10-17T22:00:00Z",
+  "subject": "run:9db2a1c7",
+  "datacontenttype": "application/json",
+  "dataschema": "https://schemas.tinlance.com/events/run-created/v1",
+  "tenantid": "tenant:finance",
+  "executionid": "execution:9db2a1c7",
+  "traceid": "11111111111111111111111111111111",
+  "correlationid": "request:4b2e0a9c",
+  "idempotencykey": "run-create-tenant-finance-0001",
+  "data": {
+    "run_id": "9db2a1c7",
+    "state": "accepted"
+  }
+}
