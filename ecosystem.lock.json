@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "8ad20e37f5d559c757e360fbaf49bdf81e6e3e26",
+      "ref": "1cd2cd2c32628ce5079979b935ed346bebd4733c",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -30,7 +30,7 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1"
   },
-  "baseline_id": "tsic-19-agent-system-p1-2026-10-17",
+  "baseline_id": "tsic-19-agent-system-p2-candidate-2026-10-17",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "9d4361a16ae1a5570eee49d6baf499f61e222a20",
