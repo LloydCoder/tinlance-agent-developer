@@ -1,15 +1,17 @@
 # P1 — Ecosystem Transformation Certification
 
-**Baseline:** `p1-2026-10-07`
+**Status:** Pending final cross-repository certification; do not treat this document as a completed certification until the P1 gate passes after merge.
+
+**Baseline:** `tsic-19-agent-system-2026-10-17` (reviewed lock baseline)
 
 ## Certified repository revisions
 
 | Plane | Reviewed revision |
 |---|---|
-| TADL / developer | `7eb4580940a4486b71be1f9a517e9b11af0a4f1c` |
-| Agent OS | `46b12523d769b9145fb4ef5f0c80cad56f06ae7a` |
-| Platform SDK | `798251e1927a5cbda1bcc03fd13f85eb7c90d2ea` |
-| Agent Platform | `b32d2615668f07cf25dd98c82bbc5ae939070ebd` |
+| TADL / developer | Pending this PR's merge SHA; record the exact SHA in the post-merge certification update. |
+| Agent OS | `dd2119e4ace0bd0ca5dbae083badbb5d9909670b` |
+| Platform SDK | `61712794078b967aa84e3db21dd006b19136bcba` |
+| Agent Platform | `c294acad0489e1165e2a3d89dcbcf24c21639d5e` |
 
 ## Certified contract
 

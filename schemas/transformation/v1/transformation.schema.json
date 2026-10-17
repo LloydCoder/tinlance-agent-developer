@@ -353,7 +353,42 @@
           "type": "string",
           "minLength": 1
         }
-      }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "status": {
+              "const": "achieved"
+            },
+            "achieved": {
+              "const": true
+            }
+          },
+          "required": [
+            "status",
+            "achieved"
+          ]
+        },
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "unknown",
+                "partially_achieved",
+                "not_achieved",
+                "inconclusive"
+              ]
+            },
+            "achieved": {
+              "const": false
+            }
+          },
+          "required": [
+            "status",
+            "achieved"
+          ]
+        }
+      ]
     },
     "provenance": {
       "type": "object",
