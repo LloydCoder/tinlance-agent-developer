@@ -112,6 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "phase is contract-surface scope for manifest validation; certification_state is the authoritative release-gate status"
+    "note": "manifest.phase is the contract-surface scope marker used to require replication/v1 validation; it is not a completion claim. Certification status and release sequencing are recorded here.",
+    "sequence_release": "blocked_at_p0"
   }
 }
