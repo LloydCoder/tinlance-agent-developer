@@ -126,7 +126,7 @@ def main() -> int:
     require_markers(
         PLATFORM,
         "tests/test_identity_resolver.py",
-        "revocation backend failure",
+        "test_revocation_backend_failure_fails_closed",
         "tenant-victim",
     )
     require_markers(
