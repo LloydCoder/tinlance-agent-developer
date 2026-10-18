@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "ed61ab9df0ee2e761295005b93b63e3d896f99e9"
+      "reviewed_sha": "a3599dcb185806a7aea07f65f170ab8c0abde7f2"
     },
     {
       "id": "os",
@@ -109,13 +109,13 @@
     "p4": "certified",
     "p5": "certified",
     "p6": "certified",
-    "p7": "in_progress",
+    "p7": "certified",
     "p8": "not_started",
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for the previously reviewed exact-SHA repository/reference scope. Canonical P7 real adapters and integration boundaries are in progress on a refreshed exact-SHA candidate baseline. P7 remains uncertified until all required CI, security, cross-repository adapter tests, and post-merge forensic audit pass. P8-P10 remain not_started. External production provider access, secret-manager integration and production readiness remain unverified.",
-    "sequence_release": "p7_in_progress"
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for the exact reviewed repository/reference scope. P7 passed PR-head and post-merge CI, security, CodeQL, secret scan, supply-chain attestation and exact-SHA cross-repository adapter conformance; the post-merge forensic audit records the evidence and residual risks. P8 is the next eligible phase and remains not_started until its implementation begins. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
+    "sequence_release": "ready_for_p8"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
