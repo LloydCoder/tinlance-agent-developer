@@ -2,8 +2,8 @@
 
 **Audit state:** candidate implementation reviewed; final certification pending exact-SHA ecosystem CI and post-merge checks.  
 **Canonical phase owner:** Agent Platform.  
-**Follow-up Platform candidate SHA:** `1e91e21e74b7078a707b21d9fa99cf1fcde210d9`  
-**Open implementation PR:** [Platform #123](https://github.com/LloydCoder/tinlance-agent-platform/pull/123) and follow-up [Platform #127](https://github.com/LloydCoder/tinlance-agent-platform/pull/127)
+**Final Platform merge SHA:** `aa3cd31de76ec25385e8801fa570aab029029b02`  
+**Open implementation PR:** [Platform #123](https://github.com/LloydCoder/tinlance-agent-platform/pull/123) and follow-ups [Platform #127](https://github.com/LloydCoder/tinlance-agent-platform/pull/127), [Platform #126](https://github.com/LloydCoder/tinlance-agent-platform/pull/126)
 
 ## Scope and authority
 
@@ -42,6 +42,12 @@ A pre-existing performance-economics test expected the capacity gate to identify
 
 **Fix:** capacity evaluation reports the specific exceeded dimensions (throughput, p95, p99, concurrency). The regression remains in the normal test suite.
 
+### P8-F06 — Post-execution settlement uncertainty must not trigger a refund
+
+A further forensic review found that the execution service could attempt to release a reservation when budget settlement failed after a tool had already executed. That is unsafe: settlement failure does not prove that the side effect did not occur. A timeout during settlement also needs an explicit unknown-outcome classification rather than a false claim that execution was rejected before side effects.
+
+**Fix:** Platform PR #126 was merged at `aa3cd31de76ec25385e8801fa570aab029029b02`. It preserves the reservation for reconciliation after uncertain post-execution settlement, distinguishes timeout/unknown outcome from known budget exhaustion, and adds regression tests that assert the reservation is not released. CI, SQL, TSIC, R10, CodeQL, Secret Scan, Reference Agents and supply-chain attestation are green on the merge SHA.
+
 ### P8-F05 — OS/SDK consumers must preserve structured budget failures
 
 The first exact-SHA cross-repository run exposed that the locked OS revision did not contain the newer typed Platform conflict mapping. Platform may report a structured budget/settlement failure, but an older OS transport boundary cannot preserve the authoritative error code and retryability metadata. The SDK also needs to retain run failure classification rather than collapse it into an untyped result.
@@ -52,7 +58,7 @@ The first exact-SHA cross-repository run exposed that the locked OS revision did
 
 The candidate's first checks exposed Ruff formatting, a mypy variable-name collision, a stale ledger permission assertion, and incomplete adapter test doubles for lease-renewal and reconciliation return values.
 
-**Fixes:** source formatting and typing were corrected; tests now assert the full UPDATE/DELETE/TRUNCATE revocation and model the actual datetime/count return contracts. The initial P8 implementation merged at `f1724f68715d18932b37cf07ac23843291237eaf`; follow-up PR #127 repairs the cross-repository tenancy/approval documentation markers and SDK reference-agent pin identified by the TADL exact-SHA gate. The follow-up candidate must pass the complete workflow set, then TADL must rerun conformance against its exact merge SHA.
+**Fixes:** source formatting and typing were corrected; tests now assert the full UPDATE/DELETE/TRUNCATE revocation and model the actual datetime/count return contracts. The initial P8 implementation merged at `f1724f68715d18932b37cf07ac23843291237eaf`. Follow-up PR #127 repaired the tenancy/approval documentation and SDK reference-agent pin. Follow-up PR #126 then hardened post-execution settlement failure handling so uncertain side effects are not refunded; its merge SHA is `aa3cd31de76ec25385e8801fa570aab029029b02`. Both follow-ups passed their exact-head and post-merge workflows. TADL must still rerun conformance against the final merge SHA.
 
 ## Security and correctness review
 
@@ -73,7 +79,7 @@ The candidate's first checks exposed Ruff formatting, a mypy variable-name colli
 
 ## Required certification gates
 
-- [ ] Platform #123 post-merge workflows and follow-up PR #127 pass CI (Python 3.12/3.13/3.14, PostgreSQL migration/integration tests, TSIC conformance), CodeQL, Secret Scan, Reference Agents and R10 Certification on the exact reviewed head.
+- [ ] Platform #123, #127 and #126 post-merge workflows pass CI/security/CodeQL/R10/Reference Agents; final Platform SHA is pinned (Python 3.12/3.13/3.14, PostgreSQL migration/integration tests, TSIC conformance), CodeQL, Secret Scan, Reference Agents and R10 Certification on the exact reviewed head.
 - [ ] TADL's P8 conformance workflow validates the exact locked Platform candidate, runs P8 adapter tests and verifies OS/SDK do not duplicate persistence or authority.
 - [ ] Platform #123 is merged only after the above gates pass.
 - [ ] The TADL lock is refreshed to the exact Platform merge SHA; P8 integration is rerun against that immutable merge SHA.
