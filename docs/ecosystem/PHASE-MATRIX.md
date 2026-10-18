@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p2-identity-tenancy-2026-10-17  
+**Baseline:** ecosystem-p3-certified-2026-10-18  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-18, P0, P1 and P2 are certified for the reviewed repository/reference scope. P3 event delivery/durability is in progress under `docs/ecosystem/P3-EVENT-DELIVERY.md`; P4–P10 remain not started. The P3 candidate must not be certified until exact-SHA cross-repository event serialization and failure/recovery tests pass. External production deployment remains unverified.
+As of 2026-10-18, P0–P3 are certified for the reviewed repository/reference scope. P3 passed exact-SHA cross-repository serialization, database durability/lease tests, tenant isolation, retry/dead-letter, replay and security gates; see `docs/ecosystem/P3-FORENSIC-AUDIT.md`. P4 trace context and evidence lineage is now in progress. P5–P10 remain not started. External production deployment remains unverified.
 
 ## Canonical phase sequence
 
