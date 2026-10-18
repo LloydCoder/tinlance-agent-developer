@@ -102,6 +102,7 @@ def main() -> None:
 
     def unavailable_audit(_decision: object) -> None:
         raise OSError("evidence store unavailable")
+
     fail_closed = ModelRouter(
         unavailable_audit,
         lambda candidate: candidate.route_id == "route-audit-failure",
@@ -117,7 +118,6 @@ def main() -> None:
             task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"confidential"}),
             risk_classes=frozenset({"low", "moderate"}),
-            max_risk_score=40,
             max_cost_microusd=100,
         )
     )
@@ -128,12 +128,6 @@ def main() -> None:
             raise SystemExit("FAIL P6: evidence outage did not fail closed with a stable error")
     else:
         raise SystemExit("FAIL P6: route was returned while evidence recording was unavailable")
-
-    print(json.dumps({"phase": "P6", "scope": "model-routing-authority", "status": "pass"}))
-
-
-if __name__ == "__main__":
-    main()
 
 
     untrusted = ModelRouter(
@@ -157,3 +151,9 @@ if __name__ == "__main__":
     untrusted_decision = untrusted.route(request)
     if untrusted_decision.allowed or untrusted_decision.reason_code != "untrusted_routing_context":
         raise SystemExit("FAIL P6: untrusted policy context did not fail closed")
+
+    print(json.dumps({"phase": "P6", "scope": "model-routing-authority", "status": "pass"}))
+
+
+if __name__ == "__main__":
+    main()
