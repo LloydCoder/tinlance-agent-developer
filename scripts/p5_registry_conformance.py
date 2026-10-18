@@ -160,6 +160,18 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         require(rule.get("reject_stale") is True, f"{key}: stale registrations must fail closed", failures)
         require(rule.get("reject_missing") is True, f"{key}: missing registrations must fail closed", failures)
 
+    actual_rule_keys = {
+        (rule.get("consumer_id", ""), rule.get("contract_id", "")) for rule in rules
+    }
+    required_rule_keys = {
+        (service.get("service_id", ""), contract_id)
+        for service in services for contract_id in service.get("contract_ids", [])
+    } | {
+        (agent.get("agent_id", ""), contract_id)
+        for agent in agents for contract_id in agent.get("required_contracts", {})
+    }
+    require(required_rule_keys <= actual_rule_keys,
+            f"missing compatibility rules: {sorted(required_rule_keys - actual_rule_keys)}", failures)
     require(any(rule.get("consumer_id") == "platform-sdk.client" for rule in rules),
             "SDK has no compatibility rules", failures)
     require(any(rule.get("consumer_id") == "agent-os.runtime" for rule in rules),
@@ -195,6 +207,9 @@ def main() -> None:
     missing_contract = copy.deepcopy(registry)
     missing_contract["services"][0].pop("contract_ids", None)
     require(not validator.is_valid(missing_contract), "negative test: schema accepted a service without contracts", failures)
+    duplicate = copy.deepcopy(registry)
+    duplicate["services"].append(copy.deepcopy(duplicate["services"][0]))
+    require(bool(semantic_validate(duplicate, lock)), "negative test: duplicate service IDs were accepted", failures)
     authority_drift = copy.deepcopy(registry)
     authority_drift["services"][0]["authority_mode"] = "authority_free"
     require(bool(semantic_validate(authority_drift, lock)),
