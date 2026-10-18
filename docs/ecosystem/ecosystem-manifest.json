@@ -1,6 +1,6 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
-  "phase": "P9",
+  "phase": "P10",
   "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
