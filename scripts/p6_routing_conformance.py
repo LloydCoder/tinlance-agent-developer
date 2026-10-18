@@ -35,7 +35,10 @@ def main() -> None:
         raise SystemExit("FAIL P6: TSIC must keep budget enforcement in Platform")
 
     recorded = []
-    router = ModelRouter(recorded.append)
+    router = ModelRouter(
+        recorded.append,
+        lambda candidate: candidate.route_id == "route-enterprise-safe",
+    )
     router.register(
         ModelRoute(
             route_id="route-enterprise-safe",
@@ -90,7 +93,10 @@ def main() -> None:
 
     def unavailable_audit(_decision: object) -> None:
         raise OSError("evidence store unavailable")
-    fail_closed = ModelRouter(unavailable_audit)
+    fail_closed = ModelRouter(
+        unavailable_audit,
+        lambda candidate: candidate.route_id == "route-audit-failure",
+    )
     fail_closed.register(
         ModelRoute(
             route_id="route-audit-failure",
