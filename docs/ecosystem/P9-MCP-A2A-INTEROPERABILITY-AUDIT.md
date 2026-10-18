@@ -34,7 +34,7 @@
 
 `RemoteDelegation.issue()` correctly rejects capability widening and records tenant/resource scope and a nonce. It has no `issued_at`, `expires_at`, audience, issuer identity or validation method, despite the TSIC contract requiring scoped and expiring delegation.
 
-**Remediation in Platform PR #132:** delegation records now carry issue/expiry timestamps and an explicit audience bound to the remote-agent identity; validation rejects expired/future-invalid timestamps, invalid TTLs and audience substitution. Capability scope remains an immutable frozenset and issuance rejects widening. Tenant-crossing behavior still requires a dedicated negative regression test and exact-SHA certification.
+**Remediation in Platform PR #132:** delegation records carry issue/expiry timestamps and an explicit audience bound to the remote-agent identity. Validation requires the expected authenticated tenant, trusted issuer and receiver audience, and rejects expired/future-invalid timestamps, invalid TTLs, tenant substitution, issuer substitution and audience substitution. Capability scope remains an immutable frozenset and issuance rejects widening. The negative tests are in the branch; exact-SHA certification remains outstanding.
 
 ### P9-05 — TSIC interoperability certification is largely static
 
