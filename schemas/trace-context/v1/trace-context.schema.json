@@ -21,15 +21,24 @@
     },
     "trace_id": {
       "type": "string",
-      "pattern": "^[0-9a-f]{32}$"
+      "pattern": "^[0-9a-f]{32}$",
+      "not": {
+        "pattern": "^0{32}$"
+      }
     },
     "span_id": {
       "type": "string",
-      "pattern": "^[0-9a-f]{16}$"
+      "pattern": "^[0-9a-f]{16}$",
+      "not": {
+        "pattern": "^0{16}$"
+      }
     },
     "parent_span_id": {
       "type": "string",
-      "pattern": "^[0-9a-f]{16}$"
+      "pattern": "^[0-9a-f]{16}$",
+      "not": {
+        "pattern": "^0{16}$"
+      }
     },
     "correlation_id": {
       "type": "string",
