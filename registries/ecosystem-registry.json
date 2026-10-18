@@ -6,7 +6,7 @@
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "reviewed_sha": "56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0",
+      "reviewed_sha": "82ddf7e508449dfdbba4d40b6e8967fd9b86bd79",
       "role": "developer validation consumer",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -20,8 +20,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0",
+        "reviewed_sha": "82ddf7e508449dfdbba4d40b6e8967fd9b86bd79",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/82ddf7e508449dfdbba4d40b6e8967fd9b86bd79",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "verification_status": "pending"
