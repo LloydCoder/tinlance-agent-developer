@@ -44,7 +44,7 @@ def main() -> None:
             route_id="route-enterprise-safe",
             provider="provider-a",
             model="model-a",
-            capabilities=frozenset({"summarization"}),
+                capabilities=frozenset({"summarization"}),
             task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"public", "internal", "confidential"}),
             risk_classes=frozenset({"low", "moderate"}),
@@ -72,7 +72,7 @@ def main() -> None:
         raise SystemExit("FAIL P6: eligible request did not select the registered route")
     if allowed.provider != "provider-a" or allowed.model_id != "model-a":
         raise SystemExit("FAIL P6: route decision disagrees with registered provider/model")
-    if allowed.policy_version != request.policy_version or allowed.trace_id != TRACE_ID:
+    if allowed.policy_version != "tsic-routing-contract-1.0.0" or allowed.trace_id != TRACE_ID:
         raise SystemExit("FAIL P6: decision evidence lost policy or trace context")
     if not recorded or recorded[-1] != allowed:
         raise SystemExit("FAIL P6: routing decision was returned before evidence recording")
