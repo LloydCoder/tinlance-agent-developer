@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+### Added
+
+- Added an exact-SHA P7 adapter conformance gate covering the Platform provider adapter, execution-scoped credentials, OS transport, SDK trace validation, and the canonical TSIC provider-adapter contract.
+
+### Changed
+
+- Reconciled the ecosystem lock, manifest, registry provenance, and phase matrix to a single P7 candidate baseline. P7 remains in progress until the final reviewed adapter revision passes all cross-repository checks and the post-merge forensic audit.
+
 ### Documentation
 
 - Reworked the public README for source-based onboarding.
