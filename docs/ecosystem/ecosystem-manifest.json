@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
+  "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -15,7 +15,8 @@
     "mcp_protocol_version": "2026-07-28",
     "a2a_specification": "1.0.1",
     "a2a_wire_protocol_version": "1.0",
-    "a2a_http_content_type": "application/a2a+json"
+    "a2a_http_content_type": "application/a2a+json",
+    "recovery_certification": "ecosystem-p10-recovery-certification/v1"
   },
   "repositories": [
     {
@@ -23,28 +24,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "82ddf7e508449dfdbba4d40b6e8967fd9b86bd79"
+      "reviewed_sha": "74fb6f441b19966c07010d30fe94c99d3cca1a29"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "f52504d8d9971218d428c8800a2de9b898dd8c4a"
+      "reviewed_sha": "642d2c78810ff4eb6b9ec69e2fa1b4b5775b6b4f"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "2670c75656449730af59e3f3ebc3928ddb55b70a"
+      "reviewed_sha": "9d12512bc1446133890e62ed0c3072ca28e623b7"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "50a54f0ef1e165cd70bf5b4e7f554fff0c7fa81d"
+      "reviewed_sha": "0975eeaa54bff6926d7fee56d8cbdbcc4e880e88"
     }
   ],
   "gate": {
@@ -64,7 +65,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "f6cd336cc0718144e88932dc34176053ca8f27b1",
+    "ref": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -119,7 +120,7 @@
     "p9": "certified",
     "p10": "in_progress",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P9 are certified for their exact reviewed repository/reference scope. P9 MCP/A2A interoperability passed exact-lock conformance on the reviewed four-repository and TSIC pins; the P9 certification closeout was merged at TADL commit 39b728987912f90a56f6327750339eeb2d5cb8fc, and all post-merge CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration workflows passed. P10 end-to-end recovery certification is now in progress. Production egress controls, live provider access, external TLS/OAuth/JWKS configuration, production telemetry, backup/restore and deployed production readiness remain unverified until separately evidenced.",
+    "note": "P0-P9 are certified for their exact reviewed repository/reference scope. P10 recovery certification is being validated against the exact merged P10 implementation SHAs in ecosystem.lock.json and the pinned TSIC contract. The final gate exercises Platform recovery and budget settlement, OS durable event/replay isolation, SDK retry safety, and two-replica identity invariants. External production TLS/OAuth/JWKS, egress policy, live provider access, production backup/restore, telemetry and incident-response evidence remain unverified; repository CI does not certify a deployed production environment.",
     "sequence_release": "p10_in_progress"
   },
   "trace_context_contract": {
@@ -149,6 +150,18 @@
       "non-Platform services and agents remain authority-free or delegated-only",
       "all declared contracts and capabilities resolve",
       "missing/stale/unknown/incompatible registrations fail closed"
+    ]
+  },
+  "recovery_contract": {
+    "schema": "ecosystem-p10-recovery-certification/v1",
+    "tsic": "contracts/recovery/ecosystem-p10-recovery.json",
+    "conformance_script": "scripts/p10_recovery_conformance.py",
+    "invariants": [
+      "recovery and replay are tenant-scoped",
+      "bounded retry never bypasses Platform authority",
+      "RTO/RPO must be measured against declared objectives",
+      "missing evidence or exceeded objectives fail certification",
+      "repository conformance does not prove external production deployment"
     ]
   }
 }
