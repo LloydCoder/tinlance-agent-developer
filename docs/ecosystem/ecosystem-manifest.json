@@ -119,7 +119,7 @@
     "p9": "certified",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P9 are certified for their exact reviewed repository/reference scope. P9 MCP/A2A interoperability passed exact-lock conformance on the reviewed four-repository and TSIC pins; the post-merge TADL SHA 6ec3e843622b113c23fad11e36548dabc158d5dc passed CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration. P10 is not started until this P9 certification closeout is merged. Production egress controls, live provider access, external TLS/OAuth/JWKS configuration, production telemetry, backup/restore and deployed production readiness remain unverified.",
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P9 are certified for their exact reviewed repository/reference scope. P9 MCP/A2A interoperability passed exact-lock conformance on the reviewed four-repository and TSIC pins; the post-merge TADL SHA 6ec3e843622b113c23fad11e36548dabc158d5dc passed CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration. P10 is not started until this P9 certification closeout is merged. Production egress controls, live provider access, external TLS/OAuth/JWKS configuration, production telemetry, backup/restore and deployed production readiness remain unverified.",
     "sequence_release": "ready_for_p10"
   },
   "trace_context_contract": {
