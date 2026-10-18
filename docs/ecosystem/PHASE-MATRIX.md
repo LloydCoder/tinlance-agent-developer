@@ -71,4 +71,4 @@ Use stable, versioned standards as compatibility inputs, not as authority source
 
 ## Current release state
 
-P0, P1 and P2 are certified for the reviewed repository/reference scope only. P3 event delivery/durability is the next eligible phase; P4–P10 remain `not_started` until each prior phase has passed its own gate. External production readiness remains `unverified`.
+P0–P4 are certified for the reviewed repository/reference scope only. P5 registry lifecycle and supply-chain reference governance is `in_progress`; P6–P10 remain `not_started` until each prior phase has passed its own gate. Supply-chain cryptographic verification remains a P10 gate, and external production readiness remains `unverified`.
