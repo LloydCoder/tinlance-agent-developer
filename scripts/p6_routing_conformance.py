@@ -64,7 +64,6 @@ def main() -> None:
         risk_score=20,
         budget_microusd=50,
         provider_availability=frozenset({"provider-a"}),
-        policy_version="tsic-routing-contract-1.0.0",
         trace_id=TRACE_ID,
     )
     allowed = router.route(request)
@@ -87,7 +86,6 @@ def main() -> None:
             risk_score=20,
             budget_microusd=50,
             provider_availability=frozenset({"provider-a"}),
-            policy_version="tsic-routing-contract-1.0.0",
             trace_id=TRACE_ID,
         )
     )
