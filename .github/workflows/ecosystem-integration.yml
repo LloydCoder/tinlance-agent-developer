@@ -104,3 +104,6 @@ jobs:
 
       - name: Run canonical P6 model routing authority conformance
         run: python scripts/p6_routing_conformance.py
+
+      - name: Run canonical P7 real adapter and integration boundary conformance
+        run: python scripts/p7_adapter_conformance.py
