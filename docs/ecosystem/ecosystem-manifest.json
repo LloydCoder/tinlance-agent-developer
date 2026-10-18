@@ -1,14 +1,15 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p3-certified-2026-10-18",
+  "baseline_id": "ecosystem-p4-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
     "governed_execution": "governed-execution.v1",
     "endpoint": "POST /v1/agent-platform",
     "transformation_schema": "transformation/v1",
-    "replication_schema": "replication/v1"
+    "replication_schema": "replication/v1",
+    "trace_context_schema": "trace-context/v1"
   },
   "repositories": [
     {
@@ -57,7 +58,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "d6b1aacad18e91d6a19aab061e84afbf14647eba",
+    "ref": "c033ac79338b39017c7eb6ef5d29e769421579bb",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -114,5 +115,20 @@
     "production": "unverified",
     "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P3 are certified for exact reviewed repository/reference evidence. P3 passed exact-SHA cross-repository serialization, SQL durability/lease, tenant isolation, retry/dead-letter, replay, and event conformance gates; see P3-FORENSIC-AUDIT.md. P4 trace context/evidence lineage is now in progress. P5-P10 remain not_started. External production readiness remains unverified.",
     "sequence_release": "p4_in_progress"
+  },
+  "trace_context_contract": {
+    "schema": "schemas/trace-context/v1/trace-context.schema.json",
+    "tsic_schema": "schemas/trace-context/v1/trace-context.schema.json",
+    "sdk": "src/tinlance_agent_platform_sdk/trace_context.py",
+    "os": "src/tinlance_agent_os/trace_context.py",
+    "platform": "packages/contracts/src/tinlance_agent_platform_contracts/trace_context.py",
+    "invariants": [
+      "trace_id/span_id are valid non-zero W3C identifiers",
+      "request, policy decision, approval, execution, tool call, event and evidence share trace/correlation/tenant lineage",
+      "parent span links are non-orphaned and reconstructable",
+      "evidence references are immutable SHA-256 digests",
+      "sensitive attributes and authority-shaped metadata are rejected",
+      "trace metadata never grants execution authority"
+    ]
   }
 }
