@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p5-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p5-postmerge-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "ebc7f63329d65e179c7aaa22f4158eeee7c9bb16"
+      "reviewed_sha": "6ac2022c69b62730ba1c3df7e33d97510b11a42b"
     },
     {
       "id": "os",
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase P10 is the contract-surface marker, not the active release phase. P0-P4 are certified for repository/reference conformance. P4 passed exact-SHA trace lineage reconstruction across SDK request, Platform policy/approval/execution/tool/audit/evidence records, OS event spans, and the canonical TSIC schema. P5 canonical service/agent/contract registries are in progress. P6-P10 remain not_started. External production telemetry and deployment remain unverified.",
+    "note": "P0-P4 are certified for exact repository/reference conformance. P5 registry implementation has merged, but P5 remains in progress until the post-merge exact-SHA ecosystem, registry negative-control, security, and forensic-audit gates pass. P6-P10 remain not_started. External production deployment remains unverified.",
     "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
