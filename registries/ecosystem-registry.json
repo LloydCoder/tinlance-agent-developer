@@ -30,7 +30,7 @@
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
-      "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
+      "reviewed_sha": "f52504d8d9971218d428c8800a2de9b898dd8c4a",
       "role": "operating environment and lifecycle plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -44,8 +44,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
+        "reviewed_sha": "f52504d8d9971218d428c8800a2de9b898dd8c4a",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/f52504d8d9971218d428c8800a2de9b898dd8c4a",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "verification_status": "pending"
@@ -78,7 +78,7 @@
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
+      "reviewed_sha": "2670c75656449730af59e3f3ebc3928ddb55b70a",
       "role": "typed developer API surface",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -92,8 +92,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
+        "reviewed_sha": "2670c75656449730af59e3f3ebc3928ddb55b70a",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/2670c75656449730af59e3f3ebc3928ddb55b70a",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "verification_status": "pending"
@@ -102,7 +102,7 @@
     {
       "id": "tsic",
       "repository": "LloydCoder/tinlance-system-integration",
-      "reviewed_sha": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
+      "reviewed_sha": "b1d874999a26060cd51192920127278f77213470",
       "role": "canonical contract and conformance authority",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -116,8 +116,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-system-integration/commit/4ab0837e0a07cf070f3101e63ba286534ba28bff",
+        "reviewed_sha": "b1d874999a26060cd51192920127278f77213470",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-system-integration/commit/b1d874999a26060cd51192920127278f77213470",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
         "verification_status": "pending"
