@@ -12,7 +12,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ### Changed
 
-- Reconciled the ecosystem lock, manifest, registry provenance, and phase matrix to a single P7 candidate baseline. P7 remains in progress until the final reviewed adapter revision passes all cross-repository checks and the post-merge forensic audit.
+- Reconciled the ecosystem lock, manifest, registry provenance, and phase matrix to the merged P7 baseline; certified P7 after exact-SHA cross-repository conformance and post-merge forensic audit. P8 is the next eligible phase.
 
 ### Documentation
 
