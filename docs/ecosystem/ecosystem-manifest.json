@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p4-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p5-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -9,7 +9,8 @@
     "endpoint": "POST /v1/agent-platform",
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1",
-    "trace_context_schema": "trace-context/v1"
+    "trace_context_schema": "trace-context/v1",
+    "registry_schema": "registry-manifest/v1"
   },
   "repositories": [
     {
@@ -17,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "fe2817f551e1580372840c9a604fc1781eb0772f"
+      "reviewed_sha": "ebc7f63329d65e179c7aaa22f4158eeee7c9bb16"
     },
     {
       "id": "os",
@@ -38,7 +39,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "35273b514b960daecb7bdcd8ed03dbf12117a514"
+      "reviewed_sha": "d4460444cf5c993520462686680130cb6251813d"
     }
   ],
   "gate": {
@@ -58,7 +59,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "dab1fbaa87c97648eb3908daccf4f8a5d90a70ef",
+    "ref": "ea490e4ecdb49101f4708b4b4ad4abc3af55d38a",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -105,16 +106,16 @@
     "p1": "certified",
     "p2": "certified",
     "p3": "certified",
-    "p4": "in_progress",
-    "p5": "not_started",
+    "p4": "certified",
+    "p5": "in_progress",
     "p6": "not_started",
     "p7": "not_started",
     "p8": "not_started",
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P3 are certified for exact reviewed repository/reference evidence. P3 passed exact-SHA cross-repository serialization, SQL durability/lease, tenant isolation, retry/dead-letter, replay, and event conformance gates; see P3-FORENSIC-AUDIT.md. P4 trace context/evidence lineage is now in progress. P5-P10 remain not_started. External production readiness remains unverified.",
-    "sequence_release": "p4_in_progress"
+    "note": "The manifest phase P10 is the contract-surface marker, not the active release phase. P0-P4 are certified for repository/reference conformance. P4 passed exact-SHA trace lineage reconstruction across SDK request, Platform policy/approval/execution/tool/audit/evidence records, OS event spans, and the canonical TSIC schema. P5 canonical service/agent/contract registries are in progress. P6-P10 remain not_started. External production telemetry and deployment remain unverified.",
+    "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
@@ -129,6 +130,20 @@
       "evidence references are immutable SHA-256 digests",
       "sensitive attributes and authority-shaped metadata are rejected",
       "trace metadata never grants execution authority"
+    ]
+  },
+  "registry_contract": {
+    "schema": "schemas/registry/v1/registry-manifest.schema.json",
+    "manifest": "registries/ecosystem-registry.json",
+    "validator": "scripts/p5_registry_conformance.py",
+    "invariants": [
+      "full-SHA repository pin equality against ecosystem lock",
+      "unique repository/service/agent/contract identifiers",
+      "all owner references resolve",
+      "Platform sole consequential execution authority",
+      "non-Platform services and agents remain authority-free or delegated-only",
+      "all declared contracts and capabilities resolve",
+      "missing/stale/unknown/incompatible registrations fail closed"
     ]
   }
 }
