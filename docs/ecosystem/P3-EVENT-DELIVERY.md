@@ -30,7 +30,7 @@ A worker crash after publish but before acknowledgement can produce duplicate de
 P3 is complete only when all conditions below are satisfied:
 
 - [ ] TSIC schema follows CloudEvents 1.0 naming and rejects invalid or authority-shaped fields.
-- [ ] Platform event envelope, outbox lease metadata, and tenant-isolated inbox schema pass unit and database migration tests.
+- [ ] Platform event envelope, transaction-bound PostgreSQL event/outbox adapter, outbox lease metadata, and tenant-isolated inbox schema pass unit and database migration tests. The adapter must not independently commit; it must use the caller's tenant-scoped connection so domain state, event, and outbox records commit or roll back together.
 - [ ] OS event runtime has tenant/workspace-scoped idempotency, exclusive expiring worker leases, owner-bound acknowledgement, bounded retry/dead-letter, and audited tenant-scoped replay.
 - [ ] SDK typed envelope serializes all required attributes and rejects invalid timestamps, trace IDs, non-JSON values, and invalid extension metadata.
 - [ ] The actual SDK, Platform and OS serialized envelopes validate against the exact TSIC schema from the reviewed TSIC revision.
