@@ -460,7 +460,7 @@ def validate_canonical_phase_map() -> None:
         "ready_for_p4", "p4_in_progress", "ready_for_p5", "p5_in_progress",
         "ready_for_p6", "p6_in_progress", "ready_for_p7", "p7_in_progress",
         "ready_for_p8", "p8_in_progress", "ready_for_p9", "p9_in_progress",
-        "ready_for_p10", "p10_in_progress", "p10_complete",
+        "ready_for_p10", "p10_in_progress", "p10_complete", "all_phases_certified",
     }:
         FAILURES.append("canonical sequence release state is invalid or still uses the legacy phase map")
 
