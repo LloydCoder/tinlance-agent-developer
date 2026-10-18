@@ -23,6 +23,21 @@ REQUIRED_CONTRACTS = {
 
 def main() -> None:
     authority = LOCK["integration_authority"]
+    if LOCK.get("contracts", {}).get("registry_schema") != "registry-manifest/v2":
+        raise AssertionError("ecosystem lock must pin canonical registry-manifest/v2")
+    local_registry_schema = json.loads(
+        (ROOT / "schemas/registry/v2/registry-manifest.schema.json").read_text(encoding="utf-8")
+    )
+    canonical_registry_schema = json.loads(
+        (TSIC_ROOT / "schemas/registry/v2/registry-manifest.schema.json").read_text(encoding="utf-8")
+    )
+    if local_registry_schema != canonical_registry_schema:
+        raise AssertionError("vendored registry v2 schema differs from pinned TSIC authority")
+    canonical_registry_contract = json.loads(
+        (TSIC_ROOT / "contracts/registry/registry-contract-v2.json").read_text(encoding="utf-8")
+    )
+    if canonical_registry_contract.get("format") != "tinlance-canonical-ecosystem-registry/v2":
+        raise AssertionError("pinned TSIC registry v2 contract is missing or stale")
     if authority["repository"] != "LloydCoder/tinlance-system-integration":
         raise AssertionError("TADL integration authority is not TSIC")
     if len(authority["ref"]) != 40:
