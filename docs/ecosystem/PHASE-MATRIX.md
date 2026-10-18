@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-18, P0–P6 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates. Registry v1 remains immutable/deprecated and v2 is active. P7 real adapters and integration boundaries is the next eligible phase; P8–P10 remain not started. External production telemetry and deployment remain unverified.
+As of 2026-10-18, P0–P6 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates. Registry v1 remains immutable/deprecated and v2 is active. Canonical P7 real adapters and integration boundaries is in progress; P8–P10 remain not started. External production telemetry and deployment remain unverified.
 
 ## Canonical phase sequence
 
