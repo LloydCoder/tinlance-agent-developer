@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-17, P0, P1 and P2 are certified for the reviewed repository/reference scope. P3 event delivery/durability is the next eligible phase; P4–P10 remain not started until each prior phase's own exit gate passes. External production deployment remains unverified.
+As of 2026-10-18, P0, P1 and P2 are certified for the reviewed repository/reference scope. P3 event delivery/durability is in progress under `docs/ecosystem/P3-EVENT-DELIVERY.md`; P4–P10 remain not started. The P3 candidate must not be certified until exact-SHA cross-repository event serialization and failure/recovery tests pass. External production deployment remains unverified.
 
 ## Canonical phase sequence
 

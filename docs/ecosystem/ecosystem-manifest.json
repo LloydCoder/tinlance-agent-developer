@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p2-identity-tenancy-2026-10-17",
+  "baseline_id": "ecosystem-p3-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -23,21 +23,21 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "6a37934a2e602c6f31c2c6b943500af92d528f5b"
+      "reviewed_sha": "647208ce2c0876ed4a8ecded1f95fa077b144032"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "8a41d6dce2fe778ab25c33dfa315328d06ec4908"
+      "reviewed_sha": "e9e5ab621b036ca602cd1df0fe73352413b01672"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "c094160a243382b043f40bb642f758a30e6203ff"
+      "reviewed_sha": "b2823a62f6b8139c93ff611e15bb72c45e3c577f"
     }
   ],
   "gate": {
@@ -57,7 +57,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "9d4361a16ae1a5570eee49d6baf499f61e222a20",
+    "ref": "d6b1aacad18e91d6a19aab061e84afbf14647eba",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -103,7 +103,7 @@
     "p0": "certified",
     "p1": "certified",
     "p2": "certified",
-    "p3": "not_started",
+    "p3": "in_progress",
     "p4": "not_started",
     "p5": "not_started",
     "p6": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0, P1 and P2 are certified for exact reviewed repository/reference evidence. P3 is the next eligible phase; P4-P10 remain not_started until prior phase gates pass. P2 covers strict JWT/JWKS validation, verified principal binding, token revocation fail-closed behavior, tenant isolation for run cancellation/events/evidence, and exact-SHA OS/SDK context regression. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not similarly numbered phase certification. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
-    "sequence_release": "ready_for_p3"
+    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P2 are certified for exact reviewed repository/reference evidence. P3 event delivery/durability is in progress; P4-P10 remain not_started. P3 requires CloudEvents 1.0-compatible serialization, tenant-scoped outbox/inbox delivery, idempotency, bounded retry/dead-letter/replay, and exact-SHA cross-repository conformance. External production readiness remains unverified.",
+    "sequence_release": "p3_in_progress"
   }
 }
