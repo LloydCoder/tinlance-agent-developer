@@ -332,6 +332,23 @@ def main() -> None:
     deprecated_use["services"][2]["contract_ids"].append("registry-manifest.v1")
     require(bool(semantic_validate(deprecated_use, lock)),
             "negative test: active service used a deprecated contract", failures)
+    revoked_publisher = copy.deepcopy(registry)
+    revoked_publisher["repositories"][2]["publisher"]["identity_status"] = "revoked"
+    require(bool(semantic_validate(revoked_publisher, lock)),
+            "negative test: active service accepted a revoked publisher", failures)
+    revoked_supply_chain = copy.deepcopy(registry)
+    revoked_supply_chain["repositories"][2]["supply_chain"]["verification_status"] = "revoked"
+    require(bool(semantic_validate(revoked_supply_chain, lock)),
+            "negative test: active service accepted revoked supply-chain evidence", failures)
+    missing_replacement = copy.deepcopy(registry)
+    missing_replacement["repositories"][0]["lifecycle"] = {
+        "state": "deprecated",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": "superseded",
+        "replacement_id": "missing.repository",
+    }
+    require(bool(semantic_validate(missing_replacement, lock)),
+            "negative test: deprecated repository without an active replacement was accepted", failures)
     incompatible = copy.deepcopy(registry)
     for rule in incompatible["compatibility_rules"]:
         if rule["consumer_id"] == "platform-sdk.client" and rule["contract_id"] == "trace-context.v1":
