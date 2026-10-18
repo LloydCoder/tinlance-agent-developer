@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P7 are certified for the exact reviewed repository/reference scope. P7 passed PR-head and post-merge CI, security, CodeQL, secret scan, supply-chain attestation and exact-SHA cross-repository adapter conformance; the post-merge forensic audit records evidence and residual risks. P8 budget/quota/capacity implementation is in progress in Platform PR #123 and is not certified until PostgreSQL transactional, race/recovery, exact-SHA cross-repository and post-merge gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for the exact reviewed repository/reference scope. P7 passed PR-head and post-merge CI, security, CodeQL, secret scan, supply-chain attestation and exact-SHA cross-repository adapter conformance; the post-merge forensic audit records evidence and residual risks. P8 budget/quota/capacity implementation is in progress in Platform PR #123 and is not certified until PostgreSQL transactional, race/recovery, exact-SHA cross-repository and post-merge gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
     "sequence_release": "p8_in_progress"
   },
   "trace_context_contract": {
