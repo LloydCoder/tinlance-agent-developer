@@ -125,6 +125,13 @@ def main() -> int:
         "tools/call",
         "MCPPlatformRequest",
         "idempotency",
+        "supportedVersions",
+        "HeaderMismatch",
+        "UnsupportedProtocolVersion",
+        "-32020",
+        "-32022",
+        "resultType",
+        "io.modelcontextprotocol/serverInfo",
     )
     require_file(
         PLATFORM,
@@ -137,18 +144,29 @@ def main() -> int:
     )
     require_file(
         PLATFORM,
+        "packages/api/src/tinlance_agent_platform_api/service.py",
+        "request.tenant_id, request.subject_id, caller_key",
+    )
+    require_file(
+        PLATFORM,
         "packages/multi_agent/src/tinlance_agent_platform_multi_agent/a2a_http.py",
         "A2AProtocolService",
         "message/send",
         "tasks/get",
         "application/a2a+json",
         "AgentCardSignatureVerifier",
+        "card_verifier",
+        "tenant_id",
+        "subject_id",
+        "idempotency-key",
     )
     require_file(
         PLATFORM,
         "packages/multi_agent/src/tinlance_agent_platform_multi_agent/interoperability.py",
         "A2A_SPECIFICATION_VERSION",
         "AgentCardSignatureVerifier",
+        "RemoteCredentialProvider",
+        "application/a2a+json",
         "validate_remote_endpoint",
         "expected_tenant_id",
         "expected_issuer_id",
@@ -170,6 +188,11 @@ def main() -> int:
         TSIC,
         "scripts/certify_interoperability.py",
         "protocol_support_never_grants_execution_authority",
+        "agent_card_signature_verification_required",
+        "remote_credentials_must_be_scoped",
+        "tenant_scoped_idempotency_required",
+        "mcp_body_header_version_match_required",
+        "application/a2a+json",
     )
     tsic_result = subprocess.run(
         [sys.executable, str(TSIC / "scripts/certify_interoperability.py")],
@@ -189,6 +212,8 @@ def main() -> int:
         (
             "tests/test_mcp_protocol.py",
             "tests/test_m17_interoperability.py",
+            "tests/test_a2a_http.py",
+            "tests/test_api_idempotency.py",
             "tests/test_a2a_http.py",
             "tests/test_api_idempotency.py",
         ),
