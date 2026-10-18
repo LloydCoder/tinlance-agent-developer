@@ -1,17 +1,18 @@
 # P5 Canonical Registry and Compatibility Contract
 
 **Status:** in progress; not certified  
-**Canonical schema:** `schemas/registry/v1/registry-manifest.schema.json`  
+**Canonical schema:** TSIC `schemas/registry/v2/registry-manifest.schema.json` (vendored byte-for-byte at `schemas/registry/v2/registry-manifest.schema.json`)  
+**Compatibility:** v1 remains immutable and is deprecated in the v2 registry; v2 is the active contract.  
 **Registry snapshot:** `registries/ecosystem-registry.json`  
 **Runtime validator:** Platform `tinlance_agent_platform_registry.ecosystem.EcosystemRegistrySnapshot`  
 **CI gate:** `scripts/p5_registry_conformance.py`
 
 ## Registry layers
 
-- **Repository registry:** full immutable reviewed commit SHA, repository identity and architectural role.
+- **Repository registry:** full immutable reviewed commit SHA, publisher identity and verification state, lifecycle state, provenance/SBOM/signature references, and architectural role.
 - **Service registry:** unique service identity, owner repository, semantic service version, API version, required contract IDs, declared capabilities and authority mode.
 - **Agent registry:** unique agent identity, owner repository, immutable reviewed revision, declared capabilities, exact required contract versions and delegated-only/authority-free mode.
-- **Contract registry:** immutable contract identity/version, owning repository, authoritative artifact path and compatibility policy.
+- **Contract registry:** immutable contract identity/version, owning repository, authoritative artifact path, lifecycle/deprecation replacement and compatibility policy.
 - **Compatibility registry:** explicit consumer-to-contract supported versions. Unknown, stale, missing or incompatible entries must be rejected.
 
 ## Authority law
@@ -20,7 +21,7 @@ Platform is the only service with `sole_consequential_execution`. OS, SDK and TA
 
 ## Exit gate
 
-The exact-SHA conformance gate must reject duplicate or missing IDs, unresolved owners, repository pin drift, absent contract artifacts, undeclared capabilities, unsupported contract versions, missing compatibility rules, mutable contract versions and authority-mode drift. Negative tests are required for stale refs, missing contract declarations, incompatible versions and unauthorized authority claims.
+The exact-SHA conformance gate must reject duplicate or missing IDs, unresolved owners, repository pin drift, absent contract artifacts, undeclared capabilities, unsupported contract versions, missing compatibility rules, mutable contract versions, authority-mode drift, missing publisher identity, missing provenance/SBOM/signature references, stale supply-chain SHAs, revoked publishers, and active use of quarantined/revoked/deprecated resources. Deprecation requires an active replacement. Negative tests cover stale refs, missing supply-chain references, invalid lifecycle transitions, incompatible versions and unauthorized authority claims. Supply-chain references marked `pending` are not treated as cryptographically verified; exact attestation verification remains a P10 gate.
 
 ## Production limitation
 
