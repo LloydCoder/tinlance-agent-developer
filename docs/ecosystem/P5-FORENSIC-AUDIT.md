@@ -1,6 +1,6 @@
 # P5 Post-Merge Forensic Audit
 
-**Disposition:** post-merge audit candidate; P5 certification remains in progress until this branch's exact-SHA workflows pass.  
+**Disposition:** P5 certified for the reviewed exact-SHA repository/reference scope after the candidate's PR-head and post-merge CI/security/integration workflows passed.  
 **Baseline:** `ecosystem-p5-postmerge-audit-candidate-2026-10-18`  
 **Audit date:** 2026-10-18  
 **Production readiness:** unverified; no production deployment or live operational telemetry is certified by these repository checks.
@@ -45,4 +45,4 @@ The registry is descriptive metadata, not an execution grant. The Platform remai
 
 ## Current phase state
 
-P0-P4 are certified for the reviewed exact-SHA scope. P5 remains `in_progress` while this post-merge baseline's CI and conformance gates run. P6-P10 remain `not_started`; production readiness remains `unverified`.
+P0-P4 are certified for the reviewed exact-SHA scope. P5 is `certified` for the repository/reference scope described above. P6 model/tool routing mediation is now `in_progress`; P7-P10 remain `not_started`. Production readiness remains `unverified`.

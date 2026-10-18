@@ -101,3 +101,6 @@ jobs:
 
       - name: Run canonical P5 registry and compatibility conformance
         run: python scripts/p5_registry_conformance.py
+
+      - name: Run canonical P6 model routing authority conformance
+        run: python scripts/p6_routing_conformance.py

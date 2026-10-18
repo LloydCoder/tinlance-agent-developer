@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p5-postmerge-audit-candidate-2026-10-18  
+**Baseline:** ecosystem-p6-routing-context-verified-candidate-2026-10-18  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-18, P0–P4 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction and sensitive-field rejection; see `docs/ecosystem/P3-FORENSIC-AUDIT.md` and `docs/ecosystem/P4-FORENSIC-AUDIT.md`. P5 canonical service/agent/contract registries and lifecycle/supply-chain references are in progress; registry v1 is preserved as immutable/deprecated and v2 is the active contract. P6–P10 remain not started. External production telemetry and deployment remain unverified.
+As of 2026-10-18, P0–P5 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed the exact-SHA integration and post-merge CI/security gates. Registry v1 remains immutable/deprecated and v2 is active. P6 model/tool routing mediation is in progress; P7–P10 remain not started. External production telemetry and deployment remain unverified.
 
 ## Canonical phase sequence
 

@@ -33,6 +33,7 @@ REQUIRED_CONTRACTS = {
     "replication.v1",
     "registry-manifest.v1",
     "registry-manifest.v2",
+    "model-routing.v1",
 }
 
 
