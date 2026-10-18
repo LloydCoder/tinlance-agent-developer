@@ -113,7 +113,12 @@ def main() -> int:
 
     run_tests(
         PLATFORM,
-        ("tests/test_recovery_gate.py", "tests/test_m15_durability.py"),
+        (
+            "tests/test_recovery_gate.py",
+            "tests/test_m15_durability.py",
+            "tests/test_r10_execution.py",
+            "tests/test_p8_budget_quota_ledger.py",
+        ),
         "Platform",
     )
     run_tests(OS, ("tests/test_event_runtime.py",), "Agent OS")
