@@ -103,6 +103,17 @@ def check_authority_boundary() -> None:
         "test_postgres_ledger_exposes_lease_renewal_and_reconciliation",
         "test_p8_migration_has_transactional_limits_rls_and_append_only_ledger",
     )
+    require_markers(
+        PLATFORM / "packages/execution/src/tinlance_agent_platform_execution/service.py",
+        "execution.budget_settlement_unknown",
+        "execution completed but budget settlement could not be confirmed",
+        "usage remains charged or reserved",
+    )
+    require_markers(
+        PLATFORM / "tests/test_r10_execution.py",
+        "test_failed_post_execution_budget_settlement_is_not_refunded",
+        "assert budget.released is False",
+    )
     if "security invoker" not in migration.lower() or "security invoker" not in recovery.lower():
         FAILURES.append("P8 SQL functions must preserve caller identity and RLS via SECURITY INVOKER")
 
