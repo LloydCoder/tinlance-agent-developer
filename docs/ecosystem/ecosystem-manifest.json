@@ -39,7 +39,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "43e153f0b9bcd0657d504dec0a0889f38a8b575b"
+      "reviewed_sha": "6a44940b520a2712564a4f4f3f095055bebbf7d3"
     }
   ],
   "gate": {
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. P8 budget/quota/capacity implementation and settlement-retry evidence fix are merged in Platform at 43e153f0b9bcd0657d504dec0a0889f38a8b575b. The P8 candidate lock and cross-repository certification are in progress; P8 is not certified until exact-SHA conformance and post-merge forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. P8 budget/quota/capacity implementation, immutable settlement retry evidence, and explicit pending-settlement retry API are merged in Platform at 6a44940b520a2712564a4f4f3f095055bebbf7d3. The P8 candidate lock and cross-repository certification are in progress; P8 is not certified until exact-SHA conformance and post-merge forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
     "sequence_release": "p8_in_progress"
   },
   "trace_context_contract": {
