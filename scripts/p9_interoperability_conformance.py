@@ -131,9 +131,35 @@ def main() -> int:
         "expected_issuer_id",
         "expected_audience",
     )
-    require_file(OS, "src/tinlance_agent_os/interop.py", "supportedInterfaces", "unsupported MCP protocol version")
-    require_file(SDK, "src/tinlance_agent_platform_sdk/mcp.py", "_SUPPORTED_PROTOCOL_VERSIONS", "credential-shaped metadata")
-    require_file(TSIC, "scripts/certify_interoperability.py", "protocol_support_never_grants_execution_authority")
+    require_file(
+        OS,
+        "src/tinlance_agent_os/interop.py",
+        "supportedInterfaces",
+        "unsupported MCP protocol version",
+    )
+    require_file(
+        SDK,
+        "src/tinlance_agent_platform_sdk/mcp.py",
+        "_SUPPORTED_PROTOCOL_VERSIONS",
+        "credential-shaped metadata",
+    )
+    require_file(
+        TSIC,
+        "scripts/certify_interoperability.py",
+        "protocol_support_never_grants_execution_authority",
+    )
+    tsic_result = subprocess.run(
+        [sys.executable, str(TSIC / "scripts/certify_interoperability.py")],
+        cwd=TSIC,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if tsic_result.returncode:
+        FAILURES.append(
+            f"TSIC interoperability certification failed:\n"
+            f"{tsic_result.stdout[-3000:]}\n{tsic_result.stderr[-1500:]}"
+        )
 
     run_test_subset(
         PLATFORM,
@@ -149,8 +175,13 @@ def main() -> int:
             print(f"- {failure}")
         return 1
     print("P9 MCP/A2A interoperability conformance: PASS")
-    print("Exact locked Platform, OS, SDK and TSIC revisions passed protocol and adversarial tests.")
-    print("Production network pinning, deployed authentication, shared rate limiting and telemetry remain deployment evidence requirements.")
+    print(
+        "Exact locked Platform, OS, SDK and TSIC revisions passed protocol and adversarial tests."
+    )
+    print(
+        "Production network pinning, deployed authentication, shared rate limiting and telemetry "
+        "remain deployment evidence requirements."
+    )
     return 0
 
 
