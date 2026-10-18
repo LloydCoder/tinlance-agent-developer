@@ -30,7 +30,7 @@
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
-      "reviewed_sha": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
+      "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
       "role": "operating environment and lifecycle plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -44,8 +44,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/c68eb5e2a36a6544660145b4c997747f7ba0f605",
+        "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "verification_status": "pending"
