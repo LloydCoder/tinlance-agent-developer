@@ -1,12 +1,12 @@
 {
   "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
+  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "repositories": [
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "reviewed_sha": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d",
+      "reviewed_sha": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5",
       "role": "developer validation consumer",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -20,8 +20,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d",
+        "reviewed_sha": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/f1a3c1abdfd62686bb56333a54443dd74cbc20f5",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "verification_status": "pending"
