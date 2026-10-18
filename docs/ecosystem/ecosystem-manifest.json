@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
+  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d"
+      "reviewed_sha": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5"
     },
     {
       "id": "os",
@@ -110,12 +110,12 @@
     "p5": "certified",
     "p6": "certified",
     "p7": "certified",
-    "p8": "in_progress",
-    "p9": "not_started",
+    "p8": "certified",
+    "p9": "in_progress",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. The P8 implementation and exact-lock certification PR is merged in TADL at b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d. P8 remains in_progress until the refreshed exact-merge-SHA ecosystem, security and post-phase forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
-    "sequence_release": "p8_in_progress"
+    "note": "P0-P8 are certified for their exact reviewed repository/reference scope. P8 post-phase audit passed on TADL main SHA f1a3c1abdfd62686bb56333a54443dd74cbc20f5: CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and exact-lock Ecosystem Integration were green. P9 canonical scope is MCP/A2A interoperability and security; P10 canonical scope is end-to-end recovery and production certification. Reference-workforce and replication fixtures remain cross-cutting evidence, not canonical P9/P10 definitions. Production egress controls, live provider access, telemetry, backup/restore and deployed production readiness remain unverified.",
+    "sequence_release": "p9_in_progress"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
