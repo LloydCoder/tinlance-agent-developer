@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p6-routing-context-verified-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p6-routing-context-verified-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "e31cf6ab2a9b5702067711adaf85099812cf10d4"
+      "reviewed_sha": "2cd0cd75c419535ada51286a1aca4123aa889705"
     },
     {
       "id": "os",
@@ -108,14 +108,14 @@
     "p3": "certified",
     "p4": "certified",
     "p5": "certified",
-    "p6": "in_progress",
+    "p6": "certified",
     "p7": "not_started",
     "p8": "not_started",
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The P10 manifest phase field denotes full contract-surface coverage, not the active certification phase. P0-P5 are certified for reviewed exact-SHA repository/reference conformance. P6 model/tool routing mediation is in progress against Platform merge a06c32b26a6abde2294154dba9a8d299789b1c37 and the pinned TSIC routing-authority contract. P7-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
-    "sequence_release": "p6_in_progress"
+    "note": "P0-P6 are certified for exact-SHA repository/reference conformance. P6 model/tool routing mediation passed the Platform PR-head and post-merge CI/security/R10/reference-agent gates, plus TADL exact-SHA TSIC-bound routing conformance and post-merge integration workflows at TADL 2cd0cd75c419535ada51286a1aca4123aa889705. P7 real adapters and integration boundaries is the next eligible phase; P8-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
+    "sequence_release": "ready_for_p7"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
