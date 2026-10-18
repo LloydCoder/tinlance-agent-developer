@@ -1,0 +1,49 @@
+name: Supply Chain Attestation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supply-chain-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  attest:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "22"
+      - name: Generate SPDX SBOM from locked npm dependency graph
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts
+          npm sbom --sbom-format spdx > sbom.spdx.json
+          test -s sbom.spdx.json
+          git archive --format=tar.gz --output=source.tar.gz "$GITHUB_SHA"
+          test -s source.tar.gz
+      - name: Attest source provenance
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6
+        with:
+          subject-path: source.tar.gz
+      - name: Attest SBOM for reviewed source
+        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6
+        with:
+          subject-path: source.tar.gz
+          sbom-path: sbom.spdx.json
