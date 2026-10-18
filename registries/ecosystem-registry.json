@@ -1,7 +1,7 @@
 {
   "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p5-postmerge-audit-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p6-routing-candidate-2026-10-18",
   "repositories": [
     {
       "id": "developer",
@@ -54,7 +54,7 @@
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+      "reviewed_sha": "57ea98c4060b6ca3fab1280b671a28f3b626ea6b",
       "role": "sole governed execution and authority plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -68,8 +68,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+        "reviewed_sha": "57ea98c4060b6ca3fab1280b671a28f3b626ea6b",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/57ea98c4060b6ca3fab1280b671a28f3b626ea6b",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "verification_status": "pending"
@@ -133,7 +133,8 @@
       "contract_ids": [
         "governed-execution.v1",
         "event-envelope.v1",
-        "trace-context.v1"
+        "trace-context.v1",
+        "model-routing.v1"
       ],
       "capabilities": [
         "agent.execute",
@@ -381,6 +382,19 @@
         "reason": null,
         "replacement_id": null
       }
+    },
+    {
+      "contract_id": "model-routing.v1",
+      "version": "1.0.0",
+      "schema_path": "contracts/models/routing-authority.json",
+      "owner_repository_id": "tsic",
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T07:30:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     }
   ],
   "compatibility_rules": [
@@ -589,6 +603,16 @@
       "contract_id": "trace-context.v1",
       "supported_versions": [
         "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "agent-platform.api",
+      "contract_id": "model-routing.v1",
+      "supported_versions": [
+        "1.0.0"
       ],
       "reject_unknown": true,
       "reject_stale": true,
