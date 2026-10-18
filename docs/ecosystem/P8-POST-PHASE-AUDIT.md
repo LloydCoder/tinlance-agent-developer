@@ -1,7 +1,7 @@
 # P8 Post-Phase Forensic Audit — Budgets, Quotas, Capacity and Cost
 
 **Audit scope:** canonical P8 implementation and exact-lock integration.  
-**Status:** implementation merged; certification transition pending one fresh post-merge Secret Scan result on the reconciled main baseline.  
+**Status:** CERTIFIED for the reviewed repository/reference scope.  
 **Canonical phase authority:** `docs/ecosystem/PHASE-MATRIX.md`. P8 does not redefine P9/P10 and does not claim live production deployment.
 
 ## Exact reviewed ecosystem baseline
@@ -30,7 +30,7 @@ The lock, ecosystem manifest and registry all agree on baseline `ecosystem-p8-bu
 - Platform final main SHA `60c7762fd915bd9273b9ab72cfed80eb3b8bd797` passed post-merge CI (Python 3.12/3.13/3.14, PostgreSQL/SQL and TSIC conformance), CodeQL, R10, Secret Scan, Reference Agents and Supply Chain Attestation.
 - TADL PR #83 passed CI, Security, CodeQL, Secret Scan and Ecosystem Integration at its exact reviewed head before merge.
 - Post-merge TADL CI, Security, CodeQL, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration passed on lock-refresh commit `234624bf3ad73a512239ba80486915abb8ae8882`. The exact-lock P8 step passed against the reviewed Platform/OS/SDK commits.
-- The Secret Scan workflow for that exact post-merge lock-refresh commit was cancelled by workflow concurrency before producing a result. The prior main-branch scan was retried and completed successfully on an earlier commit, and the final TADL PR-head scan passed; neither is represented as a successful Secret Scan result for the exact post-merge lock-refresh SHA. A fresh scan on this audit commit is therefore required before changing P8 to `certified`.
+- The Secret Scan workflow for lock-refresh commit `234624bf3ad73a512239ba80486915abb8ae8882` was cancelled by workflow concurrency. A fresh Secret Scan then passed on the exact audit commit `f1a3c1abdfd62686bb56333a54443dd74cbc20f5`, alongside green CI, Security, CodeQL, Scorecard, Supply Chain Attestation, Release Attestations and exact-lock Ecosystem Integration. This resolves the final P8 gate.
 
 ## External security research and control implications
 
@@ -46,7 +46,7 @@ Repository tests do **not** prove that a production PostgreSQL connection factor
 - [x] Implementation PRs merged from green exact-head workflows.
 - [x] Exact-SHA P8 integration gate passed after merge.
 - [x] Lock, registry, manifest and P8 implementation audit agree on the same reviewed baseline.
-- [ ] Fresh post-merge Secret Scan passes on this audit commit.
-- [ ] Only after that scan passes: mark P8 `certified`, advance the canonical sequence to P9, and begin the P9 MCP/A2A interoperability/security workstream.
+- [x] Fresh post-merge Secret Scan passes on the exact audit commit `f1a3c1abdfd62686bb56333a54443dd74cbc20f5`.
+- [x] P8 is `certified`; the canonical sequence is advanced to P9, MCP/A2A interoperability and security.
 
-**Current verdict:** P8 implementation and exact-SHA integration are complete; the formal certification-state transition is deliberately withheld until the final Secret Scan result is green.
+**Final verdict:** P8 is certified for the reviewed repository/reference scope. Production deployment remains explicitly unverified and must not be inferred from repository CI.
