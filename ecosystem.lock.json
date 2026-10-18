@@ -14,12 +14,12 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "f327e2272c4c22a34732a7aa3b94cd9ef1c35242",
+      "ref": "bcd72d3ec5f918d42ed7a4f29f6b6bdaa0a6d79a",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "876981c3950c4ffe95459d918a1147a926e04307",
+      "ref": "e9e5ab621b036ca602cd1df0fe73352413b01672",
       "role": "typed developer API surface"
     }
   },
