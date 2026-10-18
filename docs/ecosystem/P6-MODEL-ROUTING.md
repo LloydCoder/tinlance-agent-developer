@@ -4,11 +4,13 @@
 
 ## Reviewed implementation
 
-- Agent Platform merge: `4480c70829318e26d83d39f00f00768cd1d54d86`.
+- Agent Platform merge: `a06c32b26a6abde2294154dba9a8d299789b1c37`.
 - TSIC routing authority: `LloydCoder/tinlance-system-integration` at `e98613c56c7cc52e063557987bb5436cfb24d207`.
-- Platform route selection is deterministic and conjunctive across task policy, model capability, tenant/agent allowlists, risk class and score, data classification, cost budget, route enablement, and provider availability.
+- Platform route selection is deterministic and conjunctive across task policy, model capability, tenant/agent allowlists, risk class, data classification, cost budget, route enablement, and provider availability.
 - Route registration requires an injected trusted Platform registry verifier. Registry denial or outage fails closed.
 - The policy version is sourced from the verified route record rather than caller input.
+- Routing context is accepted only after a trusted Platform context verifier passes; denial is recorded, and verifier outage is recorded before failing closed.
+- Every routing request requires a valid non-zero W3C trace identifier. Estimated call cost must fit both the route cost ceiling and available budget.
 - Allow and deny decisions are recorded before being returned. Evidence-store failure fails closed.
 - Model routing does not grant tool execution authority. Platform authorization, approval, budget, secret, sandbox and tool-permit gates remain authoritative.
 
