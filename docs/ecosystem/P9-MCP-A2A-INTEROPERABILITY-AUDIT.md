@@ -34,17 +34,23 @@ Sources: [A2A official changelog](https://github.com/a2aproject/A2A/blob/main/CH
 
 `AgentCard.validate()` requires HTTPS by default and rejects obvious credential strings in authentication-scheme names. Its optional `signature` is only checked for non-emptiness; no verifier, key identity, canonical signing payload or trust-store lookup exists. An endpoint may also target a private/loopback/link-local address, and hostname resolution/rebinding is not handled.
 
-**Remediation in Platform PR #132:** introduces an injected signature-verifier interface, canonical signing payload, key ID/algorithm allowlist and an outbound endpoint validator that rejects non-public addresses. The transport contract requires pinned validated addresses and forbids redirects. Remaining certification must verify the exact adapter behavior, trusted-key policy supplied by deployment, and adversarial DNS/redirect cases; repository tests do not prove the production transport actually pins sockets.
+**Remediation in Platform PR #132:** introduces an injected signature-verifier interface, canonical signing payload, key ID/algorithm allowlist and an outbound endpoint validator that rejects non-public addresses and query-bearing endpoints. The transport contract requires pinned validated addresses, forbids redirects, and specifies `application/a2a+json` for the 1.0.1 HTTP binding. Outbound calls now require a Platform-backed credential provider to mint a short-lived credential for a validated, tenant/issuer/audience-bound delegation; callers can no longer pass an arbitrary bearer token directly. Remaining certification must verify the trusted-key policy and credential provider supplied by deployment, and adversarial DNS/redirect cases; repository tests do not prove the production transport actually pins sockets.
 
 ### P9-04 — Remote delegation is attenuated but not expiring
 
 `RemoteDelegation.issue()` correctly rejects capability widening and records tenant/resource scope and a nonce. It has no `issued_at`, `expires_at`, audience, issuer identity or validation method, despite the TSIC contract requiring scoped and expiring delegation.
 
-**Remediation in Platform PR #132:** delegation records carry issue/expiry timestamps and an explicit audience bound to the remote-agent identity. Validation requires the expected authenticated tenant, trusted issuer and receiver audience, and rejects expired/future-invalid timestamps, invalid TTLs, tenant substitution, issuer substitution and audience substitution. Capability scope remains an immutable frozenset and issuance rejects widening. The negative tests are in the branch; exact-SHA certification remains outstanding.
+**Remediation in Platform PR #132:** delegation records carry issue/expiry timestamps and an explicit audience bound to the remote-agent identity. Validation requires the expected authenticated tenant, trusted issuer and receiver audience, and rejects expired/future-invalid timestamps, invalid TTLs, tenant substitution, issuer substitution and audience substitution. The outbound client checks requested capabilities and exact resource scope against the delegation before obtaining a credential from the injected Platform-backed provider. Capability scope remains an immutable frozenset and issuance rejects widening. The negative tests are in the branch; exact-SHA certification remains outstanding.
+
+### P9-07 — No authenticated A2A server entry point existed
+
+The prior Platform implementation could validate a remote Agent Card and make outbound calls, but the HTTP server did not expose a signed local Agent Card or accept inbound A2A task requests. That left the ecosystem without a complete inbound/outbound protocol boundary.
+
+**Remediation in Platform PR #132:** adds public `GET /.well-known/agent-card.json` for the signed card and authenticated `POST /a2a` for the bounded A2A 1.0 JSON-RPC profile `message/send` and `tasks/get`. Requests resolve the bearer credential to a Platform principal, derive tenant/subject only from that principal, apply a tenant-aware rate limiter, propagate trace context and idempotency, and dispatch `runs.create`/`runs.events` through Platform. The currently implemented profile is intentionally text-only and does not claim streaming, task cancellation, push notifications, or complete coverage of every optional A2A method. Those capabilities must remain absent from the published card until implemented and tested.
 
 ### P9-05 — TSIC interoperability certification is largely static
 
-TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.1`, asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
+TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 updates the canonical policy, gate and certification assertion to A2A `1.0.1`. The gate asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
 
 **Required remediation:** the current TADL integration run validates the existing reviewed lock, not yet the unmerged Platform/OS/SDK PR heads. After the implementation PRs merge, refresh the lock and registry to the exact merged SHAs, run the ecosystem integration gate against that baseline, add negative tenant/approval/replay/Origin/SSRF cases, and reconcile evidence to TSIC. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
 
@@ -56,8 +62,8 @@ TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.1`, asserts auth
 
 - [ ] Platform exposes authenticated MCP `2026-07-28` requests through a stateless HTTP entry point; body/header mismatch fails closed.
 - [ ] MCP `server/discover`, `tools/list`, and `tools/call` use bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation and idempotency.
-- [ ] A2A `1.0.1` Agent Card and message/task entry points are authenticated/scoped; remote delegation cannot widen authority and expires.
-- [ ] Agent Cards are verified against a trusted key policy; remote endpoint validation blocks SSRF and redirect/DNS-rebinding paths.
+- [ ] A2A `1.0.1` signed Agent Card is published and the authenticated `message/send` and `tasks/get` entry points are scoped; remote delegation cannot widen authority and expires.
+- [ ] Inbound Agent Cards are signed; outbound Agent Cards are verified against a trusted key policy; remote endpoint validation blocks SSRF and redirect/DNS-rebinding paths.
 - [ ] SDK protocol metadata validates at runtime but grants no authority; OS composes protocol workflows without duplicating Platform authorization.
 - [ ] TSIC and TADL execute exact-SHA positive and adversarial protocol tests against the same lock/manifest/registry baseline.
 - [ ] Four implementation repositories and TSIC conformance workflows are green on exact reviewed revisions; P9 post-phase audit passes.
