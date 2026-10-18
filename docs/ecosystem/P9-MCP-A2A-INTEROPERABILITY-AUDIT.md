@@ -2,7 +2,7 @@
 
 **Canonical scope:** P9 in `docs/ecosystem/PHASE-MATRIX.md`.  
 **Reviewed baseline:** `ecosystem-p9-mcp-a2a-2026-10-18`.  
-**Status:** implementation PRs merged; the post-merge self-pin refresh and final certification audit are in progress. P9 remains uncertified until the updated lock, manifest and registry pass the complete TADL/TSIC gate and post-merge workflows.
+**Status:** CERTIFIED for the reviewed repository/reference scope after exact-lock cross-repository conformance and post-merge workflows passed. External production deployment remains unverified.
 
 ## Research baseline
 
@@ -121,3 +121,15 @@ Platform merge commit `40d29a2b4b02914c28537cf03630fc692deb6f36` completed all s
 - Supply Chain Attestation: [39133817524](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817524) — success.
 
 This closes the Platform PR-level gate for the canonicalization fix. It does not certify P9 until the exact-lock TADL integration run and post-merge TADL lock-refresh evidence pass.
+
+
+## Final post-merge certification record — 2026-10-18
+
+- P9 self-pin refresh PR #87 merged at TADL commit `6ec3e843622b113c23fad11e36548dabc158d5dc`.
+- Exact-head PR checks passed: CI, Security, CodeQL, Secret Scan and Ecosystem Integration.
+- Post-merge workflows passed on the merge SHA: CI run [39135696696](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696696), Security [39135696710](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696710), Secret Scan [39135696719](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696719), CodeQL [39135696788](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696788), Scorecard [39135696703](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696703), Supply Chain Attestation [39135696773](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696773), Release Attestations [39135696715](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696715), and Ecosystem Integration [39135696807](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135696807).
+- The integration workflow validated the locked four-repository revisions and TSIC authority revision, and ran the canonical P2–P9 and cross-cutting conformance suites successfully.
+- The certified P9 lock remains pinned to the exact reviewed baseline: TADL `82ddf7e508449dfdbba4d40b6e8967fd9b86bd79`, Agent OS `f52504d8d9971218d428c8800a2de9b898dd8c4a`, SDK `2670c75656449730af59e3f3ebc3928ddb55b70a`, Platform `50a54f0ef1e165cd70bf5b4e7f554fff0c7fa81d`, and TSIC `f6cd336cc0718144e88932dc34176053ca8f27b1`.
+- Scope limitation: this certifies repository-level protocol/conformance evidence, not a live production deployment. External TLS termination, OAuth/JWKS issuer/audience configuration, production egress policy, shared rate limiting, durable production task persistence, telemetry, backup/restore and incident response are not proven by these repository workflows.
+
+P10 may begin only after this P9 closeout PR is green, merged, and its post-merge checks pass.
