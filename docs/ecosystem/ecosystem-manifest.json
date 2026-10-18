@@ -64,7 +64,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "b1d874999a26060cd51192920127278f77213470",
+    "ref": "f6cd336cc0718144e88932dc34176053ca8f27b1",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
