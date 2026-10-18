@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P4 are certified for exact repository/reference conformance. P5 v2 registry lifecycle and supply-chain metadata are in progress; supply-chain verification remains pending until exact attestations are independently verified. P6-P10 remain not_started and production remains unverified.",
+    "note": "The P10 manifest phase field denotes full contract-surface coverage, not phase certification status. P0-P4 are certified for exact repository/reference conformance. P5 v2 registry lifecycle and supply-chain metadata are in progress; supply-chain verification remains pending until exact attestations are independently verified. P6-P10 remain not_started and production remains unverified.",
     "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
