@@ -43,6 +43,7 @@ def main() -> None:
     router = ModelRouter(
         recorded.append,
         lambda candidate: candidate.route_id == "route-enterprise-safe",
+        lambda _request: True,
     )
     router.register(
         ModelRoute(
@@ -54,7 +55,6 @@ def main() -> None:
             task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"public", "internal", "confidential"}),
             risk_classes=frozenset({"low", "moderate"}),
-            max_risk_score=40,
             max_cost_microusd=100,
             priority=10,
             tenants=frozenset({"tenant-a"}),
@@ -68,8 +68,8 @@ def main() -> None:
         model_capability="summarization",
         risk_class="moderate",
         data_classification="confidential",
-        risk_score=20,
-        budget_microusd=50,
+        estimated_cost_microusd=50,
+        available_budget_microusd=100,
         provider_availability=frozenset({"provider-a"}),
         trace_id=TRACE_ID,
     )
@@ -91,8 +91,8 @@ def main() -> None:
             model_capability="summarization",
             risk_class="moderate",
             data_classification="confidential",
-            risk_score=20,
-            budget_microusd=50,
+            estimated_cost_microusd=50,
+            available_budget_microusd=100,
             provider_availability=frozenset({"provider-a"}),
             trace_id=TRACE_ID,
         )
@@ -105,6 +105,7 @@ def main() -> None:
     fail_closed = ModelRouter(
         unavailable_audit,
         lambda candidate: candidate.route_id == "route-audit-failure",
+        lambda _request: True,
     )
     fail_closed.register(
         ModelRoute(
@@ -133,3 +134,26 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+    untrusted = ModelRouter(
+        recorded.append,
+        lambda candidate: candidate.route_id == "route-untrusted-context",
+        lambda _request: False,
+    )
+    untrusted.register(
+        ModelRoute(
+            route_id="route-untrusted-context",
+            provider="provider-a",
+            model="model-a",
+            policy_version="tsic-routing-contract-1.0.0",
+            capabilities=frozenset({"summarization"}),
+            task_policies=frozenset({"summarization-policy-v1"}),
+            data_classifications=frozenset({"confidential"}),
+            risk_classes=frozenset({"moderate"}),
+            max_cost_microusd=100,
+        )
+    )
+    untrusted_decision = untrusted.route(request)
+    if untrusted_decision.allowed or untrusted_decision.reason_code != "untrusted_routing_context":
+        raise SystemExit("FAIL P6: untrusted policy context did not fail closed")
