@@ -1,4 +1,4 @@
-# P9 — Reference Enterprise Certification
+> **Phase namespace correction:** this document describes a reference-workforce capability suite, not canonical ecosystem P9. The canonical P9 scope is MCP/A2A interoperability and security, as defined in `PHASE-MATRIX.md`. Workforce tests are supporting component evidence for later end-to-end certification.\n\n# P9 — Reference Enterprise Certification
 
 P9 proves that the Agent System can describe a complete enterprise workforce
 without turning workforce metadata into authority.
