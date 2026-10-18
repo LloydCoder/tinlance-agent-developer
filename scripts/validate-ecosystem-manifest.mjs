@@ -85,7 +85,7 @@ if (firstIncomplete !== -1) {
 }
 let expectedRelease;
 if (firstIncomplete === -1) {
-  expectedRelease = "p10_complete";
+  expectedRelease = "all_phases_certified";
 } else if (firstIncomplete === 0) {
   expectedRelease = phaseStatuses[0] === "in_progress" ? "p0_in_progress" : "blocked_at_p0";
 } else if (firstIncomplete === 1) {
