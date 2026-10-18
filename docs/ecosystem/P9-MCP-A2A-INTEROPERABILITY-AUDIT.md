@@ -104,3 +104,17 @@ The first follow-up PR rejected numeric values, `null`, and Unicode property nam
 - Platform PR #134 (RFC 8785 JCS) merged: `40d29a2b4b02914c28537cf03630fc692deb6f36`.
 - TADL lock, manifest and registry are being reconciled on branch `phase/p9-final-certification-2026-10-18`.
 - P9 remains `in_progress` until the exact locked TADL ecosystem integration workflow and post-merge checks pass. External TLS, OAuth/JWKS configuration, network egress/socket pinning, shared rate limiting, production telemetry and durable production task persistence remain unverified.
+
+
+### Post-merge Platform verification — PR #134
+
+Platform merge commit `40d29a2b4b02914c28537cf03630fc692deb6f36` completed all six post-merge workflows successfully:
+
+- CI: [39133817496](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817496) — success.
+- CodeQL: [39133817530](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817530) — success.
+- Secret Scan: [39133817565](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817565) — success.
+- R10 Certification: [39133817501](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817501) — success.
+- Reference Agents: [39133817481](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817481) — success.
+- Supply Chain Attestation: [39133817524](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817524) — success.
+
+This closes the Platform PR-level gate for the canonicalization fix. It does not certify P9 until the exact-lock TADL integration run and post-merge TADL lock-refresh evidence pass.
