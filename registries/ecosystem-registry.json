@@ -1,7 +1,7 @@
 {
   "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p6-routing-final-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p6-routing-context-verified-candidate-2026-10-18",
   "repositories": [
     {
       "id": "developer",
@@ -54,7 +54,7 @@
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "4480c70829318e26d83d39f00f00768cd1d54d86",
+      "reviewed_sha": "a06c32b26a6abde2294154dba9a8d299789b1c37",
       "role": "sole governed execution and authority plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -68,8 +68,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "4480c70829318e26d83d39f00f00768cd1d54d86",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/4480c70829318e26d83d39f00f00768cd1d54d86",
+        "reviewed_sha": "a06c32b26a6abde2294154dba9a8d299789b1c37",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/a06c32b26a6abde2294154dba9a8d299789b1c37",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "verification_status": "pending"
