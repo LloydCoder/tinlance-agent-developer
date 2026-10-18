@@ -87,6 +87,11 @@ def main() -> int:
             if item.get("reviewed_sha") != entry.get("ref"):
                 fail(f"manifest and lock disagree on {name} SHA")
     check_pin("TSIC", TSIC, str(authority.get("ref", "")))
+    tsic_contract = read_json(TSIC / "contracts/recovery/ecosystem-p10-recovery.json")
+    if tsic_contract.get("canonical_ecosystem_phase") != "P10":
+        fail("TSIC canonical ecosystem P10 recovery contract is missing or mismatched")
+    if tsic_contract.get("authority_plane") != "LloydCoder/tinlance-agent-platform":
+        fail("TSIC P10 contract does not preserve Platform as sole authority")
 
     if manifest.get("certification_state", {}).get("p10") not in ("in_progress", "certified"):
         fail("P10 must be explicitly in progress or certified")
@@ -111,6 +116,7 @@ def main() -> int:
     )
     run_tests(OS, ("tests/test_event_runtime.py",), "Agent OS")
     run_tests(SDK, ("tests/test_retry.py",), "Platform SDK")
+    run_tests(TSIC, ("tests/test_ecosystem_p10_recovery_contract.py",), "TSIC")
 
     if FAILURES:
         print("Canonical P10 recovery conformance FAILED:")
