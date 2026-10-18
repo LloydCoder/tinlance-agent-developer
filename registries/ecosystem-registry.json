@@ -204,6 +204,36 @@
   ],
   "compatibility_rules": [
     {
+      "consumer_id": "agent-platform.api",
+      "contract_id": "governed-execution.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "agent-platform.api",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "agent-platform.api",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
       "consumer_id": "agent-os.runtime",
       "contract_id": "event-envelope.v1",
       "supported_versions": [
@@ -235,6 +265,46 @@
     },
     {
       "consumer_id": "platform-sdk.client",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "platform-sdk.client",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tadl.validator",
+      "contract_id": "transformation.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tadl.validator",
+      "contract_id": "replication.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tadl.validator",
       "contract_id": "trace-context.v1",
       "supported_versions": [
         "1.0"
@@ -255,7 +325,87 @@
     },
     {
       "consumer_id": "tsic.conformance",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tsic.conformance",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tsic.conformance",
       "contract_id": "registry-manifest.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-a",
+      "contract_id": "governed-execution.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-a",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-a",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-b",
+      "contract_id": "governed-execution.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-b",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "reference.enterprise-b",
+      "contract_id": "trace-context.v1",
       "supported_versions": [
         "1.0"
       ],
