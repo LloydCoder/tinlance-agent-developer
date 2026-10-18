@@ -1,6 +1,6 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
-  "phase": "P10",
+  "phase": "P9",
   "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
@@ -13,7 +13,9 @@
     "registry_schema": "registry-manifest/v2",
     "mcp_endpoint": "POST /mcp",
     "mcp_protocol_version": "2026-07-28",
-    "a2a_specification": "1.0.1"
+    "a2a_specification": "1.0.1",
+    "a2a_wire_protocol_version": "1.0",
+    "a2a_http_content_type": "application/a2a+json"
   },
   "repositories": [
     {
@@ -28,7 +30,7 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "dc1f09cbc1f4f1e8771e55c1ea61810980df656e"
+      "reviewed_sha": "f52504d8d9971218d428c8800a2de9b898dd8c4a"
     },
     {
       "id": "platform_sdk",
@@ -42,7 +44,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "78e99a13961fddbb40beabe74de91e50210cdb89"
+      "reviewed_sha": "65a2a61ef05b836a1bd23344f1b04176ba3447eb"
     }
   ],
   "gate": {
