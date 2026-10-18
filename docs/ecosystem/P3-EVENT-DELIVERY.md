@@ -21,7 +21,7 @@ Event names, metadata, payloads, replay parameters, retrieved content and event 
 
 ## Delivery guarantees
 
-Delivery is **at-least-once**, not exactly-once. A producer must persist the domain state change, event record and outbox record in one database transaction. A consumer must commit its inbox/deduplication record and business effect atomically before acknowledgement. Deduplication uses CloudEvents `source + id`, scoped to consumer and tenant. Ordering is not guaranteed unless an explicit per-aggregate ordering key is configured.
+Delivery is **at-least-once**, not exactly-once. A producer must persist the domain state change, event record and outbox record in one database transaction. A consumer must commit its inbox/deduplication record and business effect atomically before acknowledgement. Deduplication uses CloudEvents `source + id`, scoped to consumer and tenant. The base outbox does not guarantee ordering; an ordering key is only metadata until an ordering-aware dispatcher enforces and tests per-aggregate sequencing. Do not claim ordered delivery from key presence alone.
 
 A worker crash after publish but before acknowledgement can produce duplicate delivery. The contract requires duplicate-safe consumers rather than promising impossible cross-system exactly-once effects.
 
