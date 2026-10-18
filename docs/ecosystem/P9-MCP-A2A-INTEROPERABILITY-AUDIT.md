@@ -50,7 +50,7 @@ The prior Platform implementation could validate a remote Agent Card and make ou
 
 ### P9-05 — TSIC interoperability certification is largely static
 
-TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 updates the canonical policy, gate and certification assertion to A2A `1.0.1`. The gate asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
+TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 updates the canonical policy, gate and certification assertion to A2A `1.0.1`; TSIC PR #77 adds exact assertions for signed-card verification, scoped remote credentials, tenant-scoped idempotency, MCP body/header mismatch behavior, and the A2A HTTP media type. The gate asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
 
 **Required remediation:** the current TADL integration run validates the existing reviewed lock, not yet the unmerged Platform/OS/SDK PR heads. After the implementation PRs merge, refresh the lock and registry to the exact merged SHAs, run the ecosystem integration gate against that baseline, add negative tenant/approval/replay/Origin/SSRF cases, and reconcile evidence to TSIC. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
 
