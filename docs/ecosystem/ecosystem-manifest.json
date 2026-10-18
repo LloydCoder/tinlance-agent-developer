@@ -23,7 +23,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5"
+      "reviewed_sha": "56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0"
     },
     {
       "id": "os",
