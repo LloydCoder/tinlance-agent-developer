@@ -28,12 +28,13 @@
     "governed_execution": "governed-execution.v1",
     "endpoint": "POST /v1/agent-platform",
     "transformation_schema": "transformation/v1",
-    "replication_schema": "replication/v1"
+    "replication_schema": "replication/v1",
+    "trace_context_schema": "trace-context/v1"
   },
-  "baseline_id": "ecosystem-p3-certified-2026-10-18",
+  "baseline_id": "ecosystem-p4-candidate-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "d6b1aacad18e91d6a19aab061e84afbf14647eba",
+    "ref": "c033ac79338b39017c7eb6ef5d29e769421579bb",
     "adapter": "tsic-agent-developer-reference"
   }
 }
