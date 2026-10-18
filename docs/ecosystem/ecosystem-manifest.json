@@ -121,7 +121,7 @@
     "p10": "certified",
     "production": "unverified",
     "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P10 are repository-certified for the exact reviewed repository and TSIC references. P10 recovery certification passed the exact-lock cross-repository gate and all post-merge CI, security, CodeQL, secret-scan, Scorecard, supply-chain attestation, release-attestation and Ecosystem Integration workflows on the P10 merge commit. This certifies repository-level recovery, replay isolation, bounded retry, budget settlement and replica invariants only. External production TLS/OAuth/JWKS, egress policy, live provider access, production backup/restore, telemetry, capacity and incident-response evidence remain unverified; repository conformance does not certify a deployed production environment.",
-    "sequence_release": "p10_complete"
+    "sequence_release": "all_phases_certified"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
