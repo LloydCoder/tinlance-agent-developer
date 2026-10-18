@@ -43,6 +43,7 @@ def main() -> None:
             model="model-a",
             capabilities=frozenset({"summarization"}),
             data_classifications=frozenset({"public", "internal", "confidential"}),
+            risk_classes=frozenset({"low", "moderate"}),
             max_risk_score=40,
             max_cost_microusd=100,
             priority=10,
@@ -62,9 +63,9 @@ def main() -> None:
         trace_id=TRACE_ID,
     )
     allowed = router.route(request)
-    if not allowed.allowed or allowed.route_id != "route-enterprise-safe":
+    if not allowed.allowed or allowed.route != "route-enterprise-safe":
         raise SystemExit("FAIL P6: eligible request did not select the registered route")
-    if allowed.provider != "provider-a" or allowed.model != "model-a":
+    if allowed.provider != "provider-a" or allowed.model_id != "model-a":
         raise SystemExit("FAIL P6: route decision disagrees with registered provider/model")
     if allowed.policy_version != request.policy_version or allowed.trace_id != TRACE_ID:
         raise SystemExit("FAIL P6: decision evidence lost policy or trace context")
@@ -84,7 +85,7 @@ def main() -> None:
             trace_id=TRACE_ID,
         )
     )
-    if denied.allowed or denied.route_id is not None or denied.reason_code != "no_eligible_route":
+    if denied.allowed or denied.route is not None or denied.reason_code != "no_eligible_route":
         raise SystemExit("FAIL P6: cross-tenant route selection did not fail closed")
 
     def unavailable_audit(_decision: object) -> None:
@@ -97,6 +98,7 @@ def main() -> None:
             model="model-a",
             capabilities=frozenset({"summarization"}),
             data_classifications=frozenset({"confidential"}),
+            risk_classes=frozenset({"low", "moderate"}),
             max_risk_score=40,
             max_cost_microusd=100,
         )
