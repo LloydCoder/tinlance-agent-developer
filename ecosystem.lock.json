@@ -9,12 +9,12 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "32e399200a2e573e67d134026ba827079009417b",
+      "ref": "dc1f09cbc1f4f1e8771e55c1ea61810980df656e",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "29bcf8d6ed8013a087c85e903cc774e9ee2a263c",
+      "ref": "78e99a13961fddbb40beabe74de91e50210cdb89",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -38,7 +38,7 @@
   "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "747985a8e5b63f4c11e4823086dfb15d70156b46",
+    "ref": "b1d874999a26060cd51192920127278f77213470",
     "adapter": "tsic-agent-developer-reference"
   }
 }
