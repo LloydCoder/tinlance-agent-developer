@@ -117,7 +117,11 @@ def main() -> int:
         ("provider-adapter-boundary", "W3C Trace Context"),
     )
 
-    run_test_subset(PLATFORM, ("tests/unit/test_openai_compatible_provider.py",), "Platform")
+    run_test_subset(
+        PLATFORM,
+        ("tests/unit/test_openai_compatible_provider.py", "tests/architecture/test_boundaries.py"),
+        "Platform",
+    )
     run_test_subset(OS, ("tests/unit/test_transport.py",), "Agent OS")
     run_test_subset(SDK, ("tests/test_client.py",), "Platform SDK")
     run_test_subset(TSIC, ("tests/test_provider_adapter_boundary.py",), "TSIC")
