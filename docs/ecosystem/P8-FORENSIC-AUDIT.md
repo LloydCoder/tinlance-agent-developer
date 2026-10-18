@@ -1,9 +1,9 @@
 # P8 Candidate Forensic Audit — Budgets, Quotas, Capacity and Cost
 
-**Audit state:** candidate implementation reviewed; final certification pending exact-SHA ecosystem CI and post-merge checks.  
+**Audit state:** Platform implementation merged; final certification pending exact-SHA ecosystem CI, lock reconciliation, and post-merge checks.  
 **Canonical phase owner:** Agent Platform.  
-**Final Platform merge SHA:** `aa3cd31de76ec25385e8801fa570aab029029b02`  
-**Open implementation PR:** [Platform #123](https://github.com/LloydCoder/tinlance-agent-platform/pull/123) and follow-ups [Platform #127](https://github.com/LloydCoder/tinlance-agent-platform/pull/127), [Platform #126](https://github.com/LloydCoder/tinlance-agent-platform/pull/126)
+**Final Platform merge SHA:** `e1ba46b788014874fb2e36fc797bf4d760db5787`  
+**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `e1ba46b788014874fb2e36fc797bf4d760db5787`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
 
 ## Scope and authority
 
@@ -96,3 +96,12 @@ The candidate's first checks exposed Ruff formatting, a mypy variable-name colli
 ## Verdict
 
 The candidate closes two material correctness gaps discovered during this audit: premature release of expired work and evidence-mismatched settlement replay. P8 is not certified until the exact-SHA cross-repository gate, all required Platform workflows, merge, and post-merge verification are complete.
+
+
+## Follow-up P8 adapter review (2026-10-18)
+
+Platform PR #128 adds the higher-level `PostgresBudgetGate`, addressing the previous gap between the durable SQL ledger adapter and the governed execution `BudgetGate` contract. The adapter opens short tenant-scoped transactions, derives reservation identity from execution idempotency, injects trusted organization/cost/measurement providers, rejects existing reservations before a new side effect, and preserves a reservation for reconciliation when settlement is uncertain. Its repository CI, CodeQL, R10 certification, Secret Scan and Reference Agents checks passed on the reviewed PR head before merge.
+
+The first TADL #83 Ecosystem Integration run failed because the lock still referenced the earlier Platform commit, which did not contain `PostgresBudgetGate`. The lock and manifest have now been reconciled to the exact Platform merge SHA. This is a real integration failure, not a test to bypass. The updated P8 conformance workflow must pass on the new TADL head before the certification PR can merge.
+
+The audit remains explicit that this repository does not prove a production database connection factory, cost estimator, provider usage meter, lease-renewal worker, reconciliation worker, production role grants, or telemetry/backup/incident-response deployment.
