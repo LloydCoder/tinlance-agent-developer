@@ -40,7 +40,9 @@ The certification PR updates the lock/manifest/registry to the merged TADL, OS, 
 - PR-head Security: 39112165202 — passed.
 - PR-head Secret Scan: 39112165150 — passed.
 - PR-head CodeQL: 39112165206 — passed.
-- Post-merge P7 integration: run 39112286645, job 117630784409 — passed; the exact-SHA P7 conformance step passed.
+- Initial post-merge P7 integration: run 39112286645, job 117630784409 — passed.
+- Final refreshed exact-SHA PR gate after finite OS/SDK bounds and the final Platform SDK pin: run 39112996335, job 117632895816 — passed; log confirms “Canonical P7 adapter conformance PASSED for exact locked SHAs.”
+- Final post-merge integration on TADL commit 1dbabb1a26df93b9a476153a864a38ee1bc8e722: run 39113145264, job 117633334513 — passed; log confirms “Canonical P7 adapter conformance PASSED for exact locked SHAs.”
 - Post-merge CI: 39112286647 — passed.
 - Post-merge Security: 39112286650 — passed.
 - Post-merge Secret Scan: 39112286632 — passed.
@@ -48,6 +50,9 @@ The certification PR updates the lock/manifest/registry to the merged TADL, OS, 
 - Post-merge Scorecard: 39112286657 — passed.
 - Post-merge Release Attestations: 39112286668 — passed.
 - Post-merge Supply Chain Attestation: 39112286691 — passed.
+- Final refreshed TADL main-push workflows on 1dbabb1a26df93b9a476153a864a38ee1bc8e722: CI 39113145293, Security 39113145373, Secret Scan 39113145216, CodeQL 39113145212, Scorecard 39113145332, Release Attestations 39113145296 and Supply Chain Attestation 39113145215 — all passed.
+- Final Platform main-push workflows on 91770da13ea95637117c09deb6d940049311fe7e: CI 39112969110, Reference Agents 39112969036, R10 39112969112, CodeQL 39112969152, Secret Scan 39112969050 and Supply Chain Attestation 39112969015 — all passed.
+- Final Agent OS main-push workflows on c68eb5e2a36a6544660145b4c997747f7ba0f605: CI 39112669407, CodeQL 39112669334 and OpenSSF Scorecard 39112669318 — all passed. Final Platform SDK main-push workflows on 2932645977ff3e352e1bb5a94dd13389b0190f54: CI 39112696267 and Security 39112696251 — both passed.
 - Platform provider-timeout hardening PR #120 merged at 9da7228ecafaa92f696cc6eedaeef1ee931b03d4 with CI, Reference Agents, R10, CodeQL and Secret Scan green. Final reference-agent SDK pin correction PR #121 merged at 91770da13ea95637117c09deb6d940049311fe7e; CI run 39112884540, Reference Agents 39112884503, R10 39112884516, CodeQL 39112884696 and Secret Scan 39112884647 all passed. Earlier pin correction PR #119 also merged with all required workflows green.
 - Agent OS finite transport-bound PR #140 merged at c68eb5e2a36a6544660145b4c997747f7ba0f605; Python 3.12/3.13/3.14, architecture boundary, TSIC conformance and CodeQL passed (CI run 39112572153; CodeQL run 39112572262; Scorecard run 39112572174 returned neutral, not failure). Platform SDK finite client-bound PR #53 merged at 2932645977ff3e352e1bb5a94dd13389b0190f54; Python 3.12/3.13/3.14, package smoke, TSIC conformance, Security and CodeQL passed (CI run 39112594390; Security run 39112594353; CodeQL check run 117631799452). TSIC PR #75 and earlier OS PR #139 are also merged. The refreshed P7 integration gate verifies these final merged refs.
 
