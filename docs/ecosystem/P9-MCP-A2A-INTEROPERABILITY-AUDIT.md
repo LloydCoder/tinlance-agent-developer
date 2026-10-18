@@ -2,7 +2,7 @@
 
 **Canonical scope:** P9 in `docs/ecosystem/PHASE-MATRIX.md`.  
 **Reviewed baseline:** `ecosystem-p9-mcp-a2a-2026-10-18`.  
-**Status:** implementation PRs merged; final exact-lock conformance and post-phase forensic audit in progress. P9 remains uncertified until the updated lock, manifest and registry pass the complete TADL/TSIC gate and post-merge workflows.
+**Status:** implementation PRs merged; the post-merge self-pin refresh and final certification audit are in progress. P9 remains uncertified until the updated lock, manifest and registry pass the complete TADL/TSIC gate and post-merge workflows.
 
 ## Research baseline
 
@@ -93,7 +93,7 @@ Repository conformance cannot prove TLS termination, OAuth issuer/audience confi
 
 The first follow-up PR rejected numeric values, `null`, and Unicode property names, while using sorted compact `json.dumps`. That is a restricted deterministic profile, not full RFC 8785 JCS. A signed interoperable Agent Card must use the specified primitive serialization and recursive UTF-16 property ordering rather than silently defining a narrower incompatible scheme.
 
-**Closed by Platform PR #134**, merged at `40d29a2b4b02914c28537cf03630fc692deb6f36`: the Platform pins Trail of Bits' `rfc8785==0.1.4` implementation and tests numeric values, `null`, Unicode and invalid Unicode scalar rejection. Exact-head CI, CodeQL, Secret Scan, R10 Certification, Reference Agents, SQL and TSIC conformance passed before merge. Post-merge workflows and the final exact-lock ecosystem gate remain required for P9 certification.
+**Closed by Platform PR #134**, merged at `40d29a2b4b02914c28537cf03630fc692deb6f36`: the Platform pins Trail of Bits' `rfc8785==0.1.4` implementation and tests numeric values, `null`, Unicode and invalid Unicode scalar rejection. Exact-head and post-merge CI, CodeQL, Secret Scan, R10 Certification, Reference Agents, SQL, TSIC conformance and Supply Chain Attestation passed. Final P9 certification still requires the exact lock-refresh gate and post-phase audit.
 
 ## Finalization record — 2026-10-18
 
@@ -105,8 +105,8 @@ The first follow-up PR rejected numeric values, `null`, and Unicode property nam
 - Platform PR #135 (pinned HTTPS A2A transport) merged: `50a54f0ef1e165cd70bf5b4e7f554fff0c7fa81d`.
 - TSIC PR #78 (pinned transport security invariants) merged: `f6cd336cc0718144e88932dc34176053ca8f27b1`.
 - TADL PR #85 merged at `56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0`; post-merge CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration all passed on that exact SHA.
-- This lock-refresh branch pins the TADL reviewed SHA in the lock, manifest and registry to `56f0c9e162bfa1e94b02bc441a93a25b7fe1ebf0` and refreshes Platform/TSIC to the merged transport/security-contract SHAs above; P9 remains in progress until this refreshed baseline passes the full exact-lock gate.
-- P9 remains `in_progress` until the exact locked TADL ecosystem integration workflow and post-merge checks pass. External TLS, OAuth/JWKS configuration, network egress/socket pinning, shared rate limiting, production telemetry and durable production task persistence remain unverified.
+- The previous lock-refresh baseline passed the P9 exact-lock gate on TADL PR #86 head `5b88f766f6ecb86d156e866289741a8232d8a40c` (run [39135137440](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135137440)) and post-merge TADL SHA `82ddf7e508449dfdbba4d40b6e8967fd9b86bd79` (run [39135303993](https://github.com/LloydCoder/tinlance-agent-developer/actions/runs/39135303993)). This branch refreshes the developer pin to that exact TADL merge SHA; the self-pin refresh must pass the full exact-lock gate before P9 certification.
+- P9 remains `in_progress` until this self-pin refresh passes CI, security and the exact-lock ecosystem integration workflow. The prior P9 gate passed on the same Platform/OS/SDK/TSIC pins. External TLS termination, OAuth/JWKS configuration, network egress policy, shared rate limiting, production telemetry and durable production task persistence remain unverified.
 
 
 ### Post-merge Platform verification — PR #134
