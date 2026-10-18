@@ -124,7 +124,10 @@ def main() -> int:
             print(f"- {item}")
         return 1
     print("PASS canonical P10 repository recovery conformance for exact locked SHAs.")
-    print("External deployment, live backup/restore, TLS/OAuth/JWKS and production telemetry remain unverified.")
+    print(
+        "External deployment, live backup/restore, TLS/OAuth/JWKS and "
+        "production telemetry remain unverified."
+    )
     return 0
 
 
