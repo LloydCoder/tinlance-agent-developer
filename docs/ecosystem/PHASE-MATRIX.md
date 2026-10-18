@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p6-routing-context-verified-2026-10-18  
+**Baseline:** ecosystem-p7-scoped-credentials-2026-10-18  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-18, P0–P6 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates. Registry v1 remains immutable/deprecated and v2 is active. P7 real adapters and integration boundaries is the next eligible phase; P8–P10 remain not started. External production telemetry and deployment remain unverified.
+As of 2026-10-18, P0–P6 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates. Registry v1 remains immutable/deprecated and v2 is active. P7 real adapters and integration boundaries is in progress after merge of the Platform execution-scoped model credential provider. The TADL integration gate now validates the pinned TSIC provider-adapter contract and runs deterministic provider transport/scoped-credential regression tests at exact immutable SHAs. P7 remains uncertified until this gate and all post-merge CI/security checks pass; P8–P10 remain not started. External provider access, secret backend/rotation, production telemetry and deployment remain unverified.
 
 ## Canonical phase sequence
 
