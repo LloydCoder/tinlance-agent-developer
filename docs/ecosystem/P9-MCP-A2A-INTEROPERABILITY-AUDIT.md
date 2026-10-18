@@ -7,7 +7,7 @@
 ## Research baseline
 
 - MCP is pinned to the official `2026-07-28` specification. The official release describes a stateless request model, `MCP-Protocol-Version`, `Mcp-Method` and `Mcp-Name` headers, protocol/authentication hardening, and explicit request metadata. Source: [MCP 2026-07-28 release](https://blog.modelcontextprotocol.io/posts/2026-07-28/).
-- A2A is pinned to `1.0.0`; the TSIC interoperability baseline already records this version and defines A2A as agent-to-agent communication. Source: [A2A 1.0.1 specification](https://a2a-protocol.org/v1.0.0/specification/).
+- A2A specification `1.0.1` is the current pinned release; the A2A wire `protocolVersion` remains `1.0`. TSIC's checked-in interoperability baseline still says `1.0.0` and must be reconciled before certification. Source: [A2A 1.0.1 specification](https://a2a-protocol.org/v1.0.1/specification/).
 - TSIC remains the integration/certification authority. Agent Platform remains the sole identity, tenant, policy, approval, budget, sandbox and consequential-execution authority.
 
 ## Research update — A2A patch release
