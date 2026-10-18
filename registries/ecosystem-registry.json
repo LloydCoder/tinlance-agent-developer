@@ -54,7 +54,7 @@
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "91770da13ea95637117c09deb6d940049311fe7e",
+      "reviewed_sha": "1e91e21e74b7078a707b21d9fa99cf1fcde210d9",
       "role": "sole governed execution and authority plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -68,8 +68,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "91770da13ea95637117c09deb6d940049311fe7e",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/91770da13ea95637117c09deb6d940049311fe7e",
+        "reviewed_sha": "1e91e21e74b7078a707b21d9fa99cf1fcde210d9",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/1e91e21e74b7078a707b21d9fa99cf1fcde210d9",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "verification_status": "pending"
@@ -78,7 +78,7 @@
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "reviewed_sha": "2932645977ff3e352e1bb5a94dd13389b0190f54",
+      "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
       "role": "typed developer API surface",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -92,8 +92,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "2932645977ff3e352e1bb5a94dd13389b0190f54",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/2932645977ff3e352e1bb5a94dd13389b0190f54",
+        "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "verification_status": "pending"
