@@ -57,8 +57,8 @@ def main() -> None:
     failures: list[str] = []
     if schema.get("required") != contract.get("required"):
         failures.append("TSIC schema required attributes disagree with the canonical envelope contract")
-    if contract.get("specversion") != "1.0":
-        failures.append("canonical event contract must declare CloudEvents 1.0")
+    if contract.get("format") != "cloudevents-1.0-json":
+        failures.append("canonical event contract must declare the CloudEvents 1.0 JSON format")
     for producer, envelope in envelopes.items():
         errors = sorted(validator.iter_errors(envelope), key=lambda item: list(item.path))
         if errors:
