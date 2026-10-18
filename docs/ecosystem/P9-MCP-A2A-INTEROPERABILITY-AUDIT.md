@@ -58,14 +58,21 @@ TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 
 
 `P9-REFERENCE-ENTERPRISE.md` describes the reference-workforce capability suite and `P10-REPLICATION-GA.md` describes replication fixtures. The canonical phase matrix defines P9 as MCP/A2A interoperability and P10 as end-to-end recovery/production certification. These legacy capability documents are being explicitly reclassified as cross-cutting supporting evidence, not canonical phase definitions.
 
+### P9-08 — Idempotency keys were globally namespaced
+
+The API reference dispatcher keyed its bounded idempotency cache directly by the caller-provided key. Because the fingerprint includes tenant and subject but the cache key did not, two tenants using the same key could conflict with each other and create a cross-tenant denial-of-service vector.
+
+**Remediation in Platform PR #132:** the dispatcher now namespaces each idempotency key by the authenticated tenant and principal. Regression tests prove that identical caller keys remain isolated across tenants, while same-scope replay returns the prior result and same-scope payload changes fail with an idempotency conflict.
+
 ## P9 acceptance gate
 
 - [ ] Platform exposes authenticated MCP `2026-07-28` requests through a stateless HTTP entry point; body/header mismatch fails closed.
-- [ ] MCP `server/discover`, `tools/list`, and `tools/call` use bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation and idempotency.
+- [ ] MCP `server/discover`, `tools/list`, and `tools/call` use bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation, header/body version matching, and tenant-scoped idempotency.
 - [ ] A2A `1.0.1` signed Agent Card is published and the authenticated `message/send` and `tasks/get` entry points are scoped; remote delegation cannot widen authority and expires.
 - [ ] Inbound Agent Cards are signed; outbound Agent Cards are verified against a trusted key policy; remote endpoint validation blocks SSRF and redirect/DNS-rebinding paths.
 - [ ] SDK protocol metadata validates at runtime but grants no authority; OS composes protocol workflows without duplicating Platform authorization.
 - [ ] TSIC and TADL execute exact-SHA positive and adversarial protocol tests against the same lock/manifest/registry baseline.
+- [ ] Idempotency keys are scoped to authenticated tenant/principal; cross-tenant key collisions and same-scope payload conflicts are tested.
 - [ ] Four implementation repositories and TSIC conformance workflows are green on exact reviewed revisions; P9 post-phase audit passes.
 - [ ] Production deployment is reported separately; no claim of a live MCP/A2A service without environment evidence.
 
