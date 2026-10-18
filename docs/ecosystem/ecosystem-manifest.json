@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p6-routing-final-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p6-routing-context-verified-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -39,7 +39,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "4480c70829318e26d83d39f00f00768cd1d54d86"
+      "reviewed_sha": "a06c32b26a6abde2294154dba9a8d299789b1c37"
     }
   ],
   "gate": {
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The P10 manifest phase field denotes full contract-surface coverage, not the active certification phase. P0-P5 are certified for reviewed exact-SHA repository/reference conformance. P6 model/tool routing mediation is in progress against Platform merge 4480c70829318e26d83d39f00f00768cd1d54d86 and the pinned TSIC routing-authority contract. P7-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
+    "note": "The P10 manifest phase field denotes full contract-surface coverage, not the active certification phase. P0-P5 are certified for reviewed exact-SHA repository/reference conformance. P6 model/tool routing mediation is in progress against Platform merge a06c32b26a6abde2294154dba9a8d299789b1c37 and the pinned TSIC routing-authority contract. P7-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
     "sequence_release": "p6_in_progress"
   },
   "trace_context_contract": {
