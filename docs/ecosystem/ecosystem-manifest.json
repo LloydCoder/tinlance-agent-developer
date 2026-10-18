@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p6-routing-context-verified-2026-10-18",
+  "baseline_id": "ecosystem-p7-scoped-credentials-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -39,7 +39,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "a06c32b26a6abde2294154dba9a8d299789b1c37"
+      "reviewed_sha": "e669b6e6c09208e531ba9801b49237fb1b1f0ab1"
     }
   ],
   "gate": {
@@ -59,7 +59,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "e98613c56c7cc52e063557987bb5436cfb24d207",
+    "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for exact-SHA repository/reference conformance. Canonical P7 real adapters and integration boundaries are in progress. P8-P10 remain not_started. P7 requires provider-compatible adapters with bounded and normalized transport behavior, identity/trace propagation at approved boundaries, no tenant or authority spoofing, exact-SHA cross-repository contract tests, security workflows, and post-merge forensic audit. External production provider access, secret-manager integration and production readiness remain unverified.",
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. Canonical sequence: P0 forensic baseline; P1 contracts; P2 identity/tenancy; P3 event delivery; P4 trace/evidence; P5 registries; P6 model/tool routing; P7 real adapters and integration boundaries; P8 budgets/capacity; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P6 are certified for exact-SHA repository/reference conformance. P7 remains in_progress pending the exact-SHA TSIC provider-adapter contract, bounded transport regression, scoped credential adversarial tests, all relevant CI/security workflows, and post-merge forensic audit. External production provider access, secret backend/rotation, and production readiness remain unverified.",
     "sequence_release": "p7_in_progress"
   },
   "trace_context_contract": {
