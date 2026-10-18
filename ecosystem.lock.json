@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "e5a0027d6074859e99648404f61cb8c67fd35c0c",
+      "ref": "f327e2272c4c22a34732a7aa3b94cd9ef1c35242",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
