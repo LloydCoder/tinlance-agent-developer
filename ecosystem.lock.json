@@ -9,7 +9,7 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
+      "ref": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
