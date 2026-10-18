@@ -120,7 +120,7 @@
     "p9": "certified",
     "p10": "in_progress",
     "production": "unverified",
-    "note": "P0-P9 are certified for their exact reviewed repository/reference scope. P10 recovery certification is being validated against the exact merged P10 implementation SHAs in ecosystem.lock.json and the pinned TSIC contract. The final gate exercises Platform recovery and budget settlement, OS durable event/replay isolation, SDK retry safety, and two-replica identity invariants. External production TLS/OAuth/JWKS, egress policy, live provider access, production backup/restore, telemetry and incident-response evidence remain unverified; repository CI does not certify a deployed production environment.",
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P9 are certified for their exact reviewed repository/reference scope. P10 recovery certification is being validated against the exact merged P10 implementation SHAs in ecosystem.lock.json and the pinned TSIC contract. The final gate exercises Platform recovery and budget settlement, OS durable event/replay isolation, SDK retry safety, and two-replica identity invariants. External production TLS/OAuth/JWKS, egress policy, live provider access, production backup/restore, telemetry and incident-response evidence remain unverified; repository CI does not certify a deployed production environment.",
     "sequence_release": "p10_in_progress"
   },
   "trace_context_contract": {
