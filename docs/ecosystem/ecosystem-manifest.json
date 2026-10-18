@@ -1,14 +1,15 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p3-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p4-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
     "governed_execution": "governed-execution.v1",
     "endpoint": "POST /v1/agent-platform",
     "transformation_schema": "transformation/v1",
-    "replication_schema": "replication/v1"
+    "replication_schema": "replication/v1",
+    "trace_context_schema": "trace-context/v1"
   },
   "repositories": [
     {
@@ -16,28 +17,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "0347f96c3f1498a178c3723111eca98de80fd6eb"
+      "reviewed_sha": "fe2817f551e1580372840c9a604fc1781eb0772f"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "647208ce2c0876ed4a8ecded1f95fa077b144032"
+      "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "e9e5ab621b036ca602cd1df0fe73352413b01672"
+      "reviewed_sha": "2f358d5dd1e562918613f138b7ef1e3a16f693cb"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "b2823a62f6b8139c93ff611e15bb72c45e3c577f"
+      "reviewed_sha": "35273b514b960daecb7bdcd8ed03dbf12117a514"
     }
   ],
   "gate": {
@@ -57,7 +58,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "d6b1aacad18e91d6a19aab061e84afbf14647eba",
+    "ref": "dab1fbaa87c97648eb3908daccf4f8a5d90a70ef",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -103,8 +104,8 @@
     "p0": "certified",
     "p1": "certified",
     "p2": "certified",
-    "p3": "in_progress",
-    "p4": "not_started",
+    "p3": "certified",
+    "p4": "in_progress",
     "p5": "not_started",
     "p6": "not_started",
     "p7": "not_started",
@@ -112,7 +113,22 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P2 are certified for exact reviewed repository/reference evidence. P3 event delivery/durability is in progress; P4-P10 remain not_started. P3 requires CloudEvents 1.0-compatible serialization, tenant-scoped outbox/inbox delivery, idempotency, bounded retry/dead-letter/replay, and exact-SHA cross-repository conformance. External production readiness remains unverified.",
-    "sequence_release": "p3_in_progress"
+    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P3 are certified for exact reviewed repository/reference evidence. P3 passed exact-SHA cross-repository serialization, SQL durability/lease, tenant isolation, retry/dead-letter, replay, and event conformance gates; see P3-FORENSIC-AUDIT.md. P4 trace context/evidence lineage is now in progress. P5-P10 remain not_started. External production readiness remains unverified.",
+    "sequence_release": "p4_in_progress"
+  },
+  "trace_context_contract": {
+    "schema": "schemas/trace-context/v1/trace-context.schema.json",
+    "tsic_schema": "schemas/trace-context/v1/trace-context.schema.json",
+    "sdk": "src/tinlance_agent_platform_sdk/trace_context.py",
+    "os": "src/tinlance_agent_os/trace_context.py",
+    "platform": "packages/contracts/src/tinlance_agent_platform_contracts/trace_context.py",
+    "invariants": [
+      "trace_id/span_id are valid non-zero W3C identifiers",
+      "request, policy decision, approval, execution, tool call, event and evidence share trace/correlation/tenant lineage",
+      "parent span links are non-orphaned and reconstructable",
+      "evidence references are immutable SHA-256 digests",
+      "sensitive attributes and authority-shaped metadata are rejected",
+      "trace metadata never grants execution authority"
+    ]
   }
 }
