@@ -108,6 +108,7 @@ def check_authority_boundary() -> None:
         "set_config('platform.tenant_id'",
         "def renew(",
         "def request_expired_reconciliation(",
+        "def retry_pending_settlement(",
     )
     require_markers(
         PLATFORM / "packages/execution/src/tinlance_agent_platform_execution/service.py",
@@ -123,6 +124,7 @@ def check_authority_boundary() -> None:
         "test_postgres_budget_gate_commits_tenant_scoped_reservation_and_settlement",
         "test_postgres_budget_gate_rejects_existing_idempotency_before_side_effect",
         "test_postgres_budget_gate_reconciles_settlement_without_double_accounting",
+        "retry_pending_settlement(reservation.reservation_id)",
         "test_p8_migration_has_transactional_limits_rls_and_append_only_ledger",
     )
     require_markers(
