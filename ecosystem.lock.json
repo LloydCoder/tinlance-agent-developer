@@ -4,22 +4,22 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "82ddf7e508449dfdbba4d40b6e8967fd9b86bd79",
+      "ref": "74fb6f441b19966c07010d30fe94c99d3cca1a29",
       "role": "developer validation consumer"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "f52504d8d9971218d428c8800a2de9b898dd8c4a",
+      "ref": "642d2c78810ff4eb6b9ec69e2fa1b4b5775b6b4f",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "50a54f0ef1e165cd70bf5b4e7f554fff0c7fa81d",
+      "ref": "2081f8ff0bad008b45eb69b617790b783c0c2862",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "2670c75656449730af59e3f3ebc3928ddb55b70a",
+      "ref": "9d12512bc1446133890e62ed0c3072ca28e623b7",
       "role": "typed developer API surface"
     }
   },
@@ -35,12 +35,13 @@
     "mcp_protocol_version": "2026-07-28",
     "a2a_specification": "1.0.1",
     "a2a_wire_protocol_version": "1.0",
-    "a2a_http_content_type": "application/a2a+json"
+    "a2a_http_content_type": "application/a2a+json",
+    "recovery_certification": "ecosystem-p10-recovery-certification/v1"
   },
-  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
+  "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "f6cd336cc0718144e88932dc34176053ca8f27b1",
+    "ref": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
     "adapter": "tsic-agent-developer-reference"
   }
 }

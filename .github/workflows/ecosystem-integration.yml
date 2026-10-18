@@ -113,3 +113,6 @@ jobs:
 
       - name: Run canonical P9 MCP/A2A interoperability and security conformance
         run: python scripts/p9_interoperability_conformance.py
+
+      - name: Run canonical P10 end-to-end recovery certification
+        run: python scripts/p10_recovery_conformance.py
