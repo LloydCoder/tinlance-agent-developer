@@ -12,7 +12,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ### Changed
 
-- Reconciled the ecosystem lock, manifest, registry provenance, and phase matrix to the merged P7 baseline; certified P7 after exact-SHA cross-repository conformance and post-merge forensic audit. P8 is the next eligible phase.
+- Reconciled the ecosystem lock, manifest, registry provenance, and phase matrix to the merged P7 baseline; certified P7 after exact-SHA cross-repository conformance and post-merge forensic audit. Enforced finite timeout/response bounds in Platform, Agent OS and SDK transports. P8 is the next eligible phase.
 
 ### Documentation
 
