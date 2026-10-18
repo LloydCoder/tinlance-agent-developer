@@ -89,14 +89,26 @@ def main() -> int:
     p2_status = state.get("p2")
     if p2_status not in {"in_progress", "certified"}:
         FAILURES.append("manifest must mark canonical P2 in_progress or certified while this gate runs")
-    expected_release = "p2_in_progress" if p2_status == "in_progress" else "ready_for_p3"
+    if p2_status == "in_progress":
+        expected_release = "p2_in_progress"
+        active_phase = None
+    else:
+        expected_release = state.get("sequence_release")
+        if expected_release not in {"ready_for_p3", "p3_in_progress"}:
+            FAILURES.append(
+                "certified P2 must release either ready_for_p3 or p3_in_progress"
+            )
+        active_phase = 3 if expected_release == "p3_in_progress" else None
     if state.get("sequence_release") != expected_release:
         FAILURES.append(f"manifest sequence_release must be {expected_release}")
     if state.get("production") != "unverified":
         FAILURES.append("repository-only P2 tests cannot certify production deployment")
     for phase in range(3, 11):
-        if state.get(f"p{phase}") != "not_started":
-            FAILURES.append(f"P{phase} must remain not_started until P2 is certified")
+        expected_status = "in_progress" if phase == active_phase else "not_started"
+        if state.get(f"p{phase}") != expected_status:
+            FAILURES.append(
+                f"P{phase} must be {expected_status} under the current serial release state"
+            )
 
     for name, root in (
         ("platform", PLATFORM),
