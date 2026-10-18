@@ -2,8 +2,8 @@
 
 **Audit state:** Platform implementation merged; final certification pending exact-SHA ecosystem CI, lock reconciliation, and post-merge checks.  
 **Canonical phase owner:** Agent Platform.  
-**Final Platform merge SHA:** `6a44940b520a2712564a4f4f3f095055bebbf7d3`  
-**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `6a44940b520a2712564a4f4f3f095055bebbf7d3`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
+**Final Platform merge SHA:** `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`  
+**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
 
 ## Scope and authority
 
