@@ -117,10 +117,10 @@
     "p7": "certified",
     "p8": "certified",
     "p9": "certified",
-    "p10": "not_started",
+    "p10": "in_progress",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P9 are certified for their exact reviewed repository/reference scope. P9 MCP/A2A interoperability passed exact-lock conformance on the reviewed four-repository and TSIC pins; the post-merge TADL SHA 6ec3e843622b113c23fad11e36548dabc158d5dc passed CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration. P10 is not started until this P9 certification closeout is merged. Production egress controls, live provider access, external TLS/OAuth/JWKS configuration, production telemetry, backup/restore and deployed production readiness remain unverified.",
-    "sequence_release": "ready_for_p10"
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P9 are certified for their exact reviewed repository/reference scope. P9 MCP/A2A interoperability passed exact-lock conformance on the reviewed four-repository and TSIC pins; the P9 certification closeout was merged at TADL commit 39b728987912f90a56f6327750339eeb2d5cb8fc, and all post-merge CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration workflows passed. P10 end-to-end recovery certification is now in progress. Production egress controls, live provider access, external TLS/OAuth/JWKS configuration, production telemetry, backup/restore and deployed production readiness remain unverified until separately evidenced.",
+    "sequence_release": "p10_in_progress"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
