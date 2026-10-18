@@ -4,7 +4,7 @@
 
 ## Reviewed implementation
 
-- Agent Platform merge: `57ea98c4060b6ca3fab1280b671a28f3b626ea6b`.
+- Agent Platform merge: `4480c70829318e26d83d39f00f00768cd1d54d86`.
 - TSIC routing authority: `LloydCoder/tinlance-system-integration` at `e98613c56c7cc52e063557987bb5436cfb24d207`.
 - Platform route selection is deterministic and conjunctive across task policy, model capability, tenant/agent allowlists, risk class and score, data classification, cost budget, route enablement, and provider availability.
 - Route registration requires an injected trusted Platform registry verifier. Registry denial or outage fails closed.
