@@ -75,7 +75,7 @@ def check_authority_boundary() -> None:
     )
     require_markers(
         PLATFORM / "database/tests/006_p8_quota_ledger.sql",
-        "conflicting settlement evidence replay",
+        "settlement replay accepted conflicting evidence",
         "append-only ledger allowed an update",
         "append-only ledger allowed truncation",
     )
