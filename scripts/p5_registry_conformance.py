@@ -333,6 +333,16 @@ def main() -> None:
     missing_sbom["repositories"][0]["supply_chain"].pop("sbom_uri", None)
     require(not validator.is_valid(missing_sbom),
             "negative test: schema accepted a repository without an SBOM reference", failures)
+    wrong_provenance = copy.deepcopy(registry)
+    wrong_provenance["repositories"][2]["supply_chain"]["provenance_uri"] = (
+        "https://github.com/LloydCoder/tinlance-agent-platform/commit/" + "f" * 40
+    )
+    require(bool(semantic_validate(wrong_provenance, lock)),
+            "negative test: provenance URI drifted from the exact reviewed SHA", failures)
+    wrong_publisher = copy.deepcopy(registry)
+    wrong_publisher["repositories"][0]["publisher"]["identity_uri"] = "https://github.com/other-account"
+    require(bool(semantic_validate(wrong_publisher, lock)),
+            "negative test: publisher identity URI did not match its ID", failures)
     quarantined = copy.deepcopy(registry)
     quarantined["services"][0]["lifecycle"]["state"] = "quarantined"
     quarantined["services"][0]["lifecycle"]["reason"] = "security review pending"
