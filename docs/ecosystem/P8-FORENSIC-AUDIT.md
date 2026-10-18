@@ -2,8 +2,8 @@
 
 **Audit state:** Platform implementation merged; final certification pending exact-SHA ecosystem CI, lock reconciliation, and post-merge checks.  
 **Canonical phase owner:** Agent Platform.  
-**Final Platform merge SHA:** `43e153f0b9bcd0657d504dec0a0889f38a8b575b`  
-**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `43e153f0b9bcd0657d504dec0a0889f38a8b575b`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
+**Final Platform merge SHA:** `6a44940b520a2712564a4f4f3f095055bebbf7d3`  
+**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `6a44940b520a2712564a4f4f3f095055bebbf7d3`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
 
 ## Scope and authority
 
@@ -109,7 +109,7 @@ The audit remains explicit that this repository does not prove a production data
 
 ### Settlement retry evidence invariant
 
-Platform PR #129 ensures that after a side effect, a retry following a persistence failure reuses the exact previously measured `QuotaSettlement` payload rather than calling the provider meter again. The regression test asserts one measurement across a failed settlement and a successful retry, no duplicate local charge, and cleanup of pending settlement state. This closes the in-process retry/evidence divergence found in the follow-up forensic review. Durable reservation reconciliation remains necessary for process crashes; this in-memory retry cache is not a substitute for a deployed reconciliation worker.
+Platform PR #129 and PR #130 ensure that after a side effect, a retry following a persistence failure reuses the exact previously measured `QuotaSettlement` payload rather than calling the provider meter again, and provide `retry_pending_settlement(reservation_id)` for an in-process recovery worker. The regression test asserts one measurement across a failed settlement and a successful retry, no duplicate local charge, and cleanup of pending settlement state. This closes the in-process retry/evidence divergence found in the follow-up forensic review. Durable reservation reconciliation remains necessary for process crashes; this in-memory retry cache is not a substitute for a deployed reconciliation worker.
 
 
 ## External security research alignment
