@@ -1,6 +1,6 @@
 {
   "schema": "tinlance-agent-ecosystem-lock/v1",
-  "purpose": "Pins the four-repository integration gate to reviewed commits; TSIC is the canonical ecosystem integration and certification authority and the lock is a release baseline, not a live branch pointer.",
+  "purpose": "Pins the four-repository integration gate to exact reviewed commits. During canonical P3 pre-merge validation, component refs are immutable candidate SHAs; after component PRs merge, replace these with the exact merged SHAs before certification. TSIC remains the canonical ecosystem integration and certification authority.",
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
@@ -9,17 +9,17 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "6a37934a2e602c6f31c2c6b943500af92d528f5b",
+      "ref": "647208ce2c0876ed4a8ecded1f95fa077b144032",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "c094160a243382b043f40bb642f758a30e6203ff",
+      "ref": "e5a0027d6074859e99648404f61cb8c67fd35c0c",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "8a41d6dce2fe778ab25c33dfa315328d06ec4908",
+      "ref": "876981c3950c4ffe95459d918a1147a926e04307",
       "role": "typed developer API surface"
     }
   },
@@ -30,10 +30,10 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1"
   },
-  "baseline_id": "ecosystem-p2-identity-tenancy-2026-10-17",
+  "baseline_id": "ecosystem-p3-candidate-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "9d4361a16ae1a5570eee49d6baf499f61e222a20",
+    "ref": "8ca5ad729339dfe0beae655c18adf00722efc8d2",
     "adapter": "tsic-agent-developer-reference"
   }
 }
