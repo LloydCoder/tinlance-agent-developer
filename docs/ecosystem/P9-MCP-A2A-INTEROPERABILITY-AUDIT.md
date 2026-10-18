@@ -64,10 +64,18 @@ The API reference dispatcher keyed its bounded idempotency cache directly by the
 
 **Remediation in Platform PR #132:** the dispatcher now namespaces each idempotency key by the authenticated tenant and principal. Regression tests prove that identical caller keys remain isolated across tenants, while same-scope replay returns the prior result and same-scope payload changes fail with an idempotency conflict.
 
+### P9-09 — MCP discovery and error envelopes diverged from the 2026-07-28 schema
+
+The first adapter draft returned a legacy-style `protocolVersion`/body-level `serverInfo` from `server/discover`, omitted `supportedVersions`, cache metadata and result metadata, and used legacy JSON-RPC codes for header mismatch/version rejection. It also incorrectly required `clientInfo`, which is optional in the current schema.
+
+**Remediation in Platform PR #132:** discovery now returns `supportedVersions`, capabilities, `resultType`, `ttlMs`, `cacheScope`, and `io.modelcontextprotocol/serverInfo` under result `_meta`. Successful results are decorated with required `resultType` and server identity metadata. Missing/malformed/mismatched headers use `HeaderMismatch` (-32020) with HTTP 400; an unsupported protocol version uses `UnsupportedProtocolVersion` (-32022) with the supported/requested version data. `clientCapabilities` and protocol version remain required, while `clientInfo` is validated only when supplied. Regression tests assert these exact wire fields and error codes.
+
+Source: [MCP 2026-07-28 discovery schema](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/server/discover.mdx), [official 2026-07-28 changelog](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/changelog.mdx).
+
 ## P9 acceptance gate
 
 - [ ] Platform exposes authenticated MCP `2026-07-28` requests through a stateless HTTP entry point; body/header mismatch fails closed.
-- [ ] MCP `server/discover`, `tools/list`, and `tools/call` use bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation, header/body version matching, and tenant-scoped idempotency.
+- [ ] MCP `server/discover`, `tools/list`, and `tools/call` match the 2026-07-28 schemas, including discovery version list, result metadata/cache fields, exact error codes, bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation, header/body version matching, and tenant-scoped idempotency.
 - [ ] A2A `1.0.1` signed Agent Card is published and the authenticated `message/send` and `tasks/get` entry points are scoped; remote delegation cannot widen authority and expires.
 - [ ] Inbound Agent Cards are signed; outbound Agent Cards are verified against a trusted key policy; remote endpoint validation blocks SSRF and redirect/DNS-rebinding paths.
 - [ ] SDK protocol metadata validates at runtime but grants no authority; OS composes protocol workflows without duplicating Platform authorization.
