@@ -83,7 +83,7 @@ def check_authority_boundary() -> None:
         PLATFORM / "database/tests/007_p8_quota_concurrency.sql",
         "create extension if not exists dblink",
         "concurrent",
-        "tenant quota",
+        "concurrent admission oversubscribed tenant concurrency",
         "organization quota",
     )
     require_markers(
