@@ -1,0 +1,120 @@
+# P8 Candidate Forensic Audit — Budgets, Quotas, Capacity and Cost
+
+**Audit state:** Platform implementation merged; final certification pending exact-SHA ecosystem CI, lock reconciliation, and post-merge checks.  
+**Canonical phase owner:** Agent Platform.  
+**Final Platform merge SHA:** `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`  
+**Platform implementation PR:** [Platform #128](https://github.com/LloydCoder/tinlance-agent-platform/pull/128), merged at `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`. **Cross-repository certification PR:** [TADL #83](https://github.com/LloydCoder/tinlance-agent-developer/pull/83), still open pending the updated-lock conformance run.
+
+## Scope and authority
+
+P8 adds persistent, transactional quota reservations, tenant and organization limits, usage settlement, capacity gates, append-only ledger evidence and expired-reservation recovery. Platform remains the only authority for admission, settlement, and consequential execution. Agent OS and the Platform SDK must not create a second quota ledger or local authorization path.
+
+This audit distinguishes repository evidence from live deployment. A green workflow demonstrates the checked code and test environment, not a deployed production database, runtime role grants, secret manager, telemetry, backup/restore, or incident-response readiness.
+
+## Candidate implementation evidence
+
+- `database/migrations/010_p8_budget_quota_ledger.sql`: tenant and organization budget limits, reservation rows, ledger facts, row-level security, serialized admission, settlement, release, bounded evidence, and append-only triggers.
+- `database/migrations/011_p8_quota_reservation_recovery.sql`: bounded lease renewal, batched expiry detection using `FOR UPDATE SKIP LOCKED`, recovery-request ledger facts, and explicit no-side-effect evidence before a recovery-requested reservation can be released.
+- `database/tests/006_p8_quota_ledger.sql`: replay/idempotency, conflicting settlement evidence, safe evidence, numeric validation and ledger immutability.
+- `database/tests/007_p8_quota_concurrency.sql`: PostgreSQL concurrent tenant and organization admission.
+- `database/tests/008_p8_quota_recovery.sql`: expiry, renewal, reconciliation, measured settlement and explicit release evidence.
+- `packages/budgets/src/tinlance_agent_platform_budgets/postgres_quota.py`: low-level `PostgresQuotaLedger` participates in a caller-owned transaction, while `PostgresBudgetGate` owns short tenant-scoped reserve/settle/release transactions and never holds one open across an external side effect.
+- `tests/test_p8_budget_quota_ledger.py`: typed input validation, cost normalization, adapter contract and regression tests.
+- `docs/P8-ENTERPRISE-CONTROL-PLANE.md`: Platform authority boundary and P8 operating semantics.
+
+## Forensic findings and remediations
+
+### P8-F01 — Expired lease could be released before reconciliation
+
+The first candidate allowed a generic release while a reservation's lease had expired but before the reconciler set `recovery_requested_at`. That could treat timeout as proof that no consequential side effect occurred.
+
+**Fix:** the release procedure now rejects an expired, unreconciled reservation. The regression test attempts this path before requesting reconciliation and requires a fail-closed result.
+
+### P8-F02 — Settlement replay ignored conflicting evidence
+
+The first candidate considered a repeated settlement idempotent if only usage quantities matched. A second request with different evidence could receive `already_settled`, even though the evidence did not match the original ledger fact.
+
+**Fix:** the settlement procedure now requires both usage dimensions and the immutable recorded evidence to match. A conflicting-evidence replay is explicitly tested and rejected.
+
+### P8-F03 — Capacity failure diagnostics hid the violated envelope
+
+A pre-existing performance-economics test expected the capacity gate to identify p95 latency, but the gate returned only a generic message.
+
+**Fix:** capacity evaluation reports the specific exceeded dimensions (throughput, p95, p99, concurrency). The regression remains in the normal test suite.
+
+### P8-F06 — Post-execution settlement uncertainty must not trigger a refund
+
+A further forensic review found that the execution service could attempt to release a reservation when budget settlement failed after a tool had already executed. That is unsafe: settlement failure does not prove that the side effect did not occur. A timeout during settlement also needs an explicit unknown-outcome classification rather than a false claim that execution was rejected before side effects.
+
+**Fix:** Platform PR #126 was merged at `aa3cd31de76ec25385e8801fa570aab029029b02`. It preserves the reservation for reconciliation after uncertain post-execution settlement, distinguishes timeout/unknown outcome from known budget exhaustion, and adds regression tests that assert the reservation is not released. CI, SQL, TSIC, R10, CodeQL, Secret Scan, Reference Agents and supply-chain attestation are green on the merge SHA.
+
+### P8-F05 — OS/SDK consumers must preserve structured budget failures
+
+The first exact-SHA cross-repository run exposed that the locked OS revision did not contain the newer typed Platform conflict mapping. Platform may report a structured budget/settlement failure, but an older OS transport boundary cannot preserve the authoritative error code and retryability metadata. The SDK also needs to retain run failure classification rather than collapse it into an untyped result.
+
+**Fix:** the reviewed OS main revision `e0205a4e5a4494a34d9e480a4a0b77699bcfe953` adds `PlatformConflictError` mapping and has green CI, CodeQL and Scorecard workflows; the reviewed SDK revision `e54256ce7e632ee2efe0e0a49f0e37142fe4c27c` has green CI/Security and preserves structured failure codes. The lock, manifest and registry now pin these exact revisions, and the P8 conformance gate asserts the error semantics as well as the no-duplicate-ledger boundary.
+
+### P8-F04 — CI surfaced type, formatting and mock-contract defects
+
+The candidate's first checks exposed Ruff formatting, a mypy variable-name collision, a stale ledger permission assertion, and incomplete adapter test doubles for lease-renewal and reconciliation return values.
+
+**Fixes:** source formatting and typing were corrected; tests now assert the full UPDATE/DELETE/TRUNCATE revocation and model the actual datetime/count return contracts. The initial P8 implementation merged at `f1724f68715d18932b37cf07ac23843291237eaf`. Follow-up PR #127 repaired the tenancy/approval documentation and SDK reference-agent pin. Follow-up PR #126 then hardened post-execution settlement failure handling so uncertain side effects are not refunded; its merge SHA is `aa3cd31de76ec25385e8801fa570aab029029b02`. Both follow-ups passed their exact-head and post-merge workflows. TADL must still rerun conformance against the final merge SHA.
+
+## Security and correctness review
+
+- Tenant and organization budget rows are locked in a consistent order during admission. SQL concurrency tests use separate PostgreSQL connections rather than relying only on in-process locks.
+- Reserved capacity remains charged while a lease is expired and awaiting reconciliation. Expiry is a recovery signal, not proof of a missing side effect.
+- Settlement records measured usage even when limits are exceeded, marks the result as an overrun, and requires the caller to stop subsequent work.
+- Reservation retries preserve idempotency across terminal states; conflicting intent must fail closed.
+- Evidence is metadata-only, size-bounded and allow-listed. Raw prompts, credentials and provider payloads are not intended to enter the ledger.
+- The ledger has update/delete triggers and a truncate trigger in addition to privilege revocation.
+- SQL functions use `SECURITY INVOKER`, so caller identity and row policies remain relevant; production roles must have only the required privileges and must not bypass row-level security.
+- OS and SDK remain consumers of Platform-owned authority. The new TADL P8 gate checks the exact lock and rejects direct quota-table/procedure duplication in their source trees.
+
+## External standards reviewed
+
+- PostgreSQL row security documentation explains that RLS adds row filtering to SQL privileges, defaults to deny when no policy applies, and does not govern operations such as TRUNCATE. The candidate therefore combines tenant policies with separate ledger immutability controls: https://www.postgresql.org/docs/current/ddl-rowsecurity.html
+- PostgreSQL privilege documentation explains that object privileges remain separate from RLS and that function execution privileges are granted to PUBLIC by default unless revoked. The migration revokes public execution for the quota procedures; production role-specific grants must be configured and verified: https://www.postgresql.org/docs/current/ddl-priv.html
+- PostgreSQL function documentation describes SECURITY INVOKER as executing with caller privileges, which matches the intended RLS boundary: https://www.postgresql.org/docs/current/sql-createfunction.html
+
+## Required certification gates
+
+- [x] Platform P8 implementation and recovery follow-ups #128, #129, #130 and documentation #131 are merged; their exact-head CI/security/CodeQL/R10/Reference Agents checks and post-merge main workflows passed. Final reviewed Platform SHA: `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`.
+- [ ] TADL's P8 conformance workflow validates the exact locked Platform candidate, runs P8 adapter tests and verifies OS/SDK do not duplicate persistence or authority.
+- [x] Platform implementation and documentation PRs are merged only after the above gates passed. TADL cross-repository certification remains pending until the exact final lock, registry and manifest pass all required workflows.
+- [ ] The TADL lock is refreshed to the exact Platform merge SHA; P8 integration is rerun against that immutable merge SHA.
+- [ ] Post-merge Platform and TADL workflows pass.
+- [ ] P8 docs, manifest, lock, change log and post-phase forensic audit agree on the exact certified baseline.
+- [ ] P9 remains not started until P8 is certified.
+
+## Residual risks not certified by repository CI
+
+1. Production PostgreSQL role creation, least-privilege grants, connection-pool tenant context setup, and proof that runtime roles cannot bypass RLS are deployment concerns requiring environment-specific evidence.
+2. Real backup/restore, failover, load under production-scale concurrency, metrics/alerts, cost reconciliation against provider invoices, and operational incident drills remain external deployment evidence.
+3. No claim is made that this repository currently has a live production quota database or that all infrastructure has been deployed.
+
+## Verdict
+
+The candidate closes two material correctness gaps discovered during this audit: premature release of expired work and evidence-mismatched settlement replay. P8 is not certified until the exact-SHA cross-repository gate, all required Platform workflows, merge, and post-merge verification are complete.
+
+
+## Follow-up P8 adapter review (2026-10-18)
+
+Platform PR #128 adds the higher-level `PostgresBudgetGate`, addressing the previous gap between the durable SQL ledger adapter and the governed execution `BudgetGate` contract. The adapter opens short tenant-scoped transactions, derives reservation identity from execution idempotency, injects trusted organization/cost/measurement providers, rejects existing reservations before a new side effect, and preserves a reservation for reconciliation when settlement is uncertain. Its repository CI, CodeQL, R10 certification, Secret Scan and Reference Agents checks passed on the reviewed PR head before merge.
+
+The first TADL #83 Ecosystem Integration run failed because the lock still referenced the earlier Platform commit, which did not contain `PostgresBudgetGate`. The lock, manifest, and registry have now been reconciled to the exact final Platform P8 merge SHA. This is a real integration failure, not a test to bypass. The updated P8 conformance workflow must pass on the new TADL head before the certification PR can merge.
+
+The audit remains explicit that this repository does not prove a production database connection factory, cost estimator, provider usage meter, lease-renewal worker, reconciliation worker, production role grants, or telemetry/backup/incident-response deployment.
+
+
+### Settlement retry evidence invariant
+
+Platform PR #129 and PR #130 ensure that after a side effect, a retry following a persistence failure reuses the exact previously measured `QuotaSettlement` payload rather than calling the provider meter again, and provide `retry_pending_settlement(reservation_id)` for an in-process recovery worker. The regression test asserts one measurement across a failed settlement and a successful retry, no duplicate local charge, and cleanup of pending settlement state. This closes the in-process retry/evidence divergence found in the follow-up forensic review. Durable reservation reconciliation remains necessary for process crashes; this in-memory retry cache is not a substitute for a deployed reconciliation worker.
+
+
+## External security research alignment
+
+- PostgreSQL's [Row Security Policies documentation](https://www.postgresql.org/docs/17/ddl-rowsecurity.html) states that tables with RLS enabled default-deny when no policy permits access, but table owners normally bypass RLS unless `FORCE ROW LEVEL SECURITY` is enabled; superusers and roles with `BYPASSRLS` also bypass it. The P8 migration uses RLS and FORCE RLS, but deployment acceptance must still verify the runtime role is least-privileged and is not a superuser or RLS-bypass role.
+- OWASP's [AI Agent and MCP Security guidance](https://github.com/OWASP/DevSecOpsGuideline/blob/master/current-version/2-Process/2-2-Develop/2-2-5-AI-Agent-and-MCP-Security.md) and [AI/LLM application security testing guidance](https://owasp.github.io/DevSecOpsGuideline/2-Process/2-4-Test/2-4-6-AI-LLM-Application-Security-Testing/) recommend enforcing least privilege and authorization in backend/tool gateways rather than relying on prompts, binding actions to the initiating identity, and adversarially testing tool outputs and cross-boundary data flows. This supports the preserved Platform-only admission/authority boundary; it is not a substitute for tenant-isolation, failure-injection, and deployment testing.
+
+These references support the control design. They do not constitute an independent penetration test or production assurance attestation.

@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p7-adapter-boundary-2026-10-18",
+  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,28 +18,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "a3599dcb185806a7aea07f65f170ab8c0abde7f2"
+      "reviewed_sha": "10e537f7709cac2403722d007b9d16ae44ca5672"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "c68eb5e2a36a6544660145b4c997747f7ba0f605"
+      "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "2932645977ff3e352e1bb5a94dd13389b0190f54"
+      "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "91770da13ea95637117c09deb6d940049311fe7e"
+      "reviewed_sha": "60c7762fd915bd9273b9ab72cfed80eb3b8bd797"
     }
   ],
   "gate": {
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for the exact reviewed repository/reference scope. P7 passed PR-head and post-merge CI, security, CodeQL, secret scan, supply-chain attestation and exact-SHA cross-repository adapter conformance; the post-merge forensic audit records evidence and residual risks. P8 budget/quota/capacity implementation is in progress in Platform PR #123 and is not certified until PostgreSQL transactional, race/recovery, exact-SHA cross-repository and post-merge gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. P8 budget/quota/capacity implementation, immutable settlement retry evidence, explicit pending-settlement retry API, and recovery-boundary documentation are merged in Platform at 60c7762fd915bd9273b9ab72cfed80eb3b8bd797. The P8 candidate lock and cross-repository certification are in progress; P8 is not certified until exact-SHA conformance and post-merge forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
     "sequence_release": "p8_in_progress"
   },
   "trace_context_contract": {

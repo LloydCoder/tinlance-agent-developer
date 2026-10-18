@@ -107,3 +107,6 @@ jobs:
 
       - name: Run canonical P7 real adapter and integration boundary conformance
         run: python scripts/p7_adapter_conformance.py
+
+      - name: Run canonical P8 budget, quota and recovery conformance
+        run: python scripts/p8_budget_quota_conformance.py

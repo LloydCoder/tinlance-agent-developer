@@ -4,22 +4,22 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "a3599dcb185806a7aea07f65f170ab8c0abde7f2",
+      "ref": "10e537f7709cac2403722d007b9d16ae44ca5672",
       "role": "developer validation consumer"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
+      "ref": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "91770da13ea95637117c09deb6d940049311fe7e",
+      "ref": "60c7762fd915bd9273b9ab72cfed80eb3b8bd797",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "2932645977ff3e352e1bb5a94dd13389b0190f54",
+      "ref": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c",
       "role": "typed developer API surface"
     }
   },
@@ -32,7 +32,7 @@
     "trace_context_schema": "trace-context/v1",
     "registry_schema": "registry-manifest/v2"
   },
-  "baseline_id": "ecosystem-p7-adapter-boundary-2026-10-18",
+  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
