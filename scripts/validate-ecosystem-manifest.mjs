@@ -18,6 +18,8 @@ if (!/^P(?:0|[1-9]|10)$/.test(manifest.phase)) fail("unsupported ecosystem basel
 if (lock.contracts.platform_api !== manifest.contracts.platform_api) fail("Platform API versions differ");
 if (lock.contracts.governed_execution !== manifest.contracts.governed_execution) fail("governed execution contracts differ");
 if (lock.contracts.endpoint !== manifest.contracts.endpoint) fail("Platform endpoints differ");
+if (lock.contracts.registry_schema !== manifest.contracts.registry_schema) fail("registry schema versions differ");
+if (manifest.contracts.registry_schema !== "registry-manifest/v2") fail("canonical registry schema v2 is required");
 
 const lockEntries = Object.entries(lock.repositories);
 if (lockEntries.length !== 4) fail("ecosystem lock must contain exactly four repositories");

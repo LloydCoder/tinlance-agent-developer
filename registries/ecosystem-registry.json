@@ -1,37 +1,127 @@
 {
-  "schema_version": "registry-manifest/v1",
+  "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p5-postmerge-2026-10-18",
+  "baseline_id": "ecosystem-p5-governance-v2-candidate-2026-10-18",
   "repositories": [
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "reviewed_sha": "6ac2022c69b62730ba1c3df7e33d97510b11a42b",
-      "role": "artifact, workflow and registry validator"
+      "reviewed_sha": "0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
+      "role": "developer validation consumer",
+      "publisher": {
+        "publisher_id": "LloydCoder",
+        "identity_uri": "https://github.com/LloydCoder",
+        "identity_status": "unverified"
+      },
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      },
+      "supply_chain": {
+        "reviewed_sha": "0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
+        "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
+        "signature_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
+        "verification_status": "pending"
+      }
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e",
-      "role": "workspace, task and lifecycle orchestration; authority-free"
+      "role": "operating environment and lifecycle plane",
+      "publisher": {
+        "publisher_id": "LloydCoder",
+        "identity_uri": "https://github.com/LloydCoder",
+        "identity_status": "unverified"
+      },
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      },
+      "supply_chain": {
+        "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/62826433a3110f7d29fd8dc7295efa584fa7934e",
+        "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
+        "signature_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
+        "verification_status": "pending"
+      }
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "d4460444cf5c993520462686680130cb6251813d",
-      "role": "sole consequential execution authority"
+      "reviewed_sha": "34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+      "role": "sole governed execution and authority plane",
+      "publisher": {
+        "publisher_id": "LloydCoder",
+        "identity_uri": "https://github.com/LloydCoder",
+        "identity_status": "unverified"
+      },
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      },
+      "supply_chain": {
+        "reviewed_sha": "34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+        "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
+        "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
+        "verification_status": "pending"
+      }
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "reviewed_sha": "2f358d5dd1e562918613f138b7ef1e3a16f693cb",
-      "role": "typed API and contract transport; authority-free"
+      "role": "typed developer API surface",
+      "publisher": {
+        "publisher_id": "LloydCoder",
+        "identity_uri": "https://github.com/LloydCoder",
+        "identity_status": "unverified"
+      },
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      },
+      "supply_chain": {
+        "reviewed_sha": "2f358d5dd1e562918613f138b7ef1e3a16f693cb",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/2f358d5dd1e562918613f138b7ef1e3a16f693cb",
+        "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
+        "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
+        "verification_status": "pending"
+      }
     },
     {
       "id": "tsic",
       "repository": "LloydCoder/tinlance-system-integration",
-      "reviewed_sha": "ea490e4ecdb49101f4708b4b4ad4abc3af55d38a",
-      "role": "canonical contract and conformance authority"
+      "reviewed_sha": "e98613c56c7cc52e063557987bb5436cfb24d207",
+      "role": "canonical contract and conformance authority",
+      "publisher": {
+        "publisher_id": "LloydCoder",
+        "identity_uri": "https://github.com/LloydCoder",
+        "identity_status": "unverified"
+      },
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      },
+      "supply_chain": {
+        "reviewed_sha": "e98613c56c7cc52e063557987bb5436cfb24d207",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-system-integration/commit/e98613c56c7cc52e063557987bb5436cfb24d207",
+        "sbom_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
+        "signature_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
+        "verification_status": "pending"
+      }
     }
   ],
   "services": [
@@ -52,7 +142,13 @@
         "tool.invoke"
       ],
       "authority_mode": "sole_consequential_execution",
-      "enabled": true
+      "enabled": true,
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "service_id": "agent-os.runtime",
@@ -69,7 +165,13 @@
         "trace.propagate"
       ],
       "authority_mode": "authority_free",
-      "enabled": true
+      "enabled": true,
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "service_id": "platform-sdk.client",
@@ -86,7 +188,13 @@
         "trace.propagate"
       ],
       "authority_mode": "authority_free",
-      "enabled": true
+      "enabled": true,
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "service_id": "tadl.validator",
@@ -97,14 +205,20 @@
         "transformation.v1",
         "replication.v1",
         "trace-context.v1",
-        "registry-manifest.v1"
+        "registry-manifest.v2"
       ],
       "capabilities": [
         "artifact.validate",
         "registry.validate"
       ],
       "authority_mode": "authority_free",
-      "enabled": true
+      "enabled": true,
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "service_id": "tsic.conformance",
@@ -114,14 +228,20 @@
       "contract_ids": [
         "event-envelope.v1",
         "trace-context.v1",
-        "registry-manifest.v1"
+        "registry-manifest.v2"
       ],
       "capabilities": [
         "compatibility.validate",
         "contract.validate"
       ],
       "authority_mode": "conformance_only",
-      "enabled": true
+      "enabled": true,
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     }
   ],
   "agents": [
@@ -139,7 +259,13 @@
         "event-envelope.v1": "1.0",
         "trace-context.v1": "1.0"
       },
-      "authority_mode": "delegated_only"
+      "authority_mode": "delegated_only",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "agent_id": "reference.enterprise-b",
@@ -155,7 +281,13 @@
         "event-envelope.v1": "1.0",
         "trace-context.v1": "1.0"
       },
-      "authority_mode": "delegated_only"
+      "authority_mode": "delegated_only",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     }
   ],
   "contracts": [
@@ -164,42 +296,91 @@
       "version": "1.0",
       "schema_path": "packages/contracts/src/tinlance_agent_platform_contracts/models.py",
       "owner_repository_id": "platform",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "contract_id": "event-envelope.v1",
       "version": "1.0",
       "schema_path": "contracts/events/envelope.json",
       "owner_repository_id": "tsic",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "contract_id": "trace-context.v1",
       "version": "1.0",
       "schema_path": "schemas/trace-context/v1/trace-context.schema.json",
       "owner_repository_id": "tsic",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "contract_id": "transformation.v1",
       "version": "1.0",
       "schema_path": "schemas/transformation/v1/transformation.schema.json",
       "owner_repository_id": "developer",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "contract_id": "replication.v1",
       "version": "1.0",
       "schema_path": "docs/ecosystem/replication-manifest.json",
       "owner_repository_id": "developer",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     },
     {
       "contract_id": "registry-manifest.v1",
       "version": "1.0",
       "schema_path": "schemas/registry/v1/registry-manifest.schema.json",
       "owner_repository_id": "tsic",
-      "compatibility": "versioned_immutable"
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "deprecated",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": "superseded by registry-manifest.v2",
+        "replacement_id": "registry-manifest.v2"
+      }
+    },
+    {
+      "contract_id": "registry-manifest.v2",
+      "version": "2.0",
+      "schema_path": "schemas/registry/v2/registry-manifest.schema.json",
+      "owner_repository_id": "tsic",
+      "compatibility": "versioned_immutable",
+      "lifecycle": {
+        "state": "active",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": null,
+        "replacement_id": null
+      }
     }
   ],
   "compatibility_rules": [
@@ -315,9 +496,9 @@
     },
     {
       "consumer_id": "tadl.validator",
-      "contract_id": "registry-manifest.v1",
+      "contract_id": "registry-manifest.v2",
       "supported_versions": [
-        "1.0"
+        "2.0"
       ],
       "reject_unknown": true,
       "reject_stale": true,
@@ -345,9 +526,9 @@
     },
     {
       "consumer_id": "tsic.conformance",
-      "contract_id": "registry-manifest.v1",
+      "contract_id": "registry-manifest.v2",
       "supported_versions": [
-        "1.0"
+        "2.0"
       ],
       "reject_unknown": true,
       "reject_stale": true,

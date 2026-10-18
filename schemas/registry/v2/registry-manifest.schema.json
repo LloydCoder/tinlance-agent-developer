@@ -1,0 +1,497 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tinlance.com/schemas/registry/v2/registry-manifest.schema.json",
+  "title": "Tinlance Canonical Ecosystem Registry v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "baseline_id",
+    "repositories",
+    "services",
+    "agents",
+    "contracts",
+    "compatibility_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "registry-manifest/v2"
+    },
+    "registry_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "baseline_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "$ref": "#/$defs/repository"
+      }
+    },
+    "services": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/service"
+      }
+    },
+    "agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/agent"
+      }
+    },
+    "contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/contract"
+      }
+    },
+    "compatibility_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/compatibility"
+      }
+    }
+  },
+  "$defs": {
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "repository",
+        "reviewed_sha",
+        "role",
+        "publisher",
+        "lifecycle",
+        "supply_chain"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "reviewed_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "publisher": {
+          "$ref": "#/$defs/publisher"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/lifecycle"
+        },
+        "supply_chain": {
+          "$ref": "#/$defs/supply_chain"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "service_id",
+        "owner_repository_id",
+        "version",
+        "api_version",
+        "contract_ids",
+        "capabilities",
+        "authority_mode",
+        "enabled",
+        "lifecycle"
+      ],
+      "properties": {
+        "service_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+        },
+        "owner_repository_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "api_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "contract_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+          }
+        },
+        "authority_mode": {
+          "enum": [
+            "sole_consequential_execution",
+            "authority_free",
+            "conformance_only"
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/lifecycle"
+        }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id",
+        "owner_repository_id",
+        "version",
+        "capabilities",
+        "required_contracts",
+        "authority_mode",
+        "lifecycle"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+        },
+        "owner_repository_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+          }
+        },
+        "required_contracts": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "authority_mode": {
+          "enum": [
+            "delegated_only",
+            "authority_free"
+          ]
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/lifecycle"
+        }
+      }
+    },
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_id",
+        "version",
+        "schema_path",
+        "owner_repository_id",
+        "compatibility",
+        "lifecycle"
+      ],
+      "properties": {
+        "contract_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "schema_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "owner_repository_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "compatibility": {
+          "enum": [
+            "exact",
+            "backward_compatible_minor",
+            "versioned_immutable"
+          ]
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/lifecycle"
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_id",
+        "contract_id",
+        "supported_versions",
+        "reject_unknown",
+        "reject_stale",
+        "reject_missing"
+      ],
+      "properties": {
+        "consumer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contract_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supported_versions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reject_unknown": {
+          "const": true
+        },
+        "reject_stale": {
+          "const": true
+        },
+        "reject_missing": {
+          "const": true
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "changed_at",
+        "reason",
+        "replacement_id"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "active",
+            "quarantined",
+            "revoked",
+            "deprecated"
+          ]
+        },
+        "changed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 512
+        },
+        "replacement_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "quarantined"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "revoked"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "deprecated"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "replacement_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "active"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "replacement_id": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publisher_id",
+        "identity_uri",
+        "identity_status"
+      ],
+      "properties": {
+        "publisher_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.@-]{2,128}$"
+        },
+        "identity_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "identity_status": {
+          "enum": [
+            "verified",
+            "unverified",
+            "revoked"
+          ]
+        }
+      }
+    },
+    "supply_chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewed_sha",
+        "provenance_uri",
+        "sbom_uri",
+        "signature_uri",
+        "verification_status"
+      ],
+      "properties": {
+        "reviewed_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "provenance_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "sbom_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "signature_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "verification_status": {
+          "enum": [
+            "pending",
+            "verified",
+            "revoked"
+          ]
+        }
+      }
+    }
+  }
+}

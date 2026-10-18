@@ -12,8 +12,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 TSIC = Path("/tmp/tinlance-tsic")
 REGISTRY_PATH = ROOT / "registries/ecosystem-registry.json"
-SCHEMA_PATH = TSIC / "schemas/registry/v1/registry-manifest.schema.json"
-CONTRACT_PATH = TSIC / "contracts/registry/registry-contract.json"
+SCHEMA_PATH = TSIC / "schemas/registry/v2/registry-manifest.schema.json"
+CONTRACT_PATH = TSIC / "contracts/registry/registry-contract-v2.json"
 LOCK_PATH = ROOT / "ecosystem.lock.json"
 MANIFEST_PATH = ROOT / "docs/ecosystem/ecosystem-manifest.json"
 
@@ -32,6 +32,7 @@ REQUIRED_CONTRACTS = {
     "transformation.v1",
     "replication.v1",
     "registry-manifest.v1",
+    "registry-manifest.v2",
 }
 
 
@@ -87,6 +88,65 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
             continue
         require(entry.get("repository") == name, f"{repo_id}: repository identity mismatch", failures)
         require(entry.get("reviewed_sha") == sha, f"{repo_id}: stale or unlocked reviewed SHA", failures)
+        require(entry.get("role") == role, f"{repo_id}: architectural role mismatch", failures)
+        publisher = entry.get("publisher", {})
+        publisher_id = publisher.get("publisher_id", "")
+        require(bool(publisher_id), f"{repo_id}: publisher identity is missing", failures)
+        require(publisher.get("identity_uri") == f"https://github.com/{publisher_id}",
+                f"{repo_id}: publisher identity URI does not match publisher ID", failures)
+        require(publisher.get("identity_status") in {"verified", "unverified", "revoked"},
+                f"{repo_id}: publisher identity state is invalid", failures)
+        lifecycle = entry.get("lifecycle", {})
+        lifecycle_state = lifecycle.get("state")
+        require(lifecycle_state in {"active", "quarantined", "revoked", "deprecated"},
+                f"{repo_id}: invalid lifecycle state", failures)
+        if lifecycle_state in {"quarantined", "revoked", "deprecated"}:
+            require(bool(lifecycle.get("reason")), f"{repo_id}: non-active lifecycle requires a reason", failures)
+        if lifecycle_state == "deprecated":
+            require(bool(lifecycle.get("replacement_id")), f"{repo_id}: deprecated repository requires a replacement", failures)
+        supply_chain = entry.get("supply_chain", {})
+        require(supply_chain.get("reviewed_sha") == sha,
+                f"{repo_id}: supply-chain SHA differs from the reviewed repository SHA", failures)
+        require(
+            supply_chain.get("provenance_uri") == f"https://github.com/{name}/commit/{sha}",
+            f"{repo_id}: provenance must point to the exact reviewed commit",
+            failures,
+        )
+        attestation_uri = f"https://github.com/{name}/attestations"
+        require(supply_chain.get("sbom_uri") == attestation_uri,
+                f"{repo_id}: SBOM reference must point to the repository attestation index", failures)
+        require(supply_chain.get("signature_uri") == attestation_uri,
+                f"{repo_id}: signature reference must point to the repository attestation index", failures)
+        require(supply_chain.get("verification_status") in {"pending", "verified", "revoked"},
+                f"{repo_id}: revoked or invalid supply-chain attestation fails closed", failures)
+
+    for entry in repositories:
+        lifecycle = entry.get("lifecycle", {})
+        if lifecycle.get("state") == "deprecated":
+            replacement = repository_by_id.get(lifecycle.get("replacement_id"))
+            require(
+                replacement is not None and replacement.get("lifecycle", {}).get("state") == "active",
+                f"{entry.get('id')}: deprecated repository replacement must be active",
+                failures,
+            )
+    for entry in services:
+        lifecycle = entry.get("lifecycle", {})
+        if lifecycle.get("state") == "deprecated":
+            replacement = service_by_id.get(lifecycle.get("replacement_id"))
+            require(
+                replacement is not None and replacement.get("lifecycle", {}).get("state") == "active",
+                f"{entry.get('service_id')}: deprecated service replacement must be active",
+                failures,
+            )
+    for entry in agents:
+        lifecycle = entry.get("lifecycle", {})
+        if lifecycle.get("state") == "deprecated":
+            replacement = agent_by_id.get(lifecycle.get("replacement_id"))
+            require(
+                replacement is not None and replacement.get("lifecycle", {}).get("state") == "active",
+                f"{entry.get('agent_id')}: deprecated agent replacement must be active",
+                failures,
+            )
 
     require(set(service_by_id) == REQUIRED_SERVICES,
             "service registry is missing or has unexpected canonical services", failures)
@@ -101,6 +161,32 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         missing_contracts = set(service.get("contract_ids", [])) - set(contract_by_id)
         require(not missing_contracts,
                 f"{service.get('service_id')}: unresolved contracts {sorted(missing_contracts)}", failures)
+        lifecycle = service.get("lifecycle", {})
+        state = lifecycle.get("state")
+        if state == "active":
+            require(service.get("enabled") is True, f"{service.get('service_id')}: active service is disabled", failures)
+            owner_entry = repository_by_id.get(owner, {})
+            require(owner_entry.get("lifecycle", {}).get("state") == "active",
+                    f"{service.get('service_id')}: active service owner is not active", failures)
+            require(owner_entry.get("publisher", {}).get("identity_status") != "revoked",
+                    f"{service.get('service_id')}: owner publisher identity is revoked", failures)
+            require(owner_entry.get("supply_chain", {}).get("verification_status") != "revoked",
+                    f"{service.get('service_id')}: owner supply-chain attestation is revoked", failures)
+            for contract_id in service.get("contract_ids", []):
+                registered_contract = contract_by_id.get(contract_id)
+                if registered_contract is not None:
+                    require(registered_contract.get("lifecycle", {}).get("state") == "active",
+                            f"{service.get('service_id')}: active service references non-active contract {contract_id}", failures)
+                    contract_owner = repository_by_id.get(registered_contract.get("owner_repository_id"), {})
+                    require(contract_owner.get("lifecycle", {}).get("state") == "active",
+                            f"{service.get('service_id')}: contract owner is not active", failures)
+                    require(contract_owner.get("publisher", {}).get("identity_status") != "revoked",
+                            f"{service.get('service_id')}: contract owner publisher is revoked", failures)
+                    require(contract_owner.get("supply_chain", {}).get("verification_status") != "revoked",
+                            f"{service.get('service_id')}: contract owner supply-chain attestation is revoked", failures)
+        else:
+            require(service.get("enabled") is False,
+                    f"{service.get('service_id')}: non-active lifecycle must fail closed", failures)
         mode = service.get("authority_mode")
         if owner == "platform":
             require(mode == "sole_consequential_execution",
@@ -113,6 +199,18 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
     for agent in agents:
         require(agent.get("owner_repository_id") in repository_by_id,
                 f"{agent.get('agent_id')}: unresolved owner repository", failures)
+        agent_lifecycle = agent.get("lifecycle", {})
+        if agent.get("agent_id") in REQUIRED_AGENTS:
+            require(agent_lifecycle.get("state") == "active",
+                    f"{agent.get('agent_id')}: required agent must remain active", failures)
+        if agent_lifecycle.get("state") == "active":
+            owner_entry = repository_by_id.get(agent.get("owner_repository_id"), {})
+            require(owner_entry.get("lifecycle", {}).get("state") == "active",
+                    f"{agent.get('agent_id')}: active agent owner is not active", failures)
+            require(owner_entry.get("publisher", {}).get("identity_status") != "revoked",
+                    f"{agent.get('agent_id')}: owner publisher identity is revoked", failures)
+            require(owner_entry.get("supply_chain", {}).get("verification_status") != "revoked",
+                    f"{agent.get('agent_id')}: owner supply-chain attestation is revoked", failures)
         missing = set(agent.get("capabilities", []))
         require(bool(missing), f"{agent.get('agent_id')}: no declared capabilities", failures)
         required_contracts = agent.get("required_contracts", {})
@@ -123,6 +221,16 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
             if contract is not None:
                 require(contract.get("version") == version,
                         f"{agent.get('agent_id')}: incompatible {contract_id} version {version}", failures)
+                if agent_lifecycle.get("state") == "active":
+                    require(contract.get("lifecycle", {}).get("state") == "active",
+                            f"{agent.get('agent_id')}: active agent references non-active contract {contract_id}", failures)
+                    contract_owner = repository_by_id.get(contract.get("owner_repository_id"), {})
+                    require(contract_owner.get("lifecycle", {}).get("state") == "active",
+                            f"{agent.get('agent_id')}: contract owner is not active", failures)
+                    require(contract_owner.get("publisher", {}).get("identity_status") != "revoked",
+                            f"{agent.get('agent_id')}: contract owner publisher is revoked", failures)
+                    require(contract_owner.get("supply_chain", {}).get("verification_status") != "revoked",
+                            f"{agent.get('agent_id')}: contract owner supply-chain attestation is revoked", failures)
         require(agent.get("authority_mode") in {"delegated_only", "authority_free"},
                 f"{agent.get('agent_id')}: agent cannot be an execution authority", failures)
 
@@ -137,6 +245,11 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         owner = contract.get("owner_repository_id")
         require(owner in repository_by_id,
                 f"{contract.get('contract_id')}: unresolved contract owner", failures)
+        lifecycle = contract.get("lifecycle", {})
+        if lifecycle.get("state") == "deprecated":
+            replacement = contract_by_id.get(lifecycle.get("replacement_id"))
+            require(replacement is not None and replacement.get("lifecycle", {}).get("state") == "active",
+                    f"{contract.get('contract_id')}: deprecated contract replacement must be active", failures)
         root = owner_roots.get(owner)
         if root is not None:
             artifact = root / contract.get("schema_path", "")
@@ -190,8 +303,10 @@ def main() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     failures: list[str] = []
 
-    require(contract.get("format") == "tinlance-canonical-ecosystem-registry/v1",
-            "TSIC registry contract format drifted", failures)
+    require(contract.get("format") == "tinlance-canonical-ecosystem-registry/v2",
+            "TSIC registry v2 contract format drifted", failures)
+    require(registry.get("schema_version") == "registry-manifest/v2",
+            "registry must use the canonical v2 schema", failures)
     require(registry.get("baseline_id") == lock.get("baseline_id") == manifest.get("baseline_id"),
             "registry, lock and manifest baseline IDs differ", failures)
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
@@ -214,6 +329,46 @@ def main() -> None:
     authority_drift["services"][0]["authority_mode"] = "authority_free"
     require(bool(semantic_validate(authority_drift, lock)),
             "negative test: semantic validator accepted Platform authority drift", failures)
+    missing_sbom = copy.deepcopy(registry)
+    missing_sbom["repositories"][0]["supply_chain"].pop("sbom_uri", None)
+    require(not validator.is_valid(missing_sbom),
+            "negative test: schema accepted a repository without an SBOM reference", failures)
+    wrong_provenance = copy.deepcopy(registry)
+    wrong_provenance["repositories"][2]["supply_chain"]["provenance_uri"] = (
+        "https://github.com/LloydCoder/tinlance-agent-platform/commit/" + "f" * 40
+    )
+    require(bool(semantic_validate(wrong_provenance, lock)),
+            "negative test: provenance URI drifted from the exact reviewed SHA", failures)
+    wrong_publisher = copy.deepcopy(registry)
+    wrong_publisher["repositories"][0]["publisher"]["identity_uri"] = "https://github.com/other-account"
+    require(bool(semantic_validate(wrong_publisher, lock)),
+            "negative test: publisher identity URI did not match its ID", failures)
+    quarantined = copy.deepcopy(registry)
+    quarantined["services"][0]["lifecycle"]["state"] = "quarantined"
+    quarantined["services"][0]["lifecycle"]["reason"] = "security review pending"
+    require(bool(semantic_validate(quarantined, lock)),
+            "negative test: enabled quarantined service was accepted", failures)
+    deprecated_use = copy.deepcopy(registry)
+    deprecated_use["services"][2]["contract_ids"].append("registry-manifest.v1")
+    require(bool(semantic_validate(deprecated_use, lock)),
+            "negative test: active service used a deprecated contract", failures)
+    revoked_publisher = copy.deepcopy(registry)
+    revoked_publisher["repositories"][2]["publisher"]["identity_status"] = "revoked"
+    require(bool(semantic_validate(revoked_publisher, lock)),
+            "negative test: active service accepted a revoked publisher", failures)
+    revoked_supply_chain = copy.deepcopy(registry)
+    revoked_supply_chain["repositories"][2]["supply_chain"]["verification_status"] = "revoked"
+    require(bool(semantic_validate(revoked_supply_chain, lock)),
+            "negative test: active service accepted revoked supply-chain evidence", failures)
+    missing_replacement = copy.deepcopy(registry)
+    missing_replacement["repositories"][0]["lifecycle"] = {
+        "state": "deprecated",
+        "changed_at": "2026-10-18T06:52:00Z",
+        "reason": "superseded",
+        "replacement_id": "missing.repository",
+    }
+    require(bool(semantic_validate(missing_replacement, lock)),
+            "negative test: deprecated repository without an active replacement was accepted", failures)
     incompatible = copy.deepcopy(registry)
     for rule in incompatible["compatibility_rules"]:
         if rule["consumer_id"] == "platform-sdk.client" and rule["contract_id"] == "trace-context.v1":
