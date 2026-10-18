@@ -9,7 +9,7 @@
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "7b96a860b71f717c96bdd4b27af71576e27f0739",
+      "ref": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
@@ -19,7 +19,7 @@
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "4b973bec1d6cbb2420b6510ea85f130af5a44bea",
+      "ref": "2932645977ff3e352e1bb5a94dd13389b0190f54",
       "role": "typed developer API surface"
     }
   },
