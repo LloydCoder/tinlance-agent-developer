@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "34912c0640c186ba8fc5b92bdd98ec3a1704ce0d",
+      "ref": "57ea98c4060b6ca3fab1280b671a28f3b626ea6b",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -32,7 +32,7 @@
     "trace_context_schema": "trace-context/v1",
     "registry_schema": "registry-manifest/v2"
   },
-  "baseline_id": "ecosystem-p5-postmerge-audit-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p6-routing-candidate-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "e98613c56c7cc52e063557987bb5436cfb24d207",
