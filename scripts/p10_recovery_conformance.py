@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DEVELOPER = Path("/tmp/tinlance-developer")
 OS = Path("/tmp/tinlance-os")
 SDK = Path("/tmp/tinlance-platform_sdk")
 PLATFORM = Path("/tmp/tinlance-platform")
@@ -73,6 +74,7 @@ def main() -> int:
     repos = lock.get("repositories", {})
     authority = lock.get("integration_authority", {})
     roots = {
+        "developer": DEVELOPER,
         "os": OS,
         "platform_sdk": SDK,
         "platform": PLATFORM,
