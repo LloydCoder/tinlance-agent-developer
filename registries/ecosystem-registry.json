@@ -498,7 +498,7 @@
       "consumer_id": "tadl.validator",
       "contract_id": "registry-manifest.v2",
       "supported_versions": [
-        "1.0"
+        "2.0"
       ],
       "reject_unknown": true,
       "reject_stale": true,
@@ -528,7 +528,7 @@
       "consumer_id": "tsic.conformance",
       "contract_id": "registry-manifest.v2",
       "supported_versions": [
-        "1.0"
+        "2.0"
       ],
       "reject_unknown": true,
       "reject_stale": true,
