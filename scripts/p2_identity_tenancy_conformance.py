@@ -89,26 +89,51 @@ def main() -> int:
     p2_status = state.get("p2")
     if p2_status not in {"in_progress", "certified"}:
         FAILURES.append("manifest must mark canonical P2 in_progress or certified while this gate runs")
+    active_phase = None
     if p2_status == "in_progress":
         expected_release = "p2_in_progress"
-        active_phase = None
+        active_phase = 2
     else:
-        expected_release = state.get("sequence_release")
-        if expected_release not in {"ready_for_p3", "p3_in_progress"}:
-            FAILURES.append(
-                "certified P2 must release either ready_for_p3 or p3_in_progress"
+        phase_statuses = [state.get(f"p{phase}") for phase in range(3, 11)]
+        active_phases = [
+            phase for phase, status in zip(range(3, 11), phase_statuses, strict=True)
+            if status == "in_progress"
+        ]
+        if len(active_phases) > 1:
+            FAILURES.append("only one canonical ecosystem phase may be in progress")
+        if active_phases:
+            active_phase = active_phases[0]
+            expected_release = f"p{active_phase}_in_progress"
+        elif all(status == "certified" for status in phase_statuses):
+            expected_release = "all_phases_certified"
+        else:
+            first_not_started = next(
+                (phase for phase, status in zip(range(3, 11), phase_statuses, strict=True)
+                 if status != "certified"),
+                10,
             )
-        active_phase = 3 if expected_release == "p3_in_progress" else None
+            expected_release = f"ready_for_p{first_not_started}"
+        for phase in range(3, 11):
+            status = state.get(f"p{phase}")
+            if active_phase is not None:
+                expected_status = (
+                    "certified" if phase < active_phase
+                    else "in_progress" if phase == active_phase
+                    else "not_started"
+                )
+            elif expected_release == "all_phases_certified":
+                expected_status = "certified"
+            else:
+                ready_phase = int(expected_release.removeprefix("ready_for_p"))
+                expected_status = "certified" if phase < ready_phase else "not_started"
+            if status != expected_status:
+                FAILURES.append(
+                    f"P{phase} must be {expected_status} under the current serial release state"
+                )
     if state.get("sequence_release") != expected_release:
         FAILURES.append(f"manifest sequence_release must be {expected_release}")
     if state.get("production") != "unverified":
         FAILURES.append("repository-only P2 tests cannot certify production deployment")
-    for phase in range(3, 11):
-        expected_status = "in_progress" if phase == active_phase else "not_started"
-        if state.get(f"p{phase}") != expected_status:
-            FAILURES.append(
-                f"P{phase} must be {expected_status} under the current serial release state"
-            )
 
     for name, root in (
         ("platform", PLATFORM),
