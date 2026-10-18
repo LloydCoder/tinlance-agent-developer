@@ -4,7 +4,7 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d",
+      "ref": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5",
       "role": "developer validation consumer"
     },
     "os": {
@@ -32,7 +32,7 @@
     "trace_context_schema": "trace-context/v1",
     "registry_schema": "registry-manifest/v2"
   },
-  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
+  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
