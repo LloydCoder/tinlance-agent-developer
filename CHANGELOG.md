@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+### Added
+
+- Added an exact-SHA P7 provider-adapter conformance gate that validates the pinned TSIC boundary contract and runs deterministic transport and execution-scoped credential regression tests.
+
+### Changed
+
+- Reconciled the ecosystem lock, manifest, phase matrix, and P7 evidence to the merged Platform scoped-credential provider and the TSIC provider-adapter contract revision. P7 remains in progress until the new cross-repository gate and post-merge workflows pass.
+
 ### Documentation
 
 - Reworked the public README for source-based onboarding.
