@@ -2,8 +2,8 @@
 
 **Audit state:** candidate implementation reviewed; final certification pending exact-SHA ecosystem CI and post-merge checks.  
 **Canonical phase owner:** Agent Platform.  
-**Candidate Platform SHA:** `f42b938808c8fa6d464e83311a90fdbb3c74251d`  
-**Open implementation PR:** [Platform #123](https://github.com/LloydCoder/tinlance-agent-platform/pull/123)
+**Follow-up Platform candidate SHA:** `1e91e21e74b7078a707b21d9fa99cf1fcde210d9`  
+**Open implementation PR:** [Platform #123](https://github.com/LloydCoder/tinlance-agent-platform/pull/123) and follow-up [Platform #127](https://github.com/LloydCoder/tinlance-agent-platform/pull/127)
 
 ## Scope and authority
 
@@ -46,7 +46,7 @@ A pre-existing performance-economics test expected the capacity gate to identify
 
 The candidate's first checks exposed Ruff formatting, a mypy variable-name collision, a stale ledger permission assertion, and incomplete adapter test doubles for lease-renewal and reconciliation return values.
 
-**Fixes:** source formatting and typing were corrected; tests now assert the full UPDATE/DELETE/TRUNCATE revocation and model the actual datetime/count return contracts. The exact candidate SHA must pass the complete workflow set again after every final code change.
+**Fixes:** source formatting and typing were corrected; tests now assert the full UPDATE/DELETE/TRUNCATE revocation and model the actual datetime/count return contracts. The initial P8 implementation merged at `f1724f68715d18932b37cf07ac23843291237eaf`; follow-up PR #127 repairs the cross-repository tenancy/approval documentation markers and SDK reference-agent pin identified by the TADL exact-SHA gate. The follow-up candidate must pass the complete workflow set, then TADL must rerun conformance against its exact merge SHA.
 
 ## Security and correctness review
 
@@ -67,7 +67,7 @@ The candidate's first checks exposed Ruff formatting, a mypy variable-name colli
 
 ## Required certification gates
 
-- [ ] Platform #123 passes CI (Python 3.12/3.13/3.14, PostgreSQL migration/integration tests, TSIC conformance), CodeQL, Secret Scan, Reference Agents and R10 Certification on the exact reviewed head.
+- [ ] Platform #123 post-merge workflows and follow-up PR #127 pass CI (Python 3.12/3.13/3.14, PostgreSQL migration/integration tests, TSIC conformance), CodeQL, Secret Scan, Reference Agents and R10 Certification on the exact reviewed head.
 - [ ] TADL's P8 conformance workflow validates the exact locked Platform candidate, runs P8 adapter tests and verifies OS/SDK do not duplicate persistence or authority.
 - [ ] Platform #123 is merged only after the above gates pass.
 - [ ] The TADL lock is refreshed to the exact Platform merge SHA; P8 integration is rerun against that immutable merge SHA.
