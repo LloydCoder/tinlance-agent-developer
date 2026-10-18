@@ -2,7 +2,7 @@
 
 **Canonical scope:** P9 in `docs/ecosystem/PHASE-MATRIX.md`.  
 **Reviewed baseline:** `ecosystem-p9-mcp-a2a-2026-10-18`.  
-**Status:** implementation and adversarial verification in progress. The current P9 PRs add protocol, endpoint and metadata controls, but no P9 certification claim is made until exact-head checks, four-repository integration and post-phase forensic audit pass.
+**Status:** implementation PRs merged; final exact-lock conformance and post-phase forensic audit in progress. P9 remains uncertified until the updated lock, manifest and registry pass the complete TADL/TSIC gate and post-merge workflows.
 
 ## Research baseline
 
@@ -22,19 +22,19 @@ Sources: [A2A official changelog](https://github.com/a2aproject/A2A/blob/main/CH
 
 `packages/mcp/.../gateway.py` enforces a Platform-issued permit, tenant binding, capability/resource matching, approval verification, bounded argument structures and single-use in-process permits. It is useful authority-boundary logic, but it is not a Streamable HTTP MCP server. The Platform HTTP boundary currently exposes only `/v1/agent-platform`; no `/mcp` route performs MCP protocol/version negotiation, `server/discover`, `tools/list`, or `tools/call` handling.
 
-**Remediation in Platform PR #132:** adds a stateless MCP 2026-07-28 adapter, a mounted `POST /mcp` HTTP route, per-request client identity metadata checks, body/header agreement, Origin validation, request/response bounds, strict argument-schema validation, trace-context validation, idempotency enforcement and dispatch through the injected Platform API boundary. Regression tests exercise the mounted HTTP route and adversarial protocol cases. This remains unmerged and uncertified until the exact head passes all required workflows.
+**Merged remediation — Platform PR #132** (merge `65a2a61ef05b836a1bd23344f1b04176ba3447eb`): adds a stateless MCP 2026-07-28 adapter, mounted `POST /mcp`, client identity metadata checks, body/header agreement, Origin validation, request/response bounds, strict argument-schema validation, trace-context validation, tenant/principal-scoped idempotency, and dispatch through the injected Platform API boundary. The PR was merged after its required workflows passed. P9 still requires the final exact-lock cross-repository gate.
 
 ### P9-02 — SDK MCP surface is metadata-only and its validation is too permissive for remote use
 
 `src/tinlance_agent_platform_sdk/mcp.py` correctly declares itself metadata-only and excludes bearer tokens/client secrets from its auth model. However, the transport model allows arbitrary HTTP endpoints and runtime protocol-version values can bypass the `Literal` type hint; arbitrary metadata keys/values are not screened for credential material.
 
-**Remediation in SDK PR #55:** validates protocol versions at runtime, restricts cleartext HTTP to loopback development, rejects embedded credentials/query/fragment data and non-public literal IPs, and blocks credential-shaped or duplicate metadata keys. Regression tests cover endpoint and metadata failures. The SDK remains descriptive metadata only and grants no authority; this PR must pass exact-head quality/security checks before merge.
+**Merged remediation — SDK PR #55** (merge `2670c75656449730af59e3f3ebc3928ddb55b70a`): validates protocol versions at runtime, restricts cleartext HTTP to loopback development, rejects embedded credentials/query/fragment data and non-public literal IPs, and blocks credential-shaped or duplicate metadata keys. Regression tests cover endpoint and metadata failures. The SDK remains descriptive metadata only and grants no authority.
 
 ### P9-03 — A2A Agent Card trust is syntactic, not cryptographic
 
 `AgentCard.validate()` requires HTTPS by default and rejects obvious credential strings in authentication-scheme names. Its optional `signature` is only checked for non-emptiness; no verifier, key identity, canonical signing payload or trust-store lookup exists. An endpoint may also target a private/loopback/link-local address, and hostname resolution/rebinding is not handled.
 
-**Remediation in Platform PR #132:** introduces an injected signature-verifier interface, canonical signing payload, key ID/algorithm allowlist and an outbound endpoint validator that rejects non-public addresses and query-bearing endpoints. The transport contract requires pinned validated addresses, forbids redirects, and specifies `application/a2a+json` for the 1.0.1 HTTP binding. Outbound calls now require a Platform-backed credential provider to mint a short-lived credential for a validated, tenant/issuer/audience-bound delegation; callers can no longer pass an arbitrary bearer token directly. Remaining certification must verify the trusted-key policy and credential provider supplied by deployment, and adversarial DNS/redirect cases; repository tests do not prove the production transport actually pins sockets.
+**Merged remediation — Platform PR #132** (merge `65a2a61ef05b836a1bd23344f1b04176ba3447eb`): introduces an injected signature-verifier interface, canonical signing payload, key ID/algorithm allowlist and an outbound endpoint validator that rejects non-public addresses and query-bearing endpoints. The transport contract requires pinned validated addresses, forbids redirects, and specifies `application/a2a+json` for the 1.0.1 HTTP binding. Outbound calls require a Platform-backed credential provider to mint a short-lived credential for a validated, tenant/issuer/audience-bound delegation. **Follow-up closed by Platform PR #134** (merge `40d29a2b4b02914c28537cf03630fc692deb6f36`): signed Agent Cards now use the RFC 8785 JCS implementation instead of a restricted JSON approximation; the canonicalizer is pinned to `rfc8785==0.1.4` and regression-tested for numbers, null, Unicode and invalid Unicode scalar values. Deployment must still supply and verify the trusted-key policy and credential provider; repository tests do not prove production sockets actually pin addresses.
 
 ### P9-04 — Remote delegation is attenuated but not expiring
 
@@ -50,9 +50,9 @@ The prior Platform implementation could validate a remote Agent Card and make ou
 
 ### P9-05 — TSIC interoperability certification is largely static
 
-TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 updates the canonical policy, gate and certification assertion to A2A `1.0.1`; TSIC PR #77 adds exact assertions for signed-card verification, scoped remote credentials, tenant-scoped idempotency, MCP body/header mismatch behavior, and the A2A HTTP media type. The gate asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
+TSIC main pins MCP `2026-07-28` and A2A `1.0.1`. TSIC PR #76 (merge `59da333fe5a0cf274d97c7587573e3ad3172da8e`) updates the canonical policy, gate and certification assertion to A2A `1.0.1`; TSIC PR #77 (merge `b1d874999a26060cd51192920127278f77213470`) adds assertions for signed-card verification, scoped remote credentials, tenant-scoped idempotency, MCP body/header mismatch behavior and the A2A HTTP media type. The gate asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
 
-**Required remediation:** the current TADL integration run validates the existing reviewed lock, not yet the unmerged Platform/OS/SDK PR heads. After the implementation PRs merge, refresh the lock and registry to the exact merged SHAs, run the ecosystem integration gate against that baseline, add negative tenant/approval/replay/Origin/SSRF cases, and reconcile evidence to TSIC. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
+**Required remediation:** this audit branch refreshes the lock, manifest and registry to the merged Platform SHA `40d29a2b4b02914c28537cf03630fc692deb6f36`, while retaining the reviewed OS/SDK/TADL/TSIC SHAs. Run the full TADL ecosystem workflow against these exact pins, resolve any integration findings, and update the lock again to the merged TADL certification commit. The static TSIC contract gate is supporting evidence, not a substitute for the TADL runtime-adversarial suite. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
 
 ### P9-06 — Canonical phase documents had a phase-number collision
 
@@ -62,13 +62,13 @@ TSIC's current main baseline pins MCP `2026-07-28` and A2A `1.0.0`; TSIC PR #76 
 
 The API reference dispatcher keyed its bounded idempotency cache directly by the caller-provided key. Because the fingerprint includes tenant and subject but the cache key did not, two tenants using the same key could conflict with each other and create a cross-tenant denial-of-service vector.
 
-**Remediation in Platform PR #132:** the dispatcher now namespaces each idempotency key by the authenticated tenant and principal. Regression tests prove that identical caller keys remain isolated across tenants, while same-scope replay returns the prior result and same-scope payload changes fail with an idempotency conflict.
+**Merged remediation — Platform PR #132:** the dispatcher namespaces each idempotency key by the authenticated tenant and principal. Regression tests prove identical caller keys remain isolated across tenants, while same-scope replay returns the prior result and same-scope payload changes fail with an idempotency conflict.
 
 ### P9-09 — MCP discovery and error envelopes diverged from the 2026-07-28 schema
 
 The first adapter draft returned a legacy-style `protocolVersion`/body-level `serverInfo` from `server/discover`, omitted `supportedVersions`, cache metadata and result metadata, and used legacy JSON-RPC codes for header mismatch/version rejection. It also incorrectly required `clientInfo`, which is optional in the current schema.
 
-**Remediation in Platform PR #132:** discovery now returns `supportedVersions`, capabilities, `resultType`, `ttlMs`, `cacheScope`, and `io.modelcontextprotocol/serverInfo` under result `_meta`. Successful results are decorated with required `resultType` and server identity metadata. Missing/malformed/mismatched headers use `HeaderMismatch` (-32020) with HTTP 400; an unsupported protocol version uses `UnsupportedProtocolVersion` (-32022) with the supported/requested version data. `clientCapabilities` and protocol version remain required, while `clientInfo` is validated only when supplied. Regression tests assert these exact wire fields and error codes.
+**Merged remediation — Platform PR #132:** discovery returns `supportedVersions`, capabilities, `resultType`, `ttlMs`, `cacheScope`, and `io.modelcontextprotocol/serverInfo` under result `_meta`. Successful results include required `resultType` and server identity metadata. Missing/malformed/mismatched headers use `HeaderMismatch` (-32020) with HTTP 400; an unsupported protocol version uses `UnsupportedProtocolVersion` (-32022) with supported/requested version data. `clientCapabilities` and protocol version remain required, while `clientInfo` is validated only when supplied. Regression tests assert these wire fields and error codes.
 
 Source: [MCP 2026-07-28 discovery schema](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/server/discover.mdx), [official 2026-07-28 changelog](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/changelog.mdx).
 
@@ -87,3 +87,34 @@ Source: [MCP 2026-07-28 discovery schema](https://github.com/modelcontextprotoco
 ## Production boundary
 
 Repository conformance cannot prove TLS termination, OAuth issuer/audience configuration, Origin allowlist deployment, outbound network egress controls, distributed rate limiting, remote-agent key management, telemetry or production task persistence. These require environment-level evidence and failure/load testing.
+
+
+### P9-10 — Signed Agent Card canonicalization was a restricted approximation
+
+The first follow-up PR rejected numeric values, `null`, and Unicode property names, while using sorted compact `json.dumps`. That is a restricted deterministic profile, not full RFC 8785 JCS. A signed interoperable Agent Card must use the specified primitive serialization and recursive UTF-16 property ordering rather than silently defining a narrower incompatible scheme.
+
+**Closed by Platform PR #134**, merged at `40d29a2b4b02914c28537cf03630fc692deb6f36`: the Platform pins Trail of Bits' `rfc8785==0.1.4` implementation and tests numeric values, `null`, Unicode and invalid Unicode scalar rejection. Exact-head CI, CodeQL, Secret Scan, R10 Certification, Reference Agents, SQL and TSIC conformance passed before merge. Post-merge workflows and the final exact-lock ecosystem gate remain required for P9 certification.
+
+## Finalization record — 2026-10-18
+
+- Platform PR #132 (MCP/A2A entry points) merged: `65a2a61ef05b836a1bd23344f1b04176ba3447eb`.
+- SDK PR #55 (MCP metadata validation) merged: `2670c75656449730af59e3f3ebc3928ddb55b70a`.
+- TSIC PR #76 (A2A 1.0.1 pin) merged: `59da333fe5a0cf274d97c7587573e3ad3172da8e`.
+- TSIC PR #77 (security invariants) merged: `b1d874999a26060cd51192920127278f77213470`.
+- Platform PR #134 (RFC 8785 JCS) merged: `40d29a2b4b02914c28537cf03630fc692deb6f36`.
+- TADL lock, manifest and registry are being reconciled on branch `phase/p9-final-certification-2026-10-18`.
+- P9 remains `in_progress` until the exact locked TADL ecosystem integration workflow and post-merge checks pass. External TLS, OAuth/JWKS configuration, network egress/socket pinning, shared rate limiting, production telemetry and durable production task persistence remain unverified.
+
+
+### Post-merge Platform verification — PR #134
+
+Platform merge commit `40d29a2b4b02914c28537cf03630fc692deb6f36` completed all six post-merge workflows successfully:
+
+- CI: [39133817496](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817496) — success.
+- CodeQL: [39133817530](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817530) — success.
+- Secret Scan: [39133817565](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817565) — success.
+- R10 Certification: [39133817501](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817501) — success.
+- Reference Agents: [39133817481](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817481) — success.
+- Supply Chain Attestation: [39133817524](https://github.com/LloydCoder/tinlance-agent-platform/actions/runs/39133817524) — success.
+
+This closes the Platform PR-level gate for the canonicalization fix. It does not certify P9 until the exact-lock TADL integration run and post-merge TADL lock-refresh evidence pass.
