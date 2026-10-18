@@ -4,22 +4,22 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "2cd0cd75c419535ada51286a1aca4123aa889705",
+      "ref": "ed61ab9df0ee2e761295005b93b63e3d896f99e9",
       "role": "developer validation consumer"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "62826433a3110f7d29fd8dc7295efa584fa7934e",
+      "ref": "7b96a860b71f717c96bdd4b27af71576e27f0739",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "a06c32b26a6abde2294154dba9a8d299789b1c37",
+      "ref": "e669b6e6c09208e531ba9801b49237fb1b1f0ab1",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "2f358d5dd1e562918613f138b7ef1e3a16f693cb",
+      "ref": "4b973bec1d6cbb2420b6510ea85f130af5a44bea",
       "role": "typed developer API surface"
     }
   },
@@ -32,10 +32,10 @@
     "trace_context_schema": "trace-context/v1",
     "registry_schema": "registry-manifest/v2"
   },
-  "baseline_id": "ecosystem-p6-routing-context-verified-2026-10-18",
+  "baseline_id": "ecosystem-p7-adapter-boundary-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "e98613c56c7cc52e063557987bb5436cfb24d207",
+    "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
     "adapter": "tsic-agent-developer-reference"
   }
 }
