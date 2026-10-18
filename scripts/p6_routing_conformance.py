@@ -109,6 +109,7 @@ def main() -> None:
             route_id="route-audit-failure",
             provider="provider-a",
             model="model-a",
+            policy_version="tsic-routing-contract-1.0.0",
             capabilities=frozenset({"summarization"}),
             task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"confidential"}),
