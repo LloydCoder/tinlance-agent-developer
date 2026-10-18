@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "10e537f7709cac2403722d007b9d16ae44ca5672"
+      "reviewed_sha": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d"
     },
     {
       "id": "os",
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. P8 budget/quota/capacity implementation, immutable settlement retry evidence, explicit pending-settlement retry API, and recovery-boundary documentation are merged in Platform at 60c7762fd915bd9273b9ab72cfed80eb3b8bd797. The P8 candidate lock and cross-repository certification are in progress; P8 is not certified until exact-SHA conformance and post-merge forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
+    "note": "P0-P7 are certified for their exact reviewed repository/reference scope. The P8 implementation and exact-lock certification PR is merged in TADL at b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d. P8 remains in_progress until the refreshed exact-merge-SHA ecosystem, security and post-phase forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
     "sequence_release": "p8_in_progress"
   },
   "trace_context_contract": {
