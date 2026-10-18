@@ -79,9 +79,9 @@ The candidate's first checks exposed Ruff formatting, a mypy variable-name colli
 
 ## Required certification gates
 
-- [ ] Platform #123, #127 and #126 post-merge workflows pass CI/security/CodeQL/R10/Reference Agents; final Platform SHA is pinned (Python 3.12/3.13/3.14, PostgreSQL migration/integration tests, TSIC conformance), CodeQL, Secret Scan, Reference Agents and R10 Certification on the exact reviewed head.
+- [x] Platform P8 implementation and recovery follow-ups #128, #129, #130 and documentation #131 are merged; their exact-head CI/security/CodeQL/R10/Reference Agents checks and post-merge main workflows passed. Final reviewed Platform SHA: `60c7762fd915bd9273b9ab72cfed80eb3b8bd797`.
 - [ ] TADL's P8 conformance workflow validates the exact locked Platform candidate, runs P8 adapter tests and verifies OS/SDK do not duplicate persistence or authority.
-- [ ] Platform #123 is merged only after the above gates pass.
+- [x] Platform implementation and documentation PRs are merged only after the above gates passed. TADL cross-repository certification remains pending until the exact final lock, registry and manifest pass all required workflows.
 - [ ] The TADL lock is refreshed to the exact Platform merge SHA; P8 integration is rerun against that immutable merge SHA.
 - [ ] Post-merge Platform and TADL workflows pass.
 - [ ] P8 docs, manifest, lock, change log and post-phase forensic audit agree on the exact certified baseline.
