@@ -2,7 +2,7 @@
 
 **Canonical scope:** P9 in `docs/ecosystem/PHASE-MATRIX.md`.  
 **Reviewed baseline:** `ecosystem-p9-mcp-a2a-2026-10-18`.  
-**Status:** implementation work in progress; no P9 certification claim is made by static metadata or TSIC-16 status alone.
+**Status:** implementation and adversarial verification in progress. The current P9 PRs add protocol, endpoint and metadata controls, but no P9 certification claim is made until exact-head checks, four-repository integration and post-phase forensic audit pass.
 
 ## Research baseline
 
@@ -16,31 +16,31 @@
 
 `packages/mcp/.../gateway.py` enforces a Platform-issued permit, tenant binding, capability/resource matching, approval verification, bounded argument structures and single-use in-process permits. It is useful authority-boundary logic, but it is not a Streamable HTTP MCP server. The Platform HTTP boundary currently exposes only `/v1/agent-platform`; no `/mcp` route performs MCP protocol/version negotiation, `server/discover`, `tools/list`, or `tools/call` handling.
 
-**Required remediation:** add a version-pinned, stateless MCP adapter wired to authenticated Platform dispatch; require consistency between body methods/tool names and protocol headers; enforce allowed-Origin validation when Origin is present; bound request/response size and execution time; preserve trace context and idempotency; ensure every tool call is re-authorized by Platform.
+**Remediation in Platform PR #132:** adds a stateless MCP 2026-07-28 adapter, a mounted `POST /mcp` HTTP route, per-request client identity metadata checks, body/header agreement, Origin validation, request/response bounds, strict argument-schema validation, trace-context validation, idempotency enforcement and dispatch through the injected Platform API boundary. Regression tests exercise the mounted HTTP route and adversarial protocol cases. This remains unmerged and uncertified until the exact head passes all required workflows.
 
 ### P9-02 — SDK MCP surface is metadata-only and its validation is too permissive for remote use
 
 `src/tinlance_agent_platform_sdk/mcp.py` correctly declares itself metadata-only and excludes bearer tokens/client secrets from its auth model. However, the transport model allows arbitrary HTTP endpoints and runtime protocol-version values can bypass the `Literal` type hint; arbitrary metadata keys/values are not screened for credential material.
 
-**Required remediation:** validate the supported protocol-version set at runtime, require HTTPS for remote endpoints (allow cleartext only for explicit loopback development), reject URL userinfo/fragments and invalid ports, and reject credential-shaped metadata. The SDK must remain a typed client contract, not an authority source.
+**Remediation in SDK PR #55:** validates protocol versions at runtime, restricts cleartext HTTP to loopback development, rejects embedded credentials/query/fragment data and non-public literal IPs, and blocks credential-shaped or duplicate metadata keys. Regression tests cover endpoint and metadata failures. The SDK remains descriptive metadata only and grants no authority; this PR must pass exact-head quality/security checks before merge.
 
 ### P9-03 — A2A Agent Card trust is syntactic, not cryptographic
 
 `AgentCard.validate()` requires HTTPS by default and rejects obvious credential strings in authentication-scheme names. Its optional `signature` is only checked for non-emptiness; no verifier, key identity, canonical signing payload or trust-store lookup exists. An endpoint may also target a private/loopback/link-local address, and hostname resolution/rebinding is not handled.
 
-**Required remediation:** implement a verifiable Agent Card signature/trust interface, canonical card digest, trusted key ID/algorithm policy, and an outbound endpoint validation boundary. For outbound requests, resolve and validate all addresses, reject loopback/private/link-local/multicast/reserved targets, revalidate redirects, and require the transport to pin the validated destination to prevent DNS-rebinding SSRF.
+**Remediation in Platform PR #132:** introduces an injected signature-verifier interface, canonical signing payload, key ID/algorithm allowlist and an outbound endpoint validator that rejects non-public addresses. The transport contract requires pinned validated addresses and forbids redirects. Remaining certification must verify the exact adapter behavior, trusted-key policy supplied by deployment, and adversarial DNS/redirect cases; repository tests do not prove the production transport actually pins sockets.
 
 ### P9-04 — Remote delegation is attenuated but not expiring
 
 `RemoteDelegation.issue()` correctly rejects capability widening and records tenant/resource scope and a nonce. It has no `issued_at`, `expires_at`, audience, issuer identity or validation method, despite the TSIC contract requiring scoped and expiring delegation.
 
-**Required remediation:** add bounded expiry and audience/issuer binding, reject expired/future-invalid delegations, make the scope/capability set immutable, and test that a child delegation cannot widen parent capabilities or cross tenants.
+**Remediation in Platform PR #132:** delegation records now carry issue/expiry timestamps and an explicit audience bound to the remote-agent identity; validation rejects expired/future-invalid timestamps, invalid TTLs and audience substitution. Capability scope remains an immutable frozenset and issuance rejects widening. Tenant-crossing behavior still requires a dedicated negative regression test and exact-SHA certification.
 
 ### P9-05 — TSIC interoperability certification is largely static
 
 TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.0`, asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
 
-**Required remediation:** extend the TADL ecosystem integration gate to execute protocol-level tests against the exact locked Platform revision, include negative tenant/approval/replay/Origin/SSRF cases, and reconcile the resulting evidence to the TSIC interoperability baseline. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
+**Required remediation:** the current TADL integration run validates the existing reviewed lock, not yet the unmerged Platform/OS/SDK PR heads. After the implementation PRs merge, refresh the lock and registry to the exact merged SHAs, run the ecosystem integration gate against that baseline, add negative tenant/approval/replay/Origin/SSRF cases, and reconcile evidence to TSIC. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
 
 ### P9-06 — Canonical phase documents had a phase-number collision
 
