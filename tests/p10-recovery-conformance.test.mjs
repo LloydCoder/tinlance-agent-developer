@@ -10,7 +10,7 @@ test("canonical P10 recovery certification remains serial and production-honest"
   assert.equal(state.p0, "certified");
   assert.equal(state.p9, "certified");
   assert.equal(state.p10, "certified");
-  assert.equal(state.sequence_release, "p10_complete");
+  assert.equal(state.sequence_release, "all_phases_certified");
   assert.equal(state.production, "unverified");
   assert.match(state.note, /repository-certified/i);
   assert.match(state.note, /production.*unverified/i);
