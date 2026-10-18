@@ -114,7 +114,7 @@
     "p9": "in_progress",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P8 are certified for their exact reviewed repository/reference scope. P8 post-phase audit passed on TADL main SHA f1a3c1abdfd62686bb56333a54443dd74cbc20f5: CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and exact-lock Ecosystem Integration were green. P9 canonical scope is MCP/A2A interoperability and security; P10 canonical scope is end-to-end recovery and production certification. Reference-workforce and replication fixtures remain cross-cutting evidence, not canonical P9/P10 definitions. Production egress controls, live provider access, telemetry, backup/restore and deployed production readiness remain unverified.",
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P8 are certified for their exact reviewed repository/reference scope. P8 post-phase audit passed on TADL main SHA f1a3c1abdfd62686bb56333a54443dd74cbc20f5: CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and exact-lock Ecosystem Integration were green. P9 canonical scope is MCP/A2A interoperability and security; P10 canonical scope is end-to-end recovery and production certification. Reference-workforce and replication fixtures remain cross-cutting evidence, not canonical P9/P10 definitions. Production egress controls, live provider access, telemetry, backup/restore and deployed production readiness remain unverified.",
     "sequence_release": "p9_in_progress"
   },
   "trace_context_contract": {
