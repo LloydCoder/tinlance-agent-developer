@@ -126,9 +126,23 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         require(agent.get("authority_mode") in {"delegated_only", "authority_free"},
                 f"{agent.get('agent_id')}: agent cannot be an execution authority", failures)
 
+    owner_roots = {
+        "developer": ROOT,
+        "os": Path("/tmp/tinlance-os"),
+        "platform": Path("/tmp/tinlance-platform"),
+        "platform_sdk": Path("/tmp/tinlance-platform_sdk"),
+        "tsic": TSIC,
+    }
     for contract in contracts:
-        require(contract.get("owner_repository_id") in repository_by_id,
+        owner = contract.get("owner_repository_id")
+        require(owner in repository_by_id,
                 f"{contract.get('contract_id')}: unresolved contract owner", failures)
+        root = owner_roots.get(owner)
+        if root is not None:
+            artifact = root / contract.get("schema_path", "")
+            require(artifact.is_file(),
+                    f"{contract.get('contract_id')}: registered contract artifact is missing: {artifact}",
+                    failures)
 
     rule_keys: set[tuple[str, str]] = set()
     for rule in rules:
