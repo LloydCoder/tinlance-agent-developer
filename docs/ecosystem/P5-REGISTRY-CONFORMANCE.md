@@ -1,11 +1,13 @@
 # P5 Canonical Registry and Compatibility Contract
 
-**Status:** in progress; not certified  
+**Status:** certified for the reviewed repository/reference scope  
 **Canonical schema:** TSIC `schemas/registry/v2/registry-manifest.schema.json` (vendored byte-for-byte at `schemas/registry/v2/registry-manifest.schema.json`)  
 **Compatibility:** v1 remains immutable and is deprecated in the v2 registry; v2 is the active contract.  
 **Registry snapshot:** `registries/ecosystem-registry.json`  
 **Runtime validator:** Platform `tinlance_agent_platform_registry.ecosystem.EcosystemRegistrySnapshot`  
 **CI gate:** `scripts/p5_registry_conformance.py`
+
+**Certification evidence:** `docs/ecosystem/P5-FORENSIC-AUDIT.md` records the exact reviewed baseline, merged implementation PRs, post-merge CI/security/CodeQL/attestation runs, exact-lock integration, and negative registry/lifecycle tests. P5 is closed in the canonical phase matrix; the current active phase is P9. Pending supply-chain attestations remain explicitly deferred to P10 and are not represented as verified.
 
 ## Registry layers
 
