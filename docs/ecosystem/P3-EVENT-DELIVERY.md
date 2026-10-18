@@ -1,6 +1,6 @@
 # P3 — Event Delivery and Durability
 
-**Status: in progress; not certified.** This is canonical ecosystem P3, not TADL's internal Phase 3 or TSIC-03. P4 must remain not started until this phase passes.
+**Status: certified for repository/reference conformance.** This is canonical ecosystem P3, not TADL's internal Phase 3 or TSIC-03. P4 must remain not started until this phase passes.
 
 ## Scope
 
@@ -29,15 +29,19 @@ A worker crash after publish but before acknowledgement can produce duplicate de
 
 P3 is complete only when all conditions below are satisfied:
 
-- [ ] TSIC schema follows CloudEvents 1.0 naming and rejects invalid or authority-shaped fields.
-- [ ] Platform event envelope, transaction-bound PostgreSQL event/outbox adapter, outbox lease metadata, and tenant-isolated inbox schema pass unit and database migration tests. The adapter must not independently commit; it must use the caller's tenant-scoped connection so domain state, event, and outbox records commit or roll back together.
-- [ ] OS event runtime has tenant/workspace-scoped idempotency, exclusive expiring worker leases, owner-bound acknowledgement, bounded retry/dead-letter, and audited tenant-scoped replay.
-- [ ] SDK typed envelope serializes all required attributes and rejects invalid timestamps, trace IDs, non-JSON values, and invalid extension metadata.
-- [ ] The actual SDK, Platform and OS serialized envelopes validate against the exact TSIC schema from the reviewed TSIC revision.
-- [ ] Cross-repository tests cover duplicate delivery, conflicting idempotency reuse, tenant isolation, lease expiry/stale acknowledgements, consumer failure, retry exhaustion, replay and restart persistence.
-- [ ] All component PRs pass their required CI/security workflows and are merged.
-- [ ] The TADL lock/manifest pin exact merged SHAs; the ecosystem integration and TSIC event-contract gates pass on that candidate.
-- [ ] A post-merge forensic audit records evidence, residual risk and production limitations.
+- [x] TSIC schema follows CloudEvents 1.0 naming and rejects invalid or authority-shaped fields.
+- [x] Platform event envelope, transaction-bound PostgreSQL event/outbox adapter, outbox lease metadata, and tenant-isolated inbox schema pass unit and database migration tests. The adapter must not independently commit; it must use the caller's tenant-scoped connection so domain state, event, and outbox records commit or roll back together.
+- [x] OS event runtime has tenant/workspace-scoped idempotency, exclusive expiring worker leases, owner-bound acknowledgement, bounded retry/dead-letter, and audited tenant-scoped replay.
+- [x] SDK typed envelope serializes all required attributes and rejects invalid timestamps, trace IDs, non-JSON values, and invalid extension metadata.
+- [x] The actual SDK, Platform and OS serialized envelopes validate against the exact TSIC schema from the reviewed TSIC revision.
+- [x] Cross-repository tests cover duplicate delivery, conflicting idempotency reuse, tenant isolation, lease expiry/stale acknowledgements, consumer failure, retry exhaustion, replay and restart persistence.
+- [x] All component PRs pass their required CI/security workflows and are merged.
+- [x] The TADL lock/manifest pin exact merged SHAs; the ecosystem integration and TSIC event-contract gates pass on that candidate.
+- [x] A post-merge forensic audit records evidence, residual risk and production limitations.
+
+## Certification evidence
+
+The exact-SHA component gate passed after the Platform, SDK, TSIC and TADL changes were merged. The forensic evidence register, exact revisions, workflow run IDs, checks performed and residual production limitations are recorded in `P3-FORENSIC-AUDIT.md`. The certified lock uses full commit SHAs and preserves Platform as the sole consequential execution authority.
 
 ## Production limitation
 
