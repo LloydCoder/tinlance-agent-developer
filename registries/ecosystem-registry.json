@@ -1,0 +1,267 @@
+{
+  "schema_version": "registry-manifest/v1",
+  "registry_id": "tinlance.agent.ecosystem",
+  "baseline_id": "ecosystem-p5-candidate-2026-10-18",
+  "repositories": [
+    {
+      "id": "developer",
+      "repository": "LloydCoder/tinlance-agent-developer",
+      "reviewed_sha": "ebc7f63329d65e179c7aaa22f4158eeee7c9bb16",
+      "role": "artifact, workflow and registry validator"
+    },
+    {
+      "id": "os",
+      "repository": "LloydCoder/tinlance-agent-os",
+      "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e",
+      "role": "workspace, task and lifecycle orchestration; authority-free"
+    },
+    {
+      "id": "platform",
+      "repository": "LloydCoder/tinlance-agent-platform",
+      "reviewed_sha": "35273b514b960daecb7bdcd8ed03dbf12117a514",
+      "role": "sole consequential execution authority"
+    },
+    {
+      "id": "platform_sdk",
+      "repository": "LloydCoder/tinlance-agent-platform-sdk",
+      "reviewed_sha": "2f358d5dd1e562918613f138b7ef1e3a16f693cb",
+      "role": "typed API and contract transport; authority-free"
+    },
+    {
+      "id": "tsic",
+      "repository": "LloydCoder/tinlance-system-integration",
+      "reviewed_sha": "90eb45b2a4060399706fc05f6c777867a8f55ec6",
+      "role": "canonical contract and conformance authority"
+    }
+  ],
+  "services": [
+    {
+      "service_id": "agent-platform.api",
+      "owner_repository_id": "platform",
+      "version": "1.0.0",
+      "api_version": "1.1",
+      "contract_ids": [
+        "governed-execution.v1",
+        "event-envelope.v1",
+        "trace-context.v1"
+      ],
+      "capabilities": [
+        "agent.execute",
+        "approval.resolve",
+        "evidence.record",
+        "tool.invoke"
+      ],
+      "authority_mode": "sole_consequential_execution",
+      "enabled": true
+    },
+    {
+      "service_id": "agent-os.runtime",
+      "owner_repository_id": "os",
+      "version": "1.0.0",
+      "api_version": "1.1",
+      "contract_ids": [
+        "event-envelope.v1",
+        "trace-context.v1"
+      ],
+      "capabilities": [
+        "event.publish",
+        "task.orchestrate",
+        "trace.propagate"
+      ],
+      "authority_mode": "authority_free",
+      "enabled": true
+    },
+    {
+      "service_id": "platform-sdk.client",
+      "owner_repository_id": "platform_sdk",
+      "version": "1.0.0",
+      "api_version": "1.1",
+      "contract_ids": [
+        "governed-execution.v1",
+        "event-envelope.v1",
+        "trace-context.v1"
+      ],
+      "capabilities": [
+        "request.submit",
+        "trace.propagate"
+      ],
+      "authority_mode": "authority_free",
+      "enabled": true
+    },
+    {
+      "service_id": "tadl.validator",
+      "owner_repository_id": "developer",
+      "version": "1.0.0",
+      "api_version": "1.1",
+      "contract_ids": [
+        "transformation.v1",
+        "replication.v1",
+        "trace-context.v1",
+        "registry-manifest.v1"
+      ],
+      "capabilities": [
+        "artifact.validate",
+        "registry.validate"
+      ],
+      "authority_mode": "authority_free",
+      "enabled": true
+    },
+    {
+      "service_id": "tsic.conformance",
+      "owner_repository_id": "tsic",
+      "version": "1.0.0",
+      "api_version": "1.1",
+      "contract_ids": [
+        "event-envelope.v1",
+        "trace-context.v1",
+        "registry-manifest.v1"
+      ],
+      "capabilities": [
+        "compatibility.validate",
+        "contract.validate"
+      ],
+      "authority_mode": "conformance_only",
+      "enabled": true
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "reference.enterprise-a",
+      "owner_repository_id": "platform",
+      "version": "1.0.0",
+      "capabilities": [
+        "agent.execute",
+        "tool.invoke",
+        "event.publish"
+      ],
+      "required_contracts": {
+        "governed-execution.v1": "1.0",
+        "event-envelope.v1": "1.0",
+        "trace-context.v1": "1.0"
+      },
+      "authority_mode": "delegated_only"
+    },
+    {
+      "agent_id": "reference.enterprise-b",
+      "owner_repository_id": "platform",
+      "version": "1.0.0",
+      "capabilities": [
+        "agent.execute",
+        "tool.invoke",
+        "event.publish"
+      ],
+      "required_contracts": {
+        "governed-execution.v1": "1.0",
+        "event-envelope.v1": "1.0",
+        "trace-context.v1": "1.0"
+      },
+      "authority_mode": "delegated_only"
+    }
+  ],
+  "contracts": [
+    {
+      "contract_id": "governed-execution.v1",
+      "version": "1.0",
+      "schema_path": "contracts/governed-execution/v1/schema.json",
+      "owner_repository_id": "platform",
+      "compatibility": "versioned_immutable"
+    },
+    {
+      "contract_id": "event-envelope.v1",
+      "version": "1.0",
+      "schema_path": "contracts/events/envelope.json",
+      "owner_repository_id": "tsic",
+      "compatibility": "versioned_immutable"
+    },
+    {
+      "contract_id": "trace-context.v1",
+      "version": "1.0",
+      "schema_path": "schemas/trace-context/v1/trace-context.schema.json",
+      "owner_repository_id": "tsic",
+      "compatibility": "versioned_immutable"
+    },
+    {
+      "contract_id": "transformation.v1",
+      "version": "1.0",
+      "schema_path": "schemas/transformation/v1/transformation.schema.json",
+      "owner_repository_id": "developer",
+      "compatibility": "versioned_immutable"
+    },
+    {
+      "contract_id": "replication.v1",
+      "version": "1.0",
+      "schema_path": "schemas/replication/v1/replication.schema.json",
+      "owner_repository_id": "developer",
+      "compatibility": "versioned_immutable"
+    },
+    {
+      "contract_id": "registry-manifest.v1",
+      "version": "1.0",
+      "schema_path": "schemas/registry/v1/registry-manifest.schema.json",
+      "owner_repository_id": "tsic",
+      "compatibility": "versioned_immutable"
+    }
+  ],
+  "compatibility_rules": [
+    {
+      "consumer_id": "agent-os.runtime",
+      "contract_id": "event-envelope.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "agent-os.runtime",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "platform-sdk.client",
+      "contract_id": "governed-execution.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "platform-sdk.client",
+      "contract_id": "trace-context.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tadl.validator",
+      "contract_id": "registry-manifest.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    },
+    {
+      "consumer_id": "tsic.conformance",
+      "contract_id": "registry-manifest.v1",
+      "supported_versions": [
+        "1.0"
+      ],
+      "reject_unknown": true,
+      "reject_stale": true,
+      "reject_missing": true
+    }
+  ]
+}
