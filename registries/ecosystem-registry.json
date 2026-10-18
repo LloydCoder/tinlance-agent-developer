@@ -1,12 +1,12 @@
 {
   "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p5-governance-v2-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p5-postmerge-audit-candidate-2026-10-18",
   "repositories": [
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "reviewed_sha": "0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
+      "reviewed_sha": "e31cf6ab2a9b5702067711adaf85099812cf10d4",
       "role": "developer validation consumer",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -20,8 +20,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/0dd17c4a4ae1075769e9254b8f36ba131d3f4c74",
+        "reviewed_sha": "e31cf6ab2a9b5702067711adaf85099812cf10d4",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-developer/commit/e31cf6ab2a9b5702067711adaf85099812cf10d4",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-developer/attestations",
         "verification_status": "pending"
