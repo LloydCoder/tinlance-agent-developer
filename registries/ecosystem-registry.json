@@ -1,12 +1,12 @@
 {
   "schema_version": "registry-manifest/v1",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p5-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p5-postmerge-2026-10-18",
   "repositories": [
     {
       "id": "developer",
       "repository": "LloydCoder/tinlance-agent-developer",
-      "reviewed_sha": "ebc7f63329d65e179c7aaa22f4158eeee7c9bb16",
+      "reviewed_sha": "6ac2022c69b62730ba1c3df7e33d97510b11a42b",
       "role": "artifact, workflow and registry validator"
     },
     {
