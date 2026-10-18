@@ -103,8 +103,8 @@ def main() -> int:
     tsic_baseline = load_json(baseline_path)
     if tsic_baseline.get("mcp_specification") != "2026-07-28":
         FAILURES.append("TSIC baseline does not pin MCP 2026-07-28")
-    if tsic_baseline.get("a2a_specification") != "1.0.0":
-        FAILURES.append("TSIC baseline does not pin A2A 1.0.0")
+    if tsic_baseline.get("a2a_specification") != "1.0.1":
+        FAILURES.append("TSIC baseline does not pin A2A 1.0.1")
 
     require_file(
         PLATFORM,
@@ -125,6 +125,7 @@ def main() -> int:
     require_file(
         PLATFORM,
         "packages/multi_agent/src/tinlance_agent_platform_multi_agent/interoperability.py",
+        "A2A_SPECIFICATION_VERSION",
         "AgentCardSignatureVerifier",
         "validate_remote_endpoint",
         "expected_tenant_id",
