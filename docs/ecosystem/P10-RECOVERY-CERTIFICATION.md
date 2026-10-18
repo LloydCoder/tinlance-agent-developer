@@ -46,3 +46,10 @@ Do not set certification_state.production to certified or claim public productio
 ## Current external blockers
 
 External production deployment evidence has not been established by the repository workflows reviewed for this phase. Production egress, TLS/OAuth/JWKS, live provider connectivity, real backup/restore, production telemetry and incident-response drills remain unverified until supported by actual environment evidence.
+
+
+## Final repository-level certification result — 2026-10-18
+
+**Repository P10 recovery certification: PASS.** The exact-lock P10 gate passed on the reviewed implementation SHAs and pinned TSIC contract. The P10 certification PR was merged at `ca7febe109b0220a16c1c791aedfa004f016cad8`. Post-merge CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and Ecosystem Integration passed on that merge commit. The evidence covers repository-level recovery/replay, tenant isolation, bounded retries, budget settlement, and two-replica invariants.
+
+**Production deployment certification: NOT ESTABLISHED.** External production TLS/OAuth/JWKS, egress policy, live provider access, durable production persistence, real backup/restore, telemetry/alert delivery, capacity, and incident-response drills have not been independently evidenced here. Accordingly, `certification_state.production` remains `unverified`; no claim of 100% production readiness is made. The external deployment checklist remains open until actual environment evidence and operator sign-off are supplied.
