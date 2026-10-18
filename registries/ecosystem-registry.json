@@ -30,7 +30,7 @@
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
-      "reviewed_sha": "7b96a860b71f717c96bdd4b27af71576e27f0739",
+      "reviewed_sha": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
       "role": "operating environment and lifecycle plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -44,8 +44,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "7b96a860b71f717c96bdd4b27af71576e27f0739",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/7b96a860b71f717c96bdd4b27af71576e27f0739",
+        "reviewed_sha": "c68eb5e2a36a6544660145b4c997747f7ba0f605",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-os/commit/c68eb5e2a36a6544660145b4c997747f7ba0f605",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-os/attestations",
         "verification_status": "pending"
@@ -78,7 +78,7 @@
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "reviewed_sha": "4b973bec1d6cbb2420b6510ea85f130af5a44bea",
+      "reviewed_sha": "2932645977ff3e352e1bb5a94dd13389b0190f54",
       "role": "typed developer API surface",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -92,8 +92,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "4b973bec1d6cbb2420b6510ea85f130af5a44bea",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/4b973bec1d6cbb2420b6510ea85f130af5a44bea",
+        "reviewed_sha": "2932645977ff3e352e1bb5a94dd13389b0190f54",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/commit/2932645977ff3e352e1bb5a94dd13389b0190f54",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform-sdk/attestations",
         "verification_status": "pending"
