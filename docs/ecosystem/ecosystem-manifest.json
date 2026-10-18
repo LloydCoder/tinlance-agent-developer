@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p4-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p4-certified-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -17,7 +17,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "fe2817f551e1580372840c9a604fc1781eb0772f"
+      "reviewed_sha": "ebc7f63329d65e179c7aaa22f4158eeee7c9bb16"
     },
     {
       "id": "os",
@@ -105,16 +105,16 @@
     "p1": "certified",
     "p2": "certified",
     "p3": "certified",
-    "p4": "in_progress",
-    "p5": "not_started",
+    "p4": "certified",
+    "p5": "in_progress",
     "p6": "not_started",
     "p7": "not_started",
     "p8": "not_started",
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P3 are certified for exact reviewed repository/reference evidence. P3 passed exact-SHA cross-repository serialization, SQL durability/lease, tenant isolation, retry/dead-letter, replay, and event conformance gates; see P3-FORENSIC-AUDIT.md. P4 trace context/evidence lineage is now in progress. P5-P10 remain not_started. External production readiness remains unverified.",
-    "sequence_release": "p4_in_progress"
+    "note": "P0-P4 are certified for repository/reference conformance. P4 passed exact-SHA trace lineage reconstruction across SDK request, Platform policy/approval/execution/tool/audit/evidence records, OS event spans, and the canonical TSIC schema. P5 canonical service/agent/contract registry enforcement is now in progress. P6-P10 remain not_started. External production telemetry and deployment remain unverified.",
+    "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",
