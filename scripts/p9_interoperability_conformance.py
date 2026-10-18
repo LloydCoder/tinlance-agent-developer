@@ -86,6 +86,16 @@ def main() -> int:
         repositories = {}
     if lock.get("baseline_id") != manifest.get("baseline_id"):
         FAILURES.append("P9 manifest and ecosystem lock baseline IDs differ")
+    contracts = lock.get("contracts", {})
+    if not isinstance(contracts, dict):
+        FAILURES.append("P9 ecosystem lock contracts object is missing")
+        contracts = {}
+    if contracts.get("mcp_endpoint") != "POST /mcp":
+        FAILURES.append("P9 lock does not pin the MCP HTTP entry point")
+    if contracts.get("mcp_protocol_version") != "2026-07-28":
+        FAILURES.append("P9 lock does not pin MCP protocol version 2026-07-28")
+    if contracts.get("a2a_specification") != "1.0.1":
+        FAILURES.append("P9 lock does not pin A2A specification 1.0.1")
     state = manifest.get("certification_state", {})
     if not isinstance(state, dict) or state.get("p9") not in {"in_progress", "certified"}:
         FAILURES.append("P9 certification state must be explicit")
