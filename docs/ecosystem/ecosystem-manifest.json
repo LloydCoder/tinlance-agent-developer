@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P6 are certified for the previously reviewed exact-SHA repository/reference scope. Canonical P7 real adapters and integration boundaries are in progress on a refreshed exact-SHA candidate baseline. P7 remains uncertified until all required CI, security, cross-repository adapter tests, and post-merge forensic audit pass. P8-P10 remain not_started. External production provider access, secret-manager integration and production readiness remain unverified.",
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for the previously reviewed exact-SHA repository/reference scope. Canonical P7 real adapters and integration boundaries are in progress on a refreshed exact-SHA candidate baseline. P7 remains uncertified until all required CI, security, cross-repository adapter tests, and post-merge forensic audit pass. P8-P10 remain not_started. External production provider access, secret-manager integration and production readiness remain unverified.",
     "sequence_release": "p7_in_progress"
   },
   "trace_context_contract": {
