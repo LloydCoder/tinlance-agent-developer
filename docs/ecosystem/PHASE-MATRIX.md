@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p6-routing-final-candidate-2026-10-18  
+**Baseline:** ecosystem-p6-routing-context-verified-candidate-2026-10-18  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
