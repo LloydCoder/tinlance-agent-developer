@@ -21,12 +21,17 @@
 7. Cancellation is best-effort unless the provider contract confirms remote cancellation. Local cancellation must not be represented as proof that a remote operation stopped.
 8. Adapter metadata and provider responses never grant identity, capability, approval, budget, sandbox or execution authority.
 
+## Implementation evidence at current baseline
+
+Platform PR #118 added `ScopedModelCredentialProvider`, which checks tenant, principal, agent, execution UUID, capability, and the broker-enforced secret-handle scope before resolving a model-provider token. The PR was merged as `e669b6e6c09208e531ba9801b49237fb1b1f0ab1`; its exact-head CI, CodeQL, secret-scan, R10 certification, and reference-agent workflows passed. This is repository/reference evidence only. The new TADL exact-SHA integration gate is still required before P7 can be certified.
+
 ## P7 exit gate
 
 - [ ] Platform provider-compatible adapter has deterministic endpoint tests for success, malformed payloads, error normalization, timeouts/size bounds, redirects, credentials and trace validation.
 - [ ] SDK and OS client/transport contracts have tests for API-version compatibility, idempotency, trace propagation, cancellation and normalized errors.
 - [ ] Cross-repository conformance tests use exact immutable repository SHAs and deterministic endpoints; positive and adversarial paths cover tenant spoofing and authority-shaped metadata.
-- [ ] TSIC schema/contract and adapter conformance requirements are versioned and validated.
+- [ ] TSIC `provider-adapter-boundary` schema and contract validate at the immutable revision in `ecosystem.lock.json`; adapter rules and authority invariants are tested.
+- [ ] Execution-scoped credential resolution rejects missing or mismatched tenant/principal/agent/execution/capability context and expired handles; the exact locked Platform regression suite passes.
 - [ ] All relevant CI, security, static-analysis and integration workflows pass on PR heads and merge commits.
 - [ ] Lock, manifest, phase matrix and release notes are reconciled to exact merged SHAs.
 - [ ] A post-merge forensic audit records implementation evidence, workflow IDs, residual risk and external deployment limitations.
