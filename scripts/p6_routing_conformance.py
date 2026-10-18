@@ -17,7 +17,12 @@ def main() -> None:
         raise SystemExit("FAIL P6: pinned TSIC routing authority contract is missing")
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     required_inputs = {
-        "task_policy", "risk_class", "model_capability", "data_classification", "budget", "availability"
+        "task_policy",
+        "risk_class",
+        "model_capability",
+        "data_classification",
+        "budget",
+        "availability",
     }
     required_outputs = {"model_id", "provider", "route", "policy_version"}
     rules = contract.get("rules", {})
@@ -44,7 +49,8 @@ def main() -> None:
             route_id="route-enterprise-safe",
             provider="provider-a",
             model="model-a",
-                capabilities=frozenset({"summarization"}),
+            policy_version="tsic-routing-contract-1.0.0",
+            capabilities=frozenset({"summarization"}),
             task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"public", "internal", "confidential"}),
             risk_classes=frozenset({"low", "moderate"}),
