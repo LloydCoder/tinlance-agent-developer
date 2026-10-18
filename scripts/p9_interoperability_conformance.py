@@ -166,6 +166,9 @@ def main() -> int:
         "A2A_SPECIFICATION_VERSION",
         "AgentCardSignatureVerifier",
         "RemoteCredentialProvider",
+        "PinnedHTTPSRemoteAgentTransport",
+        "socket.create_connection",
+        "server_hostname=self.host",
         "application/a2a+json",
         "validate_remote_endpoint",
         "expected_tenant_id",
@@ -192,6 +195,9 @@ def main() -> int:
         "remote_credentials_must_be_scoped",
         "tenant_scoped_idempotency_required",
         "mcp_body_header_version_match_required",
+        "remote_transport_pins_validated_addresses_without_dns_re_resolution",
+        "remote_transport_verifies_tls_hostname",
+        "remote_transport_never_follows_redirects",
         "application/a2a+json",
     )
     tsic_result = subprocess.run(
@@ -212,8 +218,7 @@ def main() -> int:
         (
             "tests/test_mcp_protocol.py",
             "tests/test_m17_interoperability.py",
-            "tests/test_a2a_http.py",
-            "tests/test_api_idempotency.py",
+            "tests/test_pinned_a2a_transport.py",
             "tests/test_a2a_http.py",
             "tests/test_api_idempotency.py",
         ),
