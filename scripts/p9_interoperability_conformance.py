@@ -131,6 +131,18 @@ def main() -> int:
         "packages/api/src/tinlance_agent_platform_api/http.py",
         'self.path == "/mcp"',
         "mcp_service",
+        'self.path == "/a2a"',
+        "a2a_service",
+        "/.well-known/agent-card.json",
+    )
+    require_file(
+        PLATFORM,
+        "packages/multi_agent/src/tinlance_agent_platform_multi_agent/a2a_http.py",
+        "A2AProtocolService",
+        "message/send",
+        "tasks/get",
+        "application/a2a+json",
+        "AgentCardSignatureVerifier",
     )
     require_file(
         PLATFORM,
@@ -174,7 +186,12 @@ def main() -> int:
 
     run_test_subset(
         PLATFORM,
-        ("tests/test_mcp_protocol.py", "tests/test_m17_interoperability.py"),
+        (
+            "tests/test_mcp_protocol.py",
+            "tests/test_m17_interoperability.py",
+            "tests/test_a2a_http.py",
+            "tests/test_api_idempotency.py",
+        ),
         "Platform MCP/A2A protocol and adversarial boundary",
     )
     run_test_subset(OS, ("tests/unit/test_interop.py",), "Agent OS protocol metadata")
