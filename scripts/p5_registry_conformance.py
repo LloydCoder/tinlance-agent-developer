@@ -88,6 +88,7 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
             continue
         require(entry.get("repository") == name, f"{repo_id}: repository identity mismatch", failures)
         require(entry.get("reviewed_sha") == sha, f"{repo_id}: stale or unlocked reviewed SHA", failures)
+        require(entry.get("role") == role, f"{repo_id}: architectural role mismatch", failures)
         publisher = entry.get("publisher", {})
         require(bool(publisher.get("publisher_id")), f"{repo_id}: publisher identity is missing", failures)
         require(publisher.get("identity_status") in {"verified", "unverified"},
