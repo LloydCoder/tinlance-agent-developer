@@ -7,8 +7,14 @@
 ## Research baseline
 
 - MCP is pinned to the official `2026-07-28` specification. The official release describes a stateless request model, `MCP-Protocol-Version`, `Mcp-Method` and `Mcp-Name` headers, protocol/authentication hardening, and explicit request metadata. Source: [MCP 2026-07-28 release](https://blog.modelcontextprotocol.io/posts/2026-07-28/).
-- A2A is pinned to `1.0.0`; the TSIC interoperability baseline already records this version and defines A2A as agent-to-agent communication. Source: [A2A 1.0.0 specification](https://a2a-protocol.org/v1.0.0/specification/).
+- A2A is pinned to `1.0.0`; the TSIC interoperability baseline already records this version and defines A2A as agent-to-agent communication. Source: [A2A 1.0.1 specification](https://a2a-protocol.org/v1.0.0/specification/).
 - TSIC remains the integration/certification authority. Agent Platform remains the sole identity, tenant, policy, approval, budget, sandbox and consequential-execution authority.
+
+## Research update — A2A patch release
+
+The official A2A changelog lists specification 1.0.1 dated 2026-05-26, including a fix preferring `application/a2a+json` for HTTP binding. The P9 implementation is pinned to 1.0.1, keeps the wire protocol version at `1.0`, and requires the outbound transport contract to use the updated media type. The TSIC interoperability baseline must be updated to the same specification pin before final certification.
+
+Sources: [A2A official changelog](https://github.com/a2aproject/A2A/blob/main/CHANGELOG.md), [A2A official release](https://github.com/a2aproject/A2A/releases).
 
 ## Findings from the reviewed implementation
 
@@ -38,7 +44,7 @@
 
 ### P9-05 — TSIC interoperability certification is largely static
 
-TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.0`, asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
+TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.1`, asserts authority boundaries and required security rules, and is valuable contract evidence. It does not by itself prove that the deployed Platform HTTP server implements either protocol or that authenticated requests actually traverse the governed execution boundary.
 
 **Required remediation:** the current TADL integration run validates the existing reviewed lock, not yet the unmerged Platform/OS/SDK PR heads. After the implementation PRs merge, refresh the lock and registry to the exact merged SHAs, run the ecosystem integration gate against that baseline, add negative tenant/approval/replay/Origin/SSRF cases, and reconcile evidence to TSIC. Do not relabel TSIC-16 as canonical P9; the numbering systems are independent.
 
@@ -50,7 +56,7 @@ TSIC's interoperability gate pins MCP `2026-07-28` and A2A `1.0.0`, asserts auth
 
 - [ ] Platform exposes authenticated MCP `2026-07-28` requests through a stateless HTTP entry point; body/header mismatch fails closed.
 - [ ] MCP `server/discover`, `tools/list`, and `tools/call` use bounded payloads, Origin allowlisting, identity/tenant binding, trace propagation and idempotency.
-- [ ] A2A `1.0.0` Agent Card and message/task entry points are authenticated/scoped; remote delegation cannot widen authority and expires.
+- [ ] A2A `1.0.1` Agent Card and message/task entry points are authenticated/scoped; remote delegation cannot widen authority and expires.
 - [ ] Agent Cards are verified against a trusted key policy; remote endpoint validation blocks SSRF and redirect/DNS-rebinding paths.
 - [ ] SDK protocol metadata validates at runtime but grants no authority; OS composes protocol workflows without duplicating Platform authorization.
 - [ ] TSIC and TADL execute exact-SHA positive and adversarial protocol tests against the same lock/manifest/registry baseline.
