@@ -162,7 +162,7 @@
     {
       "contract_id": "governed-execution.v1",
       "version": "1.0",
-      "schema_path": "contracts/governed-execution/v1/schema.json",
+      "schema_path": "packages/contracts/src/tinlance_agent_platform_contracts/models.py",
       "owner_repository_id": "platform",
       "compatibility": "versioned_immutable"
     },
@@ -190,7 +190,7 @@
     {
       "contract_id": "replication.v1",
       "version": "1.0",
-      "schema_path": "schemas/replication/v1/replication.schema.json",
+      "schema_path": "docs/ecosystem/replication-manifest.json",
       "owner_repository_id": "developer",
       "compatibility": "versioned_immutable"
     },
