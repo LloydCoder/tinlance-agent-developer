@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P2 are certified for exact reviewed repository/reference evidence. P3 event delivery/durability is in progress; P4-P10 remain not_started. P3 requires CloudEvents 1.0-compatible serialization, tenant-scoped outbox/inbox delivery, idempotency, bounded retry/dead-letter/replay, and exact-SHA cross-repository conformance. External production readiness remains unverified.",
+    "note": "Manifest phase P10 remains the contract-surface marker and is not the active release phase. Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P2 are certified for exact reviewed repository/reference evidence. P3 event delivery/durability is in progress; P4-P10 remain not_started. P3 requires CloudEvents 1.0-compatible serialization, tenant-scoped outbox/inbox delivery, idempotency, bounded retry/dead-letter/replay, and exact-SHA cross-repository conformance. External production readiness remains unverified.",
     "sequence_release": "p3_in_progress"
   }
 }
