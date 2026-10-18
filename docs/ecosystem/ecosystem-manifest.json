@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p6-routing-context-verified-2026-10-18",
+  "baseline_id": "ecosystem-p7-adapter-boundary-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,28 +18,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "2cd0cd75c419535ada51286a1aca4123aa889705"
+      "reviewed_sha": "ed61ab9df0ee2e761295005b93b63e3d896f99e9"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e"
+      "reviewed_sha": "7b96a860b71f717c96bdd4b27af71576e27f0739"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "2f358d5dd1e562918613f138b7ef1e3a16f693cb"
+      "reviewed_sha": "4b973bec1d6cbb2420b6510ea85f130af5a44bea"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "a06c32b26a6abde2294154dba9a8d299789b1c37"
+      "reviewed_sha": "9da7228ecafaa92f696cc6eedaeef1ee931b03d4"
     }
   ],
   "gate": {
@@ -59,7 +59,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "e98613c56c7cc52e063557987bb5436cfb24d207",
+    "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for exact-SHA repository/reference conformance. Canonical P7 real adapters and integration boundaries are in progress. P8-P10 remain not_started. P7 requires provider-compatible adapters with bounded and normalized transport behavior, identity/trace propagation at approved boundaries, no tenant or authority spoofing, exact-SHA cross-repository contract tests, security workflows, and post-merge forensic audit. External production provider access, secret-manager integration and production readiness remain unverified.",
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for the previously reviewed exact-SHA repository/reference scope. Canonical P7 real adapters and integration boundaries are in progress on a refreshed exact-SHA candidate baseline. P7 remains uncertified until all required CI, security, cross-repository adapter tests, and post-merge forensic audit pass. P8-P10 remain not_started. External production provider access, secret-manager integration and production readiness remain unverified.",
     "sequence_release": "p7_in_progress"
   },
   "trace_context_contract": {

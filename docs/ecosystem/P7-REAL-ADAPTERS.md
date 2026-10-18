@@ -24,11 +24,11 @@
 ## P7 exit gate
 
 - [ ] Platform provider-compatible adapter has deterministic endpoint tests for success, malformed payloads, error normalization, timeouts/size bounds, redirects, credentials and trace validation.
-- [ ] SDK and OS client/transport contracts have tests for API-version compatibility, idempotency, trace propagation, cancellation and normalized errors.
+- [ ] SDK and OS client/transport contracts have tests for API-version compatibility, idempotency, trace propagation, finite timeout behavior and normalized errors; unsupported in-flight/remote cancellation is explicitly documented and never claimed.
 - [ ] Cross-repository conformance tests use exact immutable repository SHAs and deterministic endpoints; positive and adversarial paths cover tenant spoofing and authority-shaped metadata.
 - [ ] TSIC schema/contract and adapter conformance requirements are versioned and validated.
 - [ ] All relevant CI, security, static-analysis and integration workflows pass on PR heads and merge commits.
 - [ ] Lock, manifest, phase matrix and release notes are reconciled to exact merged SHAs.
 - [ ] A post-merge forensic audit records implementation evidence, workflow IDs, residual risk and external deployment limitations.
 
-Repository tests do not prove a live provider, production credential, secret-manager integration, network egress policy, telemetry backend, quota controls or deployed infrastructure. Those remain unverified unless independently evidenced.
+Repository tests do not prove a live provider, production credential, secret-manager integration, network egress policy, telemetry backend, quota controls or deployed infrastructure. Those remain unverified unless independently evidenced. Production egress policy must constrain provider destinations at the network boundary (including DNS/IP resolution and metadata/private-network destinations) because trusted configuration alone is not a substitute for deployed SSRF controls.
