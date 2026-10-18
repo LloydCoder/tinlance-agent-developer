@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
+  "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -10,7 +10,12 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1",
     "trace_context_schema": "trace-context/v1",
-    "registry_schema": "registry-manifest/v2"
+    "registry_schema": "registry-manifest/v2",
+    "mcp_endpoint": "POST /mcp",
+    "mcp_protocol_version": "2026-07-28",
+    "a2a_specification": "1.0.1",
+    "a2a_wire_protocol_version": "1.0",
+    "a2a_http_content_type": "application/a2a+json"
   },
   "repositories": [
     {
@@ -18,28 +23,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d"
+      "reviewed_sha": "f1a3c1abdfd62686bb56333a54443dd74cbc20f5"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953"
+      "reviewed_sha": "f52504d8d9971218d428c8800a2de9b898dd8c4a"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c"
+      "reviewed_sha": "2670c75656449730af59e3f3ebc3928ddb55b70a"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "60c7762fd915bd9273b9ab72cfed80eb3b8bd797"
+      "reviewed_sha": "de8cb557f0938625eb305f4b9baa092510210867"
     }
   ],
   "gate": {
@@ -59,7 +64,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
+    "ref": "b1d874999a26060cd51192920127278f77213470",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -110,12 +115,12 @@
     "p5": "certified",
     "p6": "certified",
     "p7": "certified",
-    "p8": "in_progress",
-    "p9": "not_started",
+    "p8": "certified",
+    "p9": "in_progress",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P7 are certified for their exact reviewed repository/reference scope. The P8 implementation and exact-lock certification PR is merged in TADL at b7cd6fa661d596df2e0aca7dfd0f01793c3ff59d. P8 remains in_progress until the refreshed exact-merge-SHA ecosystem, security and post-phase forensic gates pass. P9-P10 remain not_started. Live provider access, production secret-manager integration, production egress controls, telemetry backend and deployed production readiness remain unverified.",
-    "sequence_release": "p8_in_progress"
+    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P8 are certified for their exact reviewed repository/reference scope. P8 post-phase audit passed on TADL main SHA f1a3c1abdfd62686bb56333a54443dd74cbc20f5: CI, Security, CodeQL, Secret Scan, Scorecard, Supply Chain Attestation, Release Attestations and exact-lock Ecosystem Integration were green. P9 canonical scope is MCP/A2A interoperability and security; P10 canonical scope is end-to-end recovery and production certification. Reference-workforce and replication fixtures remain cross-cutting evidence, not canonical P9/P10 definitions. Production egress controls, live provider access, telemetry, backup/restore and deployed production readiness remain unverified.",
+    "sequence_release": "p9_in_progress"
   },
   "trace_context_contract": {
     "schema": "schemas/trace-context/v1/trace-context.schema.json",

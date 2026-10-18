@@ -1,3 +1,5 @@
+> **Phase namespace correction:** this document describes deterministic replication fixtures and supporting GA evidence, not the canonical ecosystem P10 definition. Canonical P10 is end-to-end recovery and production certification, as defined in `PHASE-MATRIX.md`. Replication fixtures are supporting evidence only; they do not independently certify production readiness.
+
 # P10 — Replication & Agent System GA
 
 P10 is the final finite ecosystem phase. It proves that the four repositories form a reusable governed Agent System rather than a single-organization implementation.

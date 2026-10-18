@@ -110,3 +110,6 @@ jobs:
 
       - name: Run canonical P8 budget, quota and recovery conformance
         run: python scripts/p8_budget_quota_conformance.py
+
+      - name: Run canonical P9 MCP/A2A interoperability and security conformance
+        run: python scripts/p9_interoperability_conformance.py

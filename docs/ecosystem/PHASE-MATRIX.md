@@ -1,7 +1,7 @@
 # Tinlance Agent System — Canonical Ecosystem Phase Matrix
 
 **Canonical sequence:** P0–P10  
-**Baseline:** ecosystem-p7-adapter-boundary-2026-10-18  
+**Baseline:** ecosystem-p9-mcp-a2a-2026-10-18  
 **Authority:** this matrix and `docs/ecosystem/ecosystem-manifest.json` define ecosystem phase meaning. A repository-local phase number, milestone number, TSIC number, or legacy gate filename is not an ecosystem phase.
 
 ## Phase namespace and current state
@@ -14,7 +14,7 @@ The ecosystem certification sequence is distinct from:
 
 Do not infer equivalence from matching numbers. Crosswalks must be explicit and backed by exact revision and executable evidence.
 
-As of 2026-10-18, P0–P7 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates; P7 real adapter and integration boundaries passed exact-SHA Platform/OS/SDK/TSIC conformance plus post-merge CI, security, CodeQL, secret scan, Scorecard and supply-chain attestation. Registry v1 remains immutable/deprecated and v2 is active. P8 budget, quota, capacity and cost enforcement is in progress; P9–P10 remain not started. Production egress controls, live provider access, telemetry and deployment remain unverified.
+As of 2026-10-18, P0–P8 are certified for the reviewed repository/reference scope. P3 passed exact-SHA event-delivery/durability conformance; P4 passed exact-SHA trace/evidence lineage reconstruction; P5 registry v2 lifecycle and supply-chain reference governance passed exact-SHA integration and post-merge CI/security gates; P6 model/tool routing mediation passed exact-SHA Platform and TADL CI/security/integration gates; P7 real adapter and integration boundaries passed exact-SHA Platform/OS/SDK/TSIC conformance; P8 durable budget/quota/capacity/cost enforcement passed exact-SHA Platform and four-repository conformance, settlement-retry regression, post-merge CI/security/CodeQL/secret scan, Scorecard, supply-chain and release-attestation gates. Registry v1 remains immutable/deprecated and v2 is active. P9 MCP/A2A interoperability and security is in progress; P10 end-to-end recovery and production certification remains not started. Production egress controls, live provider access, telemetry and deployment remain unverified.
 
 ## Canonical phase sequence
 
@@ -71,4 +71,4 @@ Use stable, versioned standards as compatibility inputs, not as authority source
 
 ## Current release state
 
-P0–P7 are certified for the reviewed repository/reference scope only. Canonical P8 budgets, quotas, capacity and cost enforcement is `in_progress` in Platform PR #123; it remains uncertified until the PostgreSQL migration and integration tests, concurrent admission/race tests, settlement/release/overrun/recovery evidence, SDK/OS consumer boundary checks, exact-SHA ecosystem conformance, security workflows and post-merge checks all pass. P9–P10 remain `not_started`. Supply-chain cryptographic verification remains a P10 gate, and external production readiness remains `unverified`.
+P0–P8 are certified for their exact reviewed repository/reference scope. P8 post-phase audit and post-merge CI/security/CodeQL/secret-scan/Scorecard/supply-chain/release-attestation gates passed for the reviewed baseline. Canonical P9 MCP/A2A interoperability and security is `in_progress` and is not certified until Platform, OS, SDK and TADL implementation PRs merge at green exact heads, the lock/manifest/registry are reconciled to the exact merged SHAs, the P9 protocol/adversarial suites pass in both TADL and TSIC integration gates, and the post-phase forensic audit passes. P10 end-to-end recovery and production certification remains `not_started`. External production egress controls, live provider access, telemetry, backup/restore and deployed production readiness remain `unverified`.
