@@ -10,7 +10,10 @@
     "transformation_schema": "transformation/v1",
     "replication_schema": "replication/v1",
     "trace_context_schema": "trace-context/v1",
-    "registry_schema": "registry-manifest/v2"
+    "registry_schema": "registry-manifest/v2",
+    "mcp_endpoint": "POST /mcp",
+    "mcp_protocol_version": "2026-07-28",
+    "a2a_specification": "1.0.1"
   },
   "repositories": [
     {
@@ -25,21 +28,21 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "e0205a4e5a4494a34d9e480a4a0b77699bcfe953"
+      "reviewed_sha": "32e399200a2e573e67d134026ba827079009417b"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "e54256ce7e632ee2efe0e0a49f0e37142fe4c27c"
+      "reviewed_sha": "2670c75656449730af59e3f3ebc3928ddb55b70a"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "60c7762fd915bd9273b9ab72cfed80eb3b8bd797"
+      "reviewed_sha": "29bcf8d6ed8013a087c85e903cc774e9ee2a263c"
     }
   ],
   "gate": {
@@ -59,7 +62,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "4ab0837e0a07cf070f3101e63ba286534ba28bff",
+    "ref": "747985a8e5b63f4c11e4823086dfb15d70156b46",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
