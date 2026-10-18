@@ -18,7 +18,7 @@ This audit distinguishes repository evidence from live deployment. A green workf
 - `database/tests/006_p8_quota_ledger.sql`: replay/idempotency, conflicting settlement evidence, safe evidence, numeric validation and ledger immutability.
 - `database/tests/007_p8_quota_concurrency.sql`: PostgreSQL concurrent tenant and organization admission.
 - `database/tests/008_p8_quota_recovery.sql`: expiry, renewal, reconciliation, measured settlement and explicit release evidence.
-- `packages/budgets/src/tinlance_agent_platform_budgets/postgres_quota.py`: transaction-bound adapter. The caller owns the transaction; the adapter does not commit or close the connection.
+- `packages/budgets/src/tinlance_agent_platform_budgets/postgres_quota.py`: low-level `PostgresQuotaLedger` participates in a caller-owned transaction, while `PostgresBudgetGate` owns short tenant-scoped reserve/settle/release transactions and never holds one open across an external side effect.
 - `tests/test_p8_budget_quota_ledger.py`: typed input validation, cost normalization, adapter contract and regression tests.
 - `docs/P8-ENTERPRISE-CONTROL-PLANE.md`: Platform authority boundary and P8 operating semantics.
 
@@ -110,3 +110,11 @@ The audit remains explicit that this repository does not prove a production data
 ### Settlement retry evidence invariant
 
 Platform PR #129 ensures that after a side effect, a retry following a persistence failure reuses the exact previously measured `QuotaSettlement` payload rather than calling the provider meter again. The regression test asserts one measurement across a failed settlement and a successful retry, no duplicate local charge, and cleanup of pending settlement state. This closes the in-process retry/evidence divergence found in the follow-up forensic review. Durable reservation reconciliation remains necessary for process crashes; this in-memory retry cache is not a substitute for a deployed reconciliation worker.
+
+
+## External security research alignment
+
+- PostgreSQL's [Row Security Policies documentation](https://www.postgresql.org/docs/17/ddl-rowsecurity.html) states that tables with RLS enabled default-deny when no policy permits access, but table owners normally bypass RLS unless `FORCE ROW LEVEL SECURITY` is enabled; superusers and roles with `BYPASSRLS` also bypass it. The P8 migration uses RLS and FORCE RLS, but deployment acceptance must still verify the runtime role is least-privileged and is not a superuser or RLS-bypass role.
+- OWASP's [AI Agent and MCP Security guidance](https://github.com/OWASP/DevSecOpsGuideline/blob/master/current-version/2-Process/2-2-Develop/2-2-5-AI-Agent-and-MCP-Security.md) and [AI/LLM application security testing guidance](https://owasp.github.io/DevSecOpsGuideline/2-Process/2-4-Test/2-4-6-AI-LLM-Application-Security-Testing/) recommend enforcing least privilege and authorization in backend/tool gateways rather than relying on prompts, binding actions to the initiating identity, and adversarially testing tool outputs and cross-boundary data flows. This supports the preserved Platform-only admission/authority boundary; it is not a substitute for tenant-isolation, failure-injection, and deployment testing.
+
+These references support the control design. They do not constitute an independent penetration test or production assurance attestation.
