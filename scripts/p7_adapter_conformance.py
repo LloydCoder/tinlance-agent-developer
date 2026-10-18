@@ -90,11 +90,16 @@ def main() -> int:
         PLATFORM,
         "packages/models/src/tinlance_agent_platform_models/openai_compatible.py",
         (
-            "ScopedModelCredentialProvider",
+            "credential_provider.token(request)",
             "provider redirects are disabled",
             "max_response_bytes",
             'headers["traceparent"]',
         ),
+    )
+    require_file_markers(
+        PLATFORM,
+        "packages/secrets/src/tinlance_agent_platform_secrets/model_provider.py",
+        ("class ScopedModelCredentialProvider", "resolve_for_execution", "capability_id"),
     )
     require_file_markers(
         OS,
