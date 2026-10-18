@@ -41,4 +41,4 @@ P3 is complete only when all conditions below are satisfied:
 
 ## Production limitation
 
-Passing repository tests does not prove a production broker, PostgreSQL cluster, worker fleet, monitoring, backup/restore or live deployment exists. P3 certification is repository/reference conformance until those external systems are independently evidenced.
+Passing repository tests does not prove a production broker, PostgreSQL cluster, worker fleet, monitoring, backup/restore or live deployment exists. P3 certification is repository/reference conformance until those external systems are independently evidenced. The OS P3 runtime uses versioned `*_p3` SQLite tables because the previous local event schema did not carry authoritative tenant attribution. Existing legacy rows are intentionally not auto-assigned to tenants or replayed; any deployment with legacy rows requires a separately reviewed migration using an authoritative workspace-to-tenant mapping before those rows can be consumed.
