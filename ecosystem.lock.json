@@ -33,7 +33,7 @@
   "baseline_id": "ecosystem-p3-candidate-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "8ca5ad729339dfe0beae655c18adf00722efc8d2",
+    "ref": "d6b1aacad18e91d6a19aab061e84afbf14647eba",
     "adapter": "tsic-agent-developer-reference"
   }
 }
