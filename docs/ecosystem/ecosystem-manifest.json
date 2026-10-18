@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P6 are certified for exact-SHA repository/reference conformance. P6 model/tool routing mediation passed the Platform PR-head and post-merge CI/security/R10/reference-agent gates, plus TADL exact-SHA TSIC-bound routing conformance and post-merge integration workflows at TADL 2cd0cd75c419535ada51286a1aca4123aa889705. P7 real adapters and integration boundaries is the next eligible phase; P8-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
+    "note": "The manifest phase field remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P6 are certified for exact-SHA repository/reference conformance. P6 model/tool routing mediation passed the Platform PR-head and post-merge CI/security/R10/reference-agent gates, plus TADL exact-SHA TSIC-bound routing conformance and post-merge integration workflows at TADL 2cd0cd75c419535ada51286a1aca4123aa889705. P7 real adapters and integration boundaries is the next eligible phase; P8-P10 remain not_started. Supply-chain cryptographic verification and external production readiness remain unverified until P10.",
     "sequence_release": "ready_for_p7"
   },
   "trace_context_contract": {
