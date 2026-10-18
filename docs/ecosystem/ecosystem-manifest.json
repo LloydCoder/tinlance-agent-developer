@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p5-governance-v2-candidate-2026-10-18",
+  "baseline_id": "ecosystem-p5-postmerge-audit-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -18,7 +18,7 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "0dd17c4a4ae1075769e9254b8f36ba131d3f4c74"
+      "reviewed_sha": "e31cf6ab2a9b5702067711adaf85099812cf10d4"
     },
     {
       "id": "os",
@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "The P10 manifest phase field denotes full contract-surface coverage, not phase certification status. P0-P4 are certified for exact repository/reference conformance. P5 v2 registry lifecycle and supply-chain metadata are in progress; supply-chain verification remains pending until exact attestations are independently verified. P6-P10 remain not_started and production remains unverified.",
+    "note": "Post-merge P5 audit candidate. P0-P4 are certified for the reviewed exact-SHA scope. P5 remains in_progress until the post-merge audit branch passes all required CI and ecosystem conformance gates. P6-P10 remain not_started. Supply-chain cryptographic verification remains a P10 gate; production readiness remains unverified.",
     "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
