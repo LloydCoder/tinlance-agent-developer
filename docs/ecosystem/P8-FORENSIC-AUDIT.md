@@ -42,6 +42,12 @@ A pre-existing performance-economics test expected the capacity gate to identify
 
 **Fix:** capacity evaluation reports the specific exceeded dimensions (throughput, p95, p99, concurrency). The regression remains in the normal test suite.
 
+### P8-F05 — OS/SDK consumers must preserve structured budget failures
+
+The first exact-SHA cross-repository run exposed that the locked OS revision did not contain the newer typed Platform conflict mapping. Platform may report a structured budget/settlement failure, but an older OS transport boundary cannot preserve the authoritative error code and retryability metadata. The SDK also needs to retain run failure classification rather than collapse it into an untyped result.
+
+**Fix:** the reviewed OS main revision `e0205a4e5a4494a34d9e480a4a0b77699bcfe953` adds `PlatformConflictError` mapping and has green CI, CodeQL and Scorecard workflows; the reviewed SDK revision `e54256ce7e632ee2efe0e0a49f0e37142fe4c27c` has green CI/Security and preserves structured failure codes. The lock, manifest and registry now pin these exact revisions, and the P8 conformance gate asserts the error semantics as well as the no-duplicate-ledger boundary.
+
 ### P8-F04 — CI surfaced type, formatting and mock-contract defects
 
 The candidate's first checks exposed Ruff formatting, a mypy variable-name collision, a stale ledger permission assertion, and incomplete adapter test doubles for lease-renewal and reconciliation return values.
