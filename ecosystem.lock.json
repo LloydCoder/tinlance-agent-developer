@@ -33,7 +33,9 @@
     "registry_schema": "registry-manifest/v2",
     "mcp_endpoint": "POST /mcp",
     "mcp_protocol_version": "2026-07-28",
-    "a2a_specification": "1.0.1"
+    "a2a_specification": "1.0.1",
+    "a2a_wire_protocol_version": "1.0",
+    "a2a_http_content_type": "application/a2a+json"
   },
   "baseline_id": "ecosystem-p9-mcp-a2a-2026-10-18",
   "integration_authority": {
