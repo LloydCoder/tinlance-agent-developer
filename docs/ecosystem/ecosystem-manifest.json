@@ -30,14 +30,14 @@
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "876981c3950c4ffe95459d918a1147a926e04307"
+      "reviewed_sha": "e9e5ab621b036ca602cd1df0fe73352413b01672"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "f327e2272c4c22a34732a7aa3b94cd9ef1c35242"
+      "reviewed_sha": "bcd72d3ec5f918d42ed7a4f29f6b6bdaa0a6d79a"
     }
   ],
   "gate": {
