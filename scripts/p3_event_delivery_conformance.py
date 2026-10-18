@@ -8,17 +8,18 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-ROOT = Path(__file__).resolve().parents[1]
 TSIC = Path("/tmp/tinlance-tsic")
 SCHEMA_PATH = TSIC / "schemas/event-envelope.schema.json"
 SEMANTICS_PATH = TSIC / "contracts/events/delivery-semantics.json"
+CONTRACT_PATH = TSIC / "contracts/events/envelope.json"
 
 
 def main() -> None:
-    if not SCHEMA_PATH.is_file() or not SEMANTICS_PATH.is_file():
-        raise SystemExit("FAIL P3: exact pinned TSIC event schema/semantics not materialized")
+    if not all(path.is_file() for path in (SCHEMA_PATH, SEMANTICS_PATH, CONTRACT_PATH)):
+        raise SystemExit("FAIL P3: exact pinned TSIC event contract files not materialized")
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     semantics = json.loads(SEMANTICS_PATH.read_text(encoding="utf-8"))
+    contract = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     envelopes: dict[str, dict[str, object]] = {}
 
@@ -54,6 +55,10 @@ def main() -> None:
         envelopes["os"] = os_event.as_payload()
 
     failures: list[str] = []
+    if schema.get("required") != contract.get("required"):
+        failures.append("TSIC schema required attributes disagree with the canonical envelope contract")
+    if contract.get("specversion") != "1.0":
+        failures.append("canonical event contract must declare CloudEvents 1.0")
     for producer, envelope in envelopes.items():
         errors = sorted(validator.iter_errors(envelope), key=lambda item: list(item.path))
         if errors:
@@ -64,6 +69,11 @@ def main() -> None:
             failures.append(f"{producer} envelope lost tenant scope")
         if "authorization" in envelope or "capabilitygrant" in envelope:
             failures.append(f"{producer} envelope contains authority-shaped metadata")
+
+    invalid_envelope = dict(envelopes["sdk"])
+    invalid_envelope["authorization"] = "allow"
+    if validator.is_valid(invalid_envelope):
+        failures.append("schema must reject unknown authority-shaped extension attributes")
 
     delivery = semantics.get("delivery", {})
     if delivery.get("delivery_guarantee") != "at-least-once":
