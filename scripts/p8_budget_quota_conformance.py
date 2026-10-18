@@ -23,9 +23,13 @@ def require_markers(path: Path, *markers: str) -> str:
         FAILURES.append(f"missing P8 implementation file: {path}")
         return ""
     content = path.read_text(encoding="utf-8", errors="replace")
+    try:
+        display_path = str(path.relative_to(PLATFORM))
+    except ValueError:
+        display_path = str(path)
     for marker in markers:
         if marker.lower() not in content.lower():
-            FAILURES.append(f"{path.relative_to(PLATFORM)}: missing marker {marker!r}")
+            FAILURES.append(f"{display_path}: missing marker {marker!r}")
     return content
 
 
@@ -124,6 +128,30 @@ def check_consumer_boundary() -> None:
                         f"{label} duplicates Platform-owned quota persistence: "
                         f"{path.relative_to(repo)} contains {marker!r}"
                     )
+
+    # Assert consumers retain the Platform's authoritative decision instead of
+    # silently converting budget exhaustion into an untyped transport failure.
+    require_markers(
+        OS / "src/tinlance_agent_os/errors.py",
+        "class PlatformConflictError",
+        "error_code: str",
+        "retryable: bool",
+    )
+    require_markers(
+        OS / "src/tinlance_agent_os/transport.py",
+        "def _conflict_error",
+        "PlatformConflictError",
+    )
+    require_markers(
+        SDK / "src/tinlance_agent_platform_sdk/models.py",
+        "failure_code: str | None",
+        'failure_code = payload.get("failure_code")',
+    )
+    require_markers(
+        SDK / "src/tinlance_agent_platform_sdk/client.py",
+        "raise ExecutionError",
+        "error_code=code",
+    )
 
 
 def check_exact_lock() -> None:
