@@ -1,7 +1,7 @@
 {
   "schema_version": "registry-manifest/v2",
   "registry_id": "tinlance.agent.ecosystem",
-  "baseline_id": "ecosystem-p7-adapter-boundary-2026-10-18",
+  "baseline_id": "ecosystem-p8-budget-quota-2026-10-18",
   "repositories": [
     {
       "id": "developer",
@@ -54,7 +54,7 @@
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "aa3cd31de76ec25385e8801fa570aab029029b02",
+      "reviewed_sha": "e1ba46b788014874fb2e36fc797bf4d760db5787",
       "role": "sole governed execution and authority plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -68,8 +68,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "aa3cd31de76ec25385e8801fa570aab029029b02",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/aa3cd31de76ec25385e8801fa570aab029029b02",
+        "reviewed_sha": "e1ba46b788014874fb2e36fc797bf4d760db5787",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/e1ba46b788014874fb2e36fc797bf4d760db5787",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "verification_status": "pending"
