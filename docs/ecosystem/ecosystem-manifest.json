@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Post-merge P5 audit candidate. P0-P4 are certified for the reviewed exact-SHA scope. P5 remains in_progress until the post-merge audit branch passes all required CI and ecosystem conformance gates. P6-P10 remain not_started. Supply-chain cryptographic verification remains a P10 gate; production readiness remains unverified.",
+    "note": "The P10 manifest phase field denotes full contract-surface coverage, not the active certification phase. This is a post-merge P5 audit candidate. P0-P4 are certified for the reviewed exact-SHA scope. P5 remains in_progress until the post-merge audit branch passes all required CI and ecosystem conformance gates. P6-P10 remain not_started. Supply-chain cryptographic verification remains a P10 gate; production readiness remains unverified.",
     "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
