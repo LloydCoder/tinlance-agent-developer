@@ -90,9 +90,12 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         require(entry.get("reviewed_sha") == sha, f"{repo_id}: stale or unlocked reviewed SHA", failures)
         require(entry.get("role") == role, f"{repo_id}: architectural role mismatch", failures)
         publisher = entry.get("publisher", {})
-        require(bool(publisher.get("publisher_id")), f"{repo_id}: publisher identity is missing", failures)
+        publisher_id = publisher.get("publisher_id", "")
+        require(bool(publisher_id), f"{repo_id}: publisher identity is missing", failures)
+        require(publisher.get("identity_uri") == f"https://github.com/{publisher_id}",
+                f"{repo_id}: publisher identity URI does not match publisher ID", failures)
         require(publisher.get("identity_status") in {"verified", "unverified", "revoked"},
-                f"{repo_id}: publisher identity is revoked or invalid", failures)
+                f"{repo_id}: publisher identity state is invalid", failures)
         lifecycle = entry.get("lifecycle", {})
         lifecycle_state = lifecycle.get("state")
         require(lifecycle_state in {"active", "quarantined", "revoked", "deprecated"},
@@ -104,9 +107,16 @@ def semantic_validate(registry: dict[str, Any], lock: dict[str, Any]) -> list[st
         supply_chain = entry.get("supply_chain", {})
         require(supply_chain.get("reviewed_sha") == sha,
                 f"{repo_id}: supply-chain SHA differs from the reviewed repository SHA", failures)
-        for field in ("provenance_uri", "sbom_uri", "signature_uri"):
-            uri = supply_chain.get(field, "")
-            require(uri.startswith("https://"), f"{repo_id}: {field} must be an HTTPS reference", failures)
+        require(
+            supply_chain.get("provenance_uri") == f"https://github.com/{name}/commit/{sha}",
+            f"{repo_id}: provenance must point to the exact reviewed commit",
+            failures,
+        )
+        attestation_uri = f"https://github.com/{name}/attestations"
+        require(supply_chain.get("sbom_uri") == attestation_uri,
+                f"{repo_id}: SBOM reference must point to the repository attestation index", failures)
+        require(supply_chain.get("signature_uri") == attestation_uri,
+                f"{repo_id}: signature reference must point to the repository attestation index", failures)
         require(supply_chain.get("verification_status") in {"pending", "verified", "revoked"},
                 f"{repo_id}: revoked or invalid supply-chain attestation fails closed", failures)
 
