@@ -98,3 +98,6 @@ jobs:
 
       - name: Run canonical P4 trace lineage and evidence integrity conformance
         run: python scripts/p4_trace_lineage_conformance.py
+
+      - name: Run canonical P5 registry and compatibility conformance
+        run: python scripts/p5_registry_conformance.py
