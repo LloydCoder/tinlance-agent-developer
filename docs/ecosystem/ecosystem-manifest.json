@@ -24,7 +24,7 @@
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "c8653d93df33a887ba26376f90c12f8df8887709"
+      "reviewed_sha": "62826433a3110f7d29fd8dc7295efa584fa7934e"
     },
     {
       "id": "platform_sdk",
