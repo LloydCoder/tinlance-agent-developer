@@ -39,7 +39,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "35273b514b960daecb7bdcd8ed03dbf12117a514"
+      "reviewed_sha": "256475bc67ca43923a486e734d5749141cb562c4"
     }
   ],
   "gate": {
