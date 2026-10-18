@@ -98,9 +98,31 @@ def check_authority_boundary() -> None:
         "reconciliation could not settle measured usage",
     )
     require_markers(
+        PLATFORM / "packages/budgets/src/tinlance_agent_platform_budgets/postgres_quota.py",
+        "class PostgresBudgetGate",
+        "def reserve_new",
+        "QuotaReservationReplayError",
+        "estimate_usage",
+        "measure_usage",
+        "resolve_organization",
+        "set_config('platform.tenant_id'",
+        "def renew(",
+        "def request_expired_reconciliation(",
+    )
+    require_markers(
+        PLATFORM / "packages/execution/src/tinlance_agent_platform_execution/service.py",
+        "idempotency_key=request.idempotency_key",
+        "execution.budget_settlement_unknown",
+        "side_effect_started = True",
+    )
+    require_markers(
         PLATFORM / "tests/test_p8_budget_quota_ledger.py",
         "PostgresQuotaLedger",
+        "PostgresBudgetGate",
         "test_postgres_ledger_exposes_lease_renewal_and_reconciliation",
+        "test_postgres_budget_gate_commits_tenant_scoped_reservation_and_settlement",
+        "test_postgres_budget_gate_rejects_existing_idempotency_before_side_effect",
+        "test_postgres_budget_gate_reconciles_settlement_without_double_accounting",
         "test_p8_migration_has_transactional_limits_rls_and_append_only_ledger",
     )
     require_markers(
