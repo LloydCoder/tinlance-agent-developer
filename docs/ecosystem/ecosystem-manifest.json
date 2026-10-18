@@ -1,7 +1,7 @@
 {
   "schema": "tinlance-agent-system-manifest/v1",
   "phase": "P10",
-  "baseline_id": "ecosystem-p2-identity-tenancy-2026-10-17",
+  "baseline_id": "ecosystem-p3-event-delivery-candidate-2026-10-18",
   "authority_law": "effective authority = authenticated principal ∩ tenant ∩ registered capability ∩ policy ∩ risk constraints ∩ required approval ∩ budget ∩ sandbox ∩ secret scope ∩ execution context",
   "contracts": {
     "platform_api": "1.1",
@@ -103,7 +103,7 @@
     "p0": "certified",
     "p1": "certified",
     "p2": "certified",
-    "p3": "not_started",
+    "p3": "in_progress",
     "p4": "not_started",
     "p5": "not_started",
     "p6": "not_started",
@@ -112,7 +112,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0, P1 and P2 are certified for exact reviewed repository/reference evidence. P3 is the next eligible phase; P4-P10 remain not_started until prior phase gates pass. P2 covers strict JWT/JWKS validation, verified principal binding, token revocation fail-closed behavior, tenant isolation for run cancellation/events/evidence, and exact-SHA OS/SDK context regression. Historical taxonomy, delegation, runtime, evaluation, control-plane, workforce and replication suites are component gates, not similarly numbered phase certification. External production readiness remains unverified. The manifest phase field remains a contract-surface marker for replication/v1 validation, not a completion status.",
-    "sequence_release": "ready_for_p3"
+    "note": "Canonical ecosystem sequence: P0 forensic baseline/reconciliation; P1 contracts; P2 identity/tenancy/authentication/authorization; P3 events; P4 tracing/evidence; P5 registries; P6 routing; P7 adapters; P8 budgets; P9 MCP/A2A; P10 end-to-end recovery and production certification. P0-P2 are certified for exact reviewed repository/reference evidence. P3 event delivery/durability is in progress; P4-P10 remain not_started. P3 requires CloudEvents 1.0-compatible serialization, tenant-scoped outbox/inbox delivery, idempotency, bounded retry/dead-letter/replay, and exact-SHA cross-repository conformance. External production readiness remains unverified.",
+    "sequence_release": "p3_in_progress"
   }
 }
