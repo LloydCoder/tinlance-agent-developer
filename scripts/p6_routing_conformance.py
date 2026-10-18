@@ -106,6 +106,7 @@ def main() -> None:
             provider="provider-a",
             model="model-a",
             capabilities=frozenset({"summarization"}),
+            task_policies=frozenset({"summarization-policy-v1"}),
             data_classifications=frozenset({"confidential"}),
             risk_classes=frozenset({"low", "moderate"}),
             max_risk_score=40,
