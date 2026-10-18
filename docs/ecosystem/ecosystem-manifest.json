@@ -114,7 +114,7 @@
     "p9": "not_started",
     "p10": "not_started",
     "production": "unverified",
-    "note": "P0-P4 are certified for repository/reference conformance. P4 passed exact-SHA trace lineage reconstruction across SDK request, Platform policy/approval/execution/tool/audit/evidence records, OS event spans, and the canonical TSIC schema. P5 canonical service/agent/contract registry enforcement is now in progress. P6-P10 remain not_started. External production telemetry and deployment remain unverified.",
+    "note": "The manifest phase P10 is the contract-surface marker, not the active release phase. P0-P4 are certified for repository/reference conformance. P4 passed exact-SHA trace lineage reconstruction across SDK request, Platform policy/approval/execution/tool/audit/evidence records, OS event spans, and the canonical TSIC schema. P5 canonical service/agent/contract registries are in progress. P6-P10 remain not_started. External production telemetry and deployment remain unverified.",
     "sequence_release": "p5_in_progress"
   },
   "trace_context_contract": {
