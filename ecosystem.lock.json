@@ -45,7 +45,7 @@
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
+    "ref": "d30d5a6ec9a19c6de7d373cba578cbd9cdc26451",
     "adapter": "tsic-agent-developer-reference"
   },
   "integrations": {
@@ -77,7 +77,11 @@
       "end_to_end_tests": [
         "tests/integration/test_platform_world_intelligence_query_e2e.py"
       ],
-      "query_authentication": "Platform-issued audience=world-intelligence token; signed tenant, subject, purpose, request_id, traceparent"
+      "query_authentication": "Platform-issued audience=world-intelligence token; signed tenant, subject, purpose, request_id, traceparent",
+      "tsic_contract_id": "TSIC-WI-PLATFORM-QUERY-001",
+      "tsic_requirements_file": "conformance/requirements/world-intelligence-platform-query.json",
+      "tsic_test_map": "docs/ecosystem/world-intelligence-platform-query-test-map.json",
+      "tsic_conformance_gate": "scripts/world_intelligence_platform_conformance.py"
     }
   }
 }
