@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import threading
 import uuid
+
+import pytest
 
 from runtime.config import RuntimeConfig
 from runtime.server import WorldIntelligenceServer
@@ -50,13 +53,18 @@ def _event(payload: dict[str, str], *, key: str) -> OutboxEvent:
 
 
 def test_twi_client_delivers_to_world_intelligence_http_intake_end_to_end() -> None:
+    database_url = os.environ.get("WORLD_INTELLIGENCE_TEST_DATABASE_URL")
+    if not database_url:
+        pytest.skip("canonical gate supplies a migrated PostgreSQL database for this E2E")
     service_token = "test-world-intelligence-service-token-0123456789"
     config = RuntimeConfig(
         host="127.0.0.1",
         port=0,
         bearer_token="unused-query-token",
-        source_evidence_bearer_token=service_token,
         require_auth=True,
+        storage_mode="postgres",
+        database_url=database_url,
+        source_evidence_bearer_token=service_token,
         max_body_bytes=1024 * 1024,
     )
     server = WorldIntelligenceServer(("127.0.0.1", 0), config)
