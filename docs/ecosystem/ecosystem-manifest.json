@@ -16,7 +16,9 @@
     "a2a_specification": "1.0.1",
     "a2a_wire_protocol_version": "1.0",
     "a2a_http_content_type": "application/a2a+json",
-    "recovery_certification": "ecosystem-p10-recovery-certification/v1"
+    "recovery_certification": "ecosystem-p10-recovery-certification/v1",
+    "twi_source_evidence": "source-evidence/1.0.0",
+    "twi_source_evidence_intake": "POST /v1/source-evidence"
   },
   "repositories": [
     {
@@ -163,5 +165,37 @@
       "missing evidence or exceeded objectives fail certification",
       "repository conformance does not prove external production deployment"
     ]
-  }
+  },
+  "integrations": [
+    {
+      "id": "twi",
+      "repository": "LloydCoder/tinlance-web-intelligence",
+      "reviewed_sha": "cf992a6fd11b0ff44e6de377af40812af1221790",
+      "status": "required",
+      "role": "web acquisition, source provenance and evidence export",
+      "authority": "no identity, authorization, policy, execution or canonical world-state authority",
+      "consumes": [
+        "agent-platform"
+      ],
+      "produces": [
+        "world-intelligence-source-evidence"
+      ],
+      "conformance_requirements": "TSIC-TWI-001..TSIC-TWI-008",
+      "deployment_certification": "unverified"
+    },
+    {
+      "id": "world_intelligence",
+      "repository": "LloydCoder/tinlance-world-intelligence",
+      "reviewed_sha": "dfb12195dfb6ad809c05a60d090a70f00fcea3af",
+      "status": "required",
+      "role": "canonical temporal world-state and source-evidence intake",
+      "authority": "candidate evidence intake and canonicalization only; no identity, authorization or execution authority",
+      "consumes": [
+        "twi-source-evidence"
+      ],
+      "contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
+      "conformance_requirements": "TSIC-TWI-006 plus source-evidence schema and delivery invariants",
+      "deployment_certification": "unverified"
+    }
+  ]
 }

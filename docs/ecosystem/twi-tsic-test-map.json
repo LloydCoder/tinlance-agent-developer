@@ -1,0 +1,125 @@
+{
+  "schema": "tinlance-tsic-test-evidence-map/v1",
+  "requirement_source": "LloydCoder/tinlance-system-integration/conformance/requirements/twi-web-intelligence.json",
+  "policy": "Every mandatory TSIC TWI requirement must map to at least one collected test in an immutable, pinned integration repository. This mapping is a coverage gate, not a substitute for reviewing test semantics.",
+  "requirements": [
+    {
+      "id": "TSIC-TWI-001",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
+        },
+        {
+          "repository": "platform",
+          "path": "tests/test_twi_mcp_integration.py"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-002",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_unauthenticated_ingestion_is_rejected"
+        },
+        {
+          "repository": "platform",
+          "path": "tests/test_twi_api_handler.py"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-003",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
+        },
+        {
+          "repository": "twi",
+          "path": "tests/test_api_research.py"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-004",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_idempotent_retry_returns_same_evidence_id"
+        },
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence_postgres.py",
+          "test": "PostgresTWISourceEvidenceTests::test_postgres_store_is_idempotent_and_rejects_payload_conflicts"
+        },
+        {
+          "repository": "twi",
+          "path": "tests/test_api_jobs.py"
+        },
+        {
+          "repository": "tadl",
+          "path": "tests/integration/test_twi_world_intelligence_e2e.py",
+          "test": "test_twi_client_delivers_to_world_intelligence_http_intake_end_to_end"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-005",
+      "evidence": [
+        {
+          "repository": "twi",
+          "path": "tests/test_browser_broker.py"
+        },
+        {
+          "repository": "twi",
+          "path": "tests/test_egress_proxy.py"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-006",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
+        },
+        {
+          "repository": "twi",
+          "path": "tests/test_api_research.py"
+        },
+        {
+          "repository": "tadl",
+          "path": "tests/integration/test_twi_world_intelligence_e2e.py",
+          "test": "test_twi_client_delivers_to_world_intelligence_http_intake_end_to_end"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-007",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_content_type_and_trace_context_are_validated"
+        }
+      ]
+    },
+    {
+      "id": "TSIC-TWI-008",
+      "evidence": [
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_invalid_hash_and_extra_fields_are_rejected"
+        }
+      ]
+    }
+  ]
+}
