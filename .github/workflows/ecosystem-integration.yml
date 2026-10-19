@@ -143,8 +143,13 @@ jobs:
       - name: Run TSIC TWI requirement-to-test mapping gate
         run: python scripts/twi_tsic_conformance.py
 
-      - name: Run Platform-owned TWI MCP and API adapter tests
-        run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py
+      - name: Run Platform-owned TWI and World Intelligence MCP/API adapter tests
+        run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py /tmp/tinlance-platform/tests/test_world_intelligence_mcp_integration.py
+
+      - name: Run Platform → World Intelligence signed-JWT and PostgreSQL query end-to-end test
+        env:
+          WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
+        run: python -m pytest -q tests/integration/test_platform_world_intelligence_query_e2e.py
 
       - name: Run end-to-end contract smoke test
         run: python scripts/ecosystem_smoke.py
