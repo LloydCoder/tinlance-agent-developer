@@ -2,7 +2,7 @@
   "contract_id": "TSIC-WI-PLATFORM-QUERY-001",
   "requirements_file": "conformance/requirements/world-intelligence-platform-query.json",
   "test_sources": [
-    "/tmp/tinlance-platform/tests/test_world_intelligence_mcp_integration.py",
+    "platform:tests/test_world_intelligence_mcp_integration.py",
     "tests/integration/test_platform_world_intelligence_query_e2e.py"
   ],
   "requirements": [
