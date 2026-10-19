@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TSIC_ROOT = Path(os.environ.get("TSIC_ROOT", "/tmp/tinlance-tsic"))
-PLATFORM_ROOT = Path(os.environ.get("PLATFORM_ROOT", "/tmp/tinlance-agent-platform"))
+PLATFORM_ROOT = Path(os.environ.get("PLATFORM_ROOT", "/tmp/tinlance-platform"))
 REQUIREMENTS_RELATIVE = Path("conformance/requirements/world-intelligence-platform-query.json")
 MAP_PATH = ROOT / "docs/ecosystem/world-intelligence-platform-query-test-map.json"
 
