@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import hashlib
-from http.client import HTTPConnection
 import json
 import os
 import re
 import threading
 import time
 import uuid
+from http.client import HTTPConnection
 from types import SimpleNamespace
 from unittest.mock import patch
 
