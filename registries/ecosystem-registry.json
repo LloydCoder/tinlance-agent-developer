@@ -102,7 +102,7 @@
     {
       "id": "tsic",
       "repository": "LloydCoder/tinlance-system-integration",
-      "reviewed_sha": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
+      "reviewed_sha": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
       "role": "canonical contract and conformance authority",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -116,8 +116,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-system-integration/commit/bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
+        "reviewed_sha": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-system-integration/commit/afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-system-integration/attestations",
         "verification_status": "pending"
