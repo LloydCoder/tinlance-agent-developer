@@ -49,9 +49,15 @@ def main() -> int:
     mandatory = {
         item.get("id")
         for item in requirement_rows
-        if item.get("mandatory") is True and isinstance(item.get("id"), str)
+        if isinstance(item, dict)
+        and item.get("mandatory") is True
+        and isinstance(item.get("id"), str)
     }
     mapped_entries = test_map.get("requirements", [])
+    if not isinstance(mapped_entries, list) or any(
+        not isinstance(item, dict) for item in mapped_entries
+    ):
+        return fail("test map requirements must be a list of objects")
     mapped_ids = {
         item.get("id")
         for item in mapped_entries
