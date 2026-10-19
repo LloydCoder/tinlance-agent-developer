@@ -121,6 +121,12 @@ jobs:
           WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
         run: python -m pytest -q tests/integration/test_twi_source_evidence.py tests/integration/test_twi_source_evidence_postgres.py
 
+      - name: Run PostgreSQL tenant policy and query audit enforcement
+        working-directory: /tmp/tinlance-world-intelligence
+        env:
+          WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
+        run: python tests/integration/test_query_policy_postgres.py -v
+
       - name: Run World Intelligence TSIC conformance against the exact canonical pin
         env:
           TSIC_ROOT: /tmp/tinlance-tsic
