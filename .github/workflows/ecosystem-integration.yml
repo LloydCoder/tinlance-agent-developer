@@ -94,9 +94,16 @@ jobs:
           python -m pip install -e "/tmp/tinlance-twi[dev]"
           python -m pip install -e "/tmp/tinlance-world-intelligence[runtime]"
 
+      - name: Create isolated TWI PostgreSQL persistence database
+        env:
+          PGPASSWORD: postgres
+        run: createdb --host=127.0.0.1 --username=postgres twi_test
+
       - name: Run TWI package tests from the pinned revision
         working-directory: /tmp/tinlance-twi
-        run: python -m pytest tests
+        env:
+          TWI_TEST_POSTGRES_DSN: postgresql://postgres:postgres@127.0.0.1:5432/twi_test
+        run: python -m pytest -q tests
 
       - name: Apply pinned World Intelligence database migrations
         working-directory: /tmp/tinlance-world-intelligence
