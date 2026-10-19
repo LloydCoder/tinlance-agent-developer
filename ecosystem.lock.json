@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "882be4ef03f78084ce800a715029a0b1346ebdd2",
+      "ref": "1f39b33863e0054a1312d8b5cf7663ee9a2f856a",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -38,7 +38,9 @@
     "a2a_http_content_type": "application/a2a+json",
     "recovery_certification": "ecosystem-p10-recovery-certification/v1",
     "twi_api": "versioned internal API; see pinned TWI repository contracts",
-    "twi_platform_adapter": "Platform-owned MCP adapter; 8 registered tools"
+    "twi_platform_adapter": "Platform-owned MCP adapter; 8 registered tools",
+    "world_intelligence_query_api": "Platform-owned read-only query adapter; signed tenant, subject, purpose, request and trace context",
+    "world_intelligence_platform_adapter": "MCP/API gateway; eight fixed-resource read-only tools; no canonical writes"
   },
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
@@ -60,14 +62,22 @@
     },
     "world_intelligence": {
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "ref": "a156844575795b5fe9ce80b6e090a0d828e592d4",
+      "ref": "a564816faffa5be8e970eae5127f3a504d0a1729",
       "role": "canonical temporal world-state and candidate source-evidence intake; not execution or authorization authority",
       "source_evidence_contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
       "integration_tests": [
         "tests/integration/test_twi_source_evidence.py",
         "tests/integration/test_twi_source_evidence_postgres.py"
       ],
-      "tsic_contract_revision": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797"
+      "tsic_contract_revision": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
+      "platform_query_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/world_intelligence.py",
+      "platform_query_adapter_tests": [
+        "tests/test_world_intelligence_mcp_integration.py"
+      ],
+      "end_to_end_tests": [
+        "tests/integration/test_platform_world_intelligence_query_e2e.py"
+      ],
+      "query_authentication": "Platform-issued audience=world-intelligence token; signed tenant, subject, purpose, request_id, traceparent"
     }
   }
 }

@@ -18,7 +18,9 @@
     "a2a_http_content_type": "application/a2a+json",
     "recovery_certification": "ecosystem-p10-recovery-certification/v1",
     "twi_source_evidence": "source-evidence/1.0.0",
-    "twi_source_evidence_intake": "POST /v1/source-evidence"
+    "twi_source_evidence_intake": "POST /v1/source-evidence",
+    "world_intelligence_query_api": "Platform-owned read-only query adapter; signed tenant, subject, purpose, request and trace context",
+    "world_intelligence_platform_adapter": "MCP/API gateway; eight fixed-resource read-only tools; no canonical writes"
   },
   "repositories": [
     {
@@ -47,7 +49,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "882be4ef03f78084ce800a715029a0b1346ebdd2"
+      "reviewed_sha": "1f39b33863e0054a1312d8b5cf7663ee9a2f856a"
     }
   ],
   "gate": {
@@ -186,7 +188,7 @@
     {
       "id": "world_intelligence",
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "reviewed_sha": "a156844575795b5fe9ce80b6e090a0d828e592d4",
+      "reviewed_sha": "a564816faffa5be8e970eae5127f3a504d0a1729",
       "status": "required",
       "role": "canonical temporal world-state and source-evidence intake",
       "authority": "candidate evidence intake and canonicalization only; no identity, authorization or execution authority",
@@ -195,7 +197,13 @@
       ],
       "contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
       "conformance_requirements": "TSIC-TWI-006 plus source-evidence schema and delivery invariants",
-      "deployment_certification": "unverified"
+      "deployment_certification": "unverified",
+      "platform_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/world_intelligence.py",
+      "platform_adapter_tests": [
+        "tests/test_world_intelligence_mcp_integration.py"
+      ],
+      "end_to_end_gate": "tests/integration/test_platform_world_intelligence_query_e2e.py",
+      "query_authentication": "signed tenant, subject, purpose, request ID, and W3C traceparent claims"
     }
   ]
 }
