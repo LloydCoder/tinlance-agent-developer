@@ -84,10 +84,13 @@ def main() -> int:
         not isinstance(source, str) or not source for source in test_sources
     ):
         return fail("test_sources must be a non-empty list of paths")
-    source_paths = [
-        Path(source) if Path(source).is_absolute() else ROOT / source
-        for source in test_sources
-    ]
+    source_paths = []
+    for source in test_sources:
+        if source.startswith("platform:"):
+            source_paths.append(PLATFORM_ROOT / source.removeprefix("platform:"))
+        else:
+            path = Path(source)
+            source_paths.append(path if path.is_absolute() else ROOT / path)
     for path in source_paths:
         if not path.is_file():
             return fail(f"missing test source: {path}")
