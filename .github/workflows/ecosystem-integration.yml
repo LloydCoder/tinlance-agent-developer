@@ -78,7 +78,8 @@ jobs:
           python -m pip install -e "/tmp/tinlance-twi[dev]"
 
       - name: Run TWI package tests from the pinned revision
-        run: python -m pytest /tmp/tinlance-twi/tests
+        working-directory: /tmp/tinlance-twi
+        run: python -m pytest tests
 
       - name: Run Platform-owned TWI MCP and API adapter tests
         run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py
