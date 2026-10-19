@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import os
 import re
 import threading
@@ -11,7 +13,7 @@ from unittest.mock import patch
 import pytest
 
 
-def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_end() -> None:
+def test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy() -> None:
     database_url = os.environ.get("WORLD_INTELLIGENCE_TEST_DATABASE_URL")
     if not database_url:
         pytest.skip("canonical gate supplies migrated PostgreSQL for the paired E2E")
@@ -19,15 +21,18 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
     import jwt
     from cryptography.hazmat.primitives.asymmetric import rsa
     from psycopg_pool import ConnectionPool
-    from tinlance_agent_platform_api.service import APIRequest, APIResponse
+    from tinlance_agent_platform_api.service import APIResponse
     from tinlance_agent_platform_app.world_intelligence_api_handler import (
         WorldIntelligenceAPIHandler,
+        WorldIntelligenceMCPDispatcher,
     )
     from tinlance_agent_platform_contracts import Principal
     from tinlance_agent_platform_mcp import (
+        MCPProtocolService,
         MCPToolGateway,
         WorldIntelligenceHTTPTransport,
         register_world_intelligence_tools,
+        with_world_intelligence_tools,
     )
     from runtime.config import RuntimeConfig
     from runtime.server import WorldIntelligenceServer
@@ -40,7 +45,8 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
     denied_tenant_id = "tenant-wi-query-denied-" + uuid.uuid4().hex
     subject_id = "agent-wi-query-" + uuid.uuid4().hex
     region_name = "region-platform-e2e-" + uuid.uuid4().hex
-    request_id = "platform-wi-query-" + uuid.uuid4().hex
+    trace_ids: dict[str, str] = {}
+    parent_spans: dict[str, str] = {}
 
     with ConnectionPool(database_url, min_size=1, max_size=2, open=True) as pool:
         with pool.connection() as connection:
@@ -101,9 +107,37 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
                 headers={"typ": "at+jwt", "kid": "e2e-platform-key"},
             )
 
-    class Delegate:
-        def handle(self, request: APIRequest) -> APIResponse:
-            return APIResponse("success", {"delegated": request.operation})
+    class APIHandlerDelegate:
+        def handle(self, _request):
+            return APIResponse("success", {"delegated": True})
+
+    class ExistingMCPDispatcher:
+        def dispatch(self, _request):
+            return APIResponse("success", {"delegated": True})
+
+    class Resolver:
+        def resolve(self, token: str) -> Principal:
+            if token == "allowed-user-token":
+                tenant = tenant_id
+            elif token == "denied-user-token":
+                tenant = denied_tenant_id
+            else:
+                raise PermissionError("invalid test principal")
+            return Principal(
+                subject_id=subject_id,
+                principal_type="agent",
+                tenant_id=tenant,
+                scopes=frozenset(
+                    {
+                        "world-intelligence.query_region",
+                        "world-intelligence:purpose:account_research",
+                    }
+                ),
+            )
+
+    class RateLimiter:
+        def allow(self, _tenant_id, _subject_id):
+            return True
 
     config = RuntimeConfig(
         host="127.0.0.1",
@@ -121,56 +155,122 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
 
-    transport = WorldIntelligenceHTTPTransport(
-        base_url=f"http://127.0.0.1:{server.server_address[1]}",
-        audience=audience,
-        token_issuer=TestPlatformTokenIssuer(),
-        timeout_seconds=5,
-        allow_loopback_http=True,
-    )
-    gateway = MCPToolGateway(transport)
-    register_world_intelligence_tools(gateway)
-    handler = WorldIntelligenceAPIHandler(
-        delegate=Delegate(),
-        gateway=gateway,
-        environment="test",
-    )
-
-    def query(tenant: str, *, purpose: str = "account_research") -> APIResponse:
-        principal = Principal(
-            subject_id=subject_id,
-            principal_type="agent",
-            tenant_id=tenant,
-            scopes=frozenset(
-                {
-                    "world-intelligence.query_region",
-                    "world-intelligence:purpose:account_research",
-                }
-            ),
-        )
-        return handler.handle(
-            APIRequest(
-                tenant_id=tenant,
-                subject_id=subject_id,
-                operation="world_intelligence.query_regions",
-                payload={"purpose": purpose, "limit": 100, "cursor": 0},
-                request_id=request_id + "-" + tenant[-8:],
-                trace_id=uuid.uuid4().hex,
-                authenticated_principal=principal,
-            )
-        )
-
     try:
-        allowed = query(tenant_id)
-        assert allowed.status == "success", allowed.payload
-        assert any(item.get("name") == region_name for item in allowed.payload["items"])
+        transport = WorldIntelligenceHTTPTransport(
+            base_url=f"http://127.0.0.1:{server.server_address[1]}",
+            audience=audience,
+            token_issuer=TestPlatformTokenIssuer(),
+            timeout_seconds=5,
+            allow_loopback_http=True,
+        )
+        gateway = MCPToolGateway(transport)
+        register_world_intelligence_tools(gateway)
+        api_handler = WorldIntelligenceAPIHandler(
+            delegate=APIHandlerDelegate(),
+            gateway=gateway,
+            environment="test",
+        )
+        dispatcher = WorldIntelligenceMCPDispatcher(
+            delegate=ExistingMCPDispatcher(),
+            handler=api_handler,
+        )
+        service = MCPProtocolService(
+            dispatcher,
+            Resolver(),
+            with_world_intelligence_tools(()),
+            allowed_origins=(),
+            rate_limiter=RateLimiter(),
+        )
+        meta = {
+            "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+            "io.modelcontextprotocol/clientInfo": {
+                "name": "tinlance-world-intelligence-e2e",
+                "version": "1.0.0",
+            },
+            "io.modelcontextprotocol/clientCapabilities": {},
+        }
 
-        denied = query(denied_tenant_id)
-        assert denied.status == "denied", denied.payload
-        assert denied.payload.get("error") == "world_intelligence_downstream_auth_failed"
+        listed = service.handle(
+            {
+                "content-type": "application/json",
+                "authorization": "Bearer allowed-user-token",
+                "mcp-protocol-version": "2026-07-28",
+                "mcp-method": "tools/list",
+            },
+            json.dumps(
+                {
+                    "jsonrpc": "2.0",
+                    "id": "list-world-intelligence",
+                    "method": "tools/list",
+                    "params": {"_meta": meta},
+                }
+            ).encode(),
+        )
+        listed_payload = json.loads(listed.body)
+        names = {tool["name"] for tool in listed_payload["result"]["tools"]}
+        assert "world_intelligence_query_regions" in names
 
-        with pytest.raises(PermissionError, match="not authorized for the requested purpose"):
-            query(tenant_id, purpose="marketing")
+        def query(token: str, tenant: str) -> tuple[dict, dict, str]:
+            trace_id = uuid.uuid4().hex
+            parent_span = uuid.uuid4().hex[:16]
+            traceparent = f"00-{trace_id}-{parent_span}-01"
+            trace_ids[tenant] = trace_id
+            parent_spans[tenant] = parent_span
+            rpc_id = "query-" + tenant[-8:]
+            response = service.handle(
+                {
+                    "content-type": "application/json",
+                    "authorization": f"Bearer {token}",
+                    "mcp-protocol-version": "2026-07-28",
+                    "mcp-method": "tools/call",
+                    "mcp-name": "world_intelligence_query_regions",
+                    "traceparent": traceparent,
+                },
+                json.dumps(
+                    {
+                        "jsonrpc": "2.0",
+                        "id": rpc_id,
+                        "method": "tools/call",
+                        "params": {
+                            "_meta": meta,
+                            "name": "world_intelligence_query_regions",
+                            "arguments": {
+                                "purpose": "account_research",
+                                "limit": 100,
+                                "cursor": 0,
+                            },
+                        },
+                    }
+                ).encode(),
+            )
+            assert response.status_code == 200
+            envelope = json.loads(response.body)
+            result = envelope["result"]
+            text_payload = json.loads(result["content"][0]["text"])
+            fingerprint = hashlib.sha256(
+                f"{tenant}:{subject_id}:{rpc_id}".encode()
+            ).hexdigest()[:32]
+            expected_request_id = f"mcp-{fingerprint}"
+            return result, text_payload, expected_request_id
+
+        allowed_result, allowed_payload, allowed_request_id = query(
+            "allowed-user-token", tenant_id
+        )
+        assert allowed_result["isError"] is False
+        assert allowed_payload["status"] == "success", allowed_payload
+        assert any(
+            item.get("name") == region_name for item in allowed_payload["payload"]["items"]
+        )
+
+        denied_result, denied_payload, denied_request_id = query(
+            "denied-user-token", denied_tenant_id
+        )
+        assert denied_result["isError"] is True
+        assert denied_payload["status"] == "denied", denied_payload
+        assert (
+            denied_payload["payload"].get("error")
+            == "world_intelligence_downstream_auth_failed"
+        )
     finally:
         server.shutdown()
         server.server_close()
@@ -184,21 +284,18 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
                 "WHERE tenant_id = ANY(%s) ORDER BY occurred_at",
                 ([tenant_id, denied_tenant_id],),
             ).fetchall()
-    allowed_request_id = request_id + "-" + tenant_id[-8:]
-    denied_request_id = request_id + "-" + denied_tenant_id[-8:]
-    assert any(
-        row[0] == tenant_id
-        and row[1] == "allowed"
-        and row[2] == allowed_request_id
-        and isinstance(row[3], str)
-        and re.fullmatch(r"00-[0-9a-f]{32}-[0-9a-f]{16}-01", row[3])
-        for row in outcomes
-    )
-    assert any(
-        row[0] == denied_tenant_id
-        and row[1] == "denied"
-        and row[2] == denied_request_id
-        and isinstance(row[3], str)
-        and re.fullmatch(r"00-[0-9a-f]{32}-[0-9a-f]{16}-01", row[3])
-        for row in outcomes
-    )
+
+    for tenant, outcome, expected_request_id in (
+        (tenant_id, "allowed", allowed_request_id),
+        (denied_tenant_id, "denied", denied_request_id),
+    ):
+        assert any(
+            row[0] == tenant
+            and row[1] == outcome
+            and row[2] == expected_request_id
+            and isinstance(row[3], str)
+            and re.fullmatch(r"00-[0-9a-f]{32}-[0-9a-f]{16}-01", row[3])
+            and row[3].split("-")[1] == trace_ids[tenant]
+            and row[3].split("-")[2] != parent_spans[tenant]
+            for row in outcomes
+        )
