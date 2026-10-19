@@ -1,6 +1,6 @@
 {
   "schema": "tinlance-agent-ecosystem-lock/v1",
-  "purpose": "Pins the four-repository integration gate to exact reviewed commits. Post-merge phase baselines are updated to immutable merged SHAs before certification; TSIC remains the canonical ecosystem integration and certification authority.",
+  "purpose": "Pins the canonical cross-repository integration gate to exact reviewed commits. Post-merge phase baselines are updated to immutable merged SHAs before certification; TSIC remains the canonical ecosystem integration and certification authority.",
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "2081f8ff0bad008b45eb69b617790b783c0c2862",
+      "ref": "882be4ef03f78084ce800a715029a0b1346ebdd2",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -36,12 +36,27 @@
     "a2a_specification": "1.0.1",
     "a2a_wire_protocol_version": "1.0",
     "a2a_http_content_type": "application/a2a+json",
-    "recovery_certification": "ecosystem-p10-recovery-certification/v1"
+    "recovery_certification": "ecosystem-p10-recovery-certification/v1",
+    "twi_api": "versioned internal API; see pinned TWI repository contracts",
+    "twi_platform_adapter": "Platform-owned MCP adapter; 8 registered tools"
   },
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
     "ref": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
     "adapter": "tsic-agent-developer-reference"
+  },
+  "integrations": {
+    "twi": {
+      "repository": "LloydCoder/tinlance-web-intelligence",
+      "ref": "7b48b28ccd76b9ea2f09a2f524469c4a3ffe8dcc",
+      "role": "web acquisition, source provenance, and evidence export; not an execution authority",
+      "platform_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/twi.py",
+      "platform_adapter_tests": [
+        "tests/test_twi_mcp_integration.py",
+        "tests/test_twi_api_handler.py"
+      ],
+      "tsic_contract_revision": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797"
+    }
   }
 }
