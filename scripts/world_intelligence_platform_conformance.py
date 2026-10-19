@@ -36,9 +36,19 @@ def main() -> int:
 
     if contract.get("status") != "required":
         return fail("TSIC query contract is not marked required")
+    if test_map.get("contract_id") != contract.get("id"):
+        return fail("test map does not reference the exact TSIC contract ID")
+    requirement_rows = contract.get("requirements", [])
+    requirement_ids = [
+        item.get("id")
+        for item in requirement_rows
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    ]
+    if len(requirement_ids) != len(set(requirement_ids)):
+        return fail("TSIC contract contains duplicate requirement IDs")
     mandatory = {
         item.get("id")
-        for item in contract.get("requirements", [])
+        for item in requirement_rows
         if item.get("mandatory") is True and isinstance(item.get("id"), str)
     }
     mapped_entries = test_map.get("requirements", [])
