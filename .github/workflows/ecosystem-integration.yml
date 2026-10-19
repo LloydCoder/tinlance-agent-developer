@@ -49,8 +49,9 @@ jobs:
           authority = lock["integration_authority"]
           targets = [(authority["repository"], authority["ref"], Path("/tmp/tinlance-tsic"))]
           for name, item in lock["repositories"].items():
-              target_name = "twi" if name == "web_intelligence" else name
-              targets.append((item["repository"], item["ref"], Path("/tmp") / f"tinlance-{target_name}"))
+              targets.append((item["repository"], item["ref"], Path("/tmp") / f"tinlance-{name}"))
+          twi = lock["integrations"]["twi"]
+          targets.append((twi["repository"], twi["ref"], Path("/tmp/tinlance-twi")))
 
           for repository, ref, target in targets:
               subprocess.run(
