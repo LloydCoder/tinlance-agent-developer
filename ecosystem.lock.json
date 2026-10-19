@@ -49,7 +49,7 @@
   "integrations": {
     "twi": {
       "repository": "LloydCoder/tinlance-web-intelligence",
-      "ref": "e5e494599e2d1d1c51bc3fd3532cf676be92a43c",
+      "ref": "7b48b28ccd76b9ea2f09a2f524469c4a3ffe8dcc",
       "role": "web acquisition, source provenance, and evidence export; not an execution authority",
       "platform_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/twi.py",
       "platform_adapter_tests": [
