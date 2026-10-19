@@ -179,7 +179,7 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
     with ConnectionPool(database_url, min_size=1, max_size=2, open=True) as pool:
         with pool.connection() as connection:
             outcomes = connection.execute(
-                "SELECT tenant_id, outcome, request_id, traceparent "
+                "SELECT tenant_id, outcome, metadata->>'request_id', metadata->>'traceparent' "
                 "FROM world_intelligence.security_audit_events "
                 "WHERE tenant_id = ANY(%s) ORDER BY occurred_at",
                 ([tenant_id, denied_tenant_id],),
