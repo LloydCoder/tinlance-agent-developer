@@ -7,13 +7,13 @@
       "id": "TSIC-TWI-001",
       "evidence": [
         {
+          "repository": "platform",
+          "path": "tests/test_twi_mcp_integration.py"
+        },
+        {
           "repository": "world_intelligence",
           "path": "tests/integration/test_twi_source_evidence.py",
           "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
-        },
-        {
-          "repository": "platform",
-          "path": "tests/test_twi_mcp_integration.py"
         }
       ]
     },
@@ -21,13 +21,17 @@
       "id": "TSIC-TWI-002",
       "evidence": [
         {
-          "repository": "world_intelligence",
-          "path": "tests/integration/test_twi_source_evidence.py",
-          "test": "TWISourceEvidenceIntakeTests::test_unauthenticated_ingestion_is_rejected"
+          "repository": "twi",
+          "path": "tests/test_auth_jwks.py"
         },
         {
           "repository": "platform",
           "path": "tests/test_twi_api_handler.py"
+        },
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_unauthenticated_ingestion_is_rejected"
         }
       ]
     },
@@ -35,13 +39,17 @@
       "id": "TSIC-TWI-003",
       "evidence": [
         {
-          "repository": "world_intelligence",
-          "path": "tests/integration/test_twi_source_evidence.py",
-          "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
+          "repository": "twi",
+          "path": "tests/test_observation_contract.py"
         },
         {
           "repository": "twi",
           "path": "tests/test_api_research.py"
+        },
+        {
+          "repository": "world_intelligence",
+          "path": "tests/integration/test_twi_source_evidence.py",
+          "test": "TWISourceEvidenceIntakeTests::test_ingest_is_authenticated_and_returns_candidate_not_canonical_truth"
         }
       ]
     },
@@ -74,6 +82,10 @@
       "evidence": [
         {
           "repository": "twi",
+          "path": "tests/test_browser_policies.py"
+        },
+        {
+          "repository": "twi",
           "path": "tests/test_browser_broker.py"
         },
         {
@@ -104,6 +116,10 @@
     {
       "id": "TSIC-TWI-007",
       "evidence": [
+        {
+          "repository": "twi",
+          "path": "tests/test_world_intelligence_client.py"
+        },
         {
           "repository": "world_intelligence",
           "path": "tests/integration/test_twi_source_evidence.py",

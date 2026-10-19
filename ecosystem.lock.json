@@ -43,7 +43,7 @@
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "bd2e7582ad29eb460be36ca45b073b99fdeadfbf",
+    "ref": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
     "adapter": "tsic-agent-developer-reference"
   },
   "integrations": {
@@ -60,7 +60,7 @@
     },
     "world_intelligence": {
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "ref": "44218923d701df514814e20325662c02952488e4",
+      "ref": "0114beb25ce959a984294bd66e4ffc529c451e8e",
       "role": "canonical temporal world-state and candidate source-evidence intake; not execution or authorization authority",
       "source_evidence_contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
       "integration_tests": [

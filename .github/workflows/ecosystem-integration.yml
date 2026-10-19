@@ -121,6 +121,22 @@ jobs:
           WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
         run: python -m pytest -q tests/integration/test_twi_source_evidence.py tests/integration/test_twi_source_evidence_postgres.py
 
+      - name: Run World Intelligence TSIC conformance against the exact canonical pin
+        env:
+          TSIC_ROOT: /tmp/tinlance-tsic
+        run: |
+          set -euo pipefail
+          export TSIC_REVISION="$(python -c 'import json; print(json.load(open("ecosystem.lock.json", encoding="utf-8"))["integration_authority"]["ref"])')"
+          python /tmp/tinlance-world-intelligence/scripts/tsic_conformance.py
+
+      - name: Run TWI client → PostgreSQL-backed World Intelligence HTTP end-to-end test
+        env:
+          WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
+        run: python -m pytest -q tests/integration/test_twi_world_intelligence_e2e.py
+
+      - name: Run TSIC TWI requirement-to-test mapping gate
+        run: python scripts/twi_tsic_conformance.py
+
       - name: Run Platform-owned TWI MCP and API adapter tests
         run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py
 
