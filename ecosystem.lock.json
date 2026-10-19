@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "1f39b33863e0054a1312d8b5cf7663ee9a2f856a",
+      "ref": "db8473b452701d9b3807797ab1bc178b58feb96d",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -40,7 +40,7 @@
     "twi_api": "versioned internal API; see pinned TWI repository contracts",
     "twi_platform_adapter": "Platform-owned MCP adapter; 8 registered tools",
     "world_intelligence_query_api": "Platform-owned read-only query adapter; signed tenant, subject, purpose, request and trace context",
-    "world_intelligence_platform_adapter": "MCP/API gateway; eight fixed-resource read-only tools; no canonical writes"
+    "world_intelligence_platform_adapter": "Platform MCP protocol dispatch; eight fixed-resource read-only tools; purpose-bound signed HTTP queries; no canonical writes"
   },
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
