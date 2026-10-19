@@ -1,0 +1,63 @@
+{
+  "contract_id": "TSIC-WI-PLATFORM-QUERY-001",
+  "requirements_file": "conformance/requirements/world-intelligence-platform-query.json",
+  "test_sources": [
+    "/tmp/tinlance-agent-platform/tests/test_world_intelligence_mcp_integration.py",
+    "tests/integration/test_platform_world_intelligence_query_e2e.py"
+  ],
+  "requirements": [
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-001",
+      "tests": ["test_mcp_protocol_lists_and_dispatches_world_intelligence_tools"]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-002",
+      "tests": [
+        "test_query_uses_platform_token_with_bound_identity_purpose_and_trace",
+        "test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-003",
+      "tests": [
+        "test_handler_requires_platform_capability_and_authorized_purpose",
+        "test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-004",
+      "tests": [
+        "test_mcp_protocol_lists_and_dispatches_world_intelligence_tools",
+        "test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy",
+        "test_handler_preserves_w3c_sampling_flags"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-005",
+      "tests": [
+        "test_mcp_protocol_lists_and_dispatches_world_intelligence_tools",
+        "test_production_transport_requires_https_and_exact_audience"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-006",
+      "tests": [
+        "test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-007",
+      "tests": [
+        "test_transport_rejects_redirects_and_malformed_response",
+        "test_production_transport_requires_https_and_exact_audience"
+      ]
+    },
+    {
+      "id": "TSIC-WI-PLATFORM-QUERY-008",
+      "tests": [
+        "test_transient_http_failure_is_retryable_and_authorization_failure_is_not",
+        "test_handler_requires_resource_capability_before_network_call"
+      ]
+    }
+  ]
+}
