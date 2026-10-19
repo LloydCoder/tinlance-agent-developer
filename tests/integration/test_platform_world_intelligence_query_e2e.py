@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPConnection
 import json
 import os
 import re
@@ -156,6 +157,23 @@ def test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy() -
     thread.start()
 
     try:
+        for _ in range(40):
+            connection = HTTPConnection(
+                "127.0.0.1", server.server_address[1], timeout=1
+            )
+            try:
+                connection.request("GET", "/healthz")
+                health = connection.getresponse()
+                health.read()
+                if health.status == 200:
+                    break
+            except OSError:
+                time.sleep(0.05)
+            finally:
+                connection.close()
+        else:
+            raise AssertionError("World Intelligence HTTP runtime did not become healthy")
+
         transport = WorldIntelligenceHTTPTransport(
             base_url=f"http://127.0.0.1:{server.server_address[1]}",
             audience=audience,
