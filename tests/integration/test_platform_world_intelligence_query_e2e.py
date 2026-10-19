@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import threading
 import time
 import uuid
@@ -178,9 +179,26 @@ def test_platform_query_adapter_uses_signed_identity_and_postgres_policy_end_to_
     with ConnectionPool(database_url, min_size=1, max_size=2, open=True) as pool:
         with pool.connection() as connection:
             outcomes = connection.execute(
-                "SELECT tenant_id, outcome FROM world_intelligence.security_audit_events "
+                "SELECT tenant_id, outcome, request_id, traceparent "
+                "FROM world_intelligence.security_audit_events "
                 "WHERE tenant_id = ANY(%s) ORDER BY occurred_at",
                 ([tenant_id, denied_tenant_id],),
             ).fetchall()
-    assert (tenant_id, "allowed") in outcomes
-    assert (denied_tenant_id, "denied") in outcomes
+    allowed_request_id = request_id + "-" + tenant_id[-8:]
+    denied_request_id = request_id + "-" + denied_tenant_id[-8:]
+    assert any(
+        row[0] == tenant_id
+        and row[1] == "allowed"
+        and row[2] == allowed_request_id
+        and isinstance(row[3], str)
+        and re.fullmatch(r"00-[0-9a-f]{32}-[0-9a-f]{16}-01", row[3])
+        for row in outcomes
+    )
+    assert any(
+        row[0] == denied_tenant_id
+        and row[1] == "denied"
+        and row[2] == denied_request_id
+        and isinstance(row[3], str)
+        and re.fullmatch(r"00-[0-9a-f]{32}-[0-9a-f]{16}-01", row[3])
+        for row in outcomes
+    )
