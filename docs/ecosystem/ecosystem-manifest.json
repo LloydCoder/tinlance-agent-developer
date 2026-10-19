@@ -186,7 +186,7 @@
     {
       "id": "world_intelligence",
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "reviewed_sha": "44218923d701df514814e20325662c02952488e4",
+      "reviewed_sha": "0114beb25ce959a984294bd66e4ffc529c451e8e",
       "status": "required",
       "role": "canonical temporal world-state and source-evidence intake",
       "authority": "candidate evidence intake and canonicalization only; no identity, authorization or execution authority",
