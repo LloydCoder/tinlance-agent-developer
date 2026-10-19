@@ -209,6 +209,13 @@ def test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy() -
         listed_payload = json.loads(listed.body)
         names = {tool["name"] for tool in listed_payload["result"]["tools"]}
         assert "world_intelligence_query_regions" in names
+        region_tool = next(
+            tool
+            for tool in listed_payload["result"]["tools"]
+            if tool["name"] == "world_intelligence_query_regions"
+        )
+        assert region_tool["annotations"]["readOnlyHint"] is True
+        assert region_tool["annotations"]["destructiveHint"] is False
 
         def query(token: str, tenant: str) -> tuple[dict, dict, str]:
             trace_id = uuid.uuid4().hex
