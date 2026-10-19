@@ -79,9 +79,16 @@ def main() -> int:
             return fail(f"{item.get('id')} has no valid executable test mapping")
         mapped_tests.update(tests)
 
-    platform_tests = PLATFORM_ROOT / "tests/test_world_intelligence_mcp_integration.py"
-    e2e_test = ROOT / "tests/integration/test_platform_world_intelligence_query_e2e.py"
-    for path in (platform_tests, e2e_test):
+    test_sources = test_map.get("test_sources")
+    if not isinstance(test_sources, list) or not test_sources or any(
+        not isinstance(source, str) or not source for source in test_sources
+    ):
+        return fail("test_sources must be a non-empty list of paths")
+    source_paths = [
+        Path(source) if Path(source).is_absolute() else ROOT / source
+        for source in test_sources
+    ]
+    for path in source_paths:
         if not path.is_file():
             return fail(f"missing test source: {path}")
 
@@ -91,8 +98,7 @@ def main() -> int:
         "pytest",
         "--collect-only",
         "-q",
-        str(platform_tests),
-        str(e2e_test),
+        *(str(path) for path in source_paths),
     ]
     result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
     output = result.stdout + "\n" + result.stderr
