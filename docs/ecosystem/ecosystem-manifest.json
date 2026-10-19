@@ -20,7 +20,8 @@
     "twi_source_evidence": "source-evidence/1.0.0",
     "twi_source_evidence_intake": "POST /v1/source-evidence",
     "world_intelligence_query_api": "Platform-owned read-only query adapter; signed tenant, subject, purpose, request and trace context",
-    "world_intelligence_platform_adapter": "MCP/API gateway; eight fixed-resource read-only tools; no canonical writes"
+    "world_intelligence_platform_adapter": "MCP/API gateway; eight fixed-resource read-only tools; no canonical writes",
+    "world_intelligence_platform_query_conformance": "TSIC-WI-PLATFORM-QUERY-001; every mandatory requirement must map to collected executable tests"
   },
   "repositories": [
     {
@@ -49,7 +50,7 @@
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "1f39b33863e0054a1312d8b5cf7663ee9a2f856a"
+      "reviewed_sha": "db8473b452701d9b3807797ab1bc178b58feb96d"
     }
   ],
   "gate": {
@@ -69,7 +70,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "afdc624db11acd4e47f5ef5db10ab4d1c2ddf797",
+    "ref": "d30d5a6ec9a19c6de7d373cba578cbd9cdc26451",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -203,7 +204,11 @@
         "tests/test_world_intelligence_mcp_integration.py"
       ],
       "end_to_end_gate": "tests/integration/test_platform_world_intelligence_query_e2e.py",
-      "query_authentication": "signed tenant, subject, purpose, request ID, and W3C traceparent claims"
+      "query_authentication": "signed tenant, subject, purpose, request ID, and W3C traceparent claims",
+      "tsic_contract_id": "TSIC-WI-PLATFORM-QUERY-001",
+      "tsic_requirements_file": "conformance/requirements/world-intelligence-platform-query.json",
+      "tsic_test_map": "docs/ecosystem/world-intelligence-platform-query-test-map.json",
+      "tsic_conformance_gate": "scripts/world_intelligence_platform_conformance.py"
     }
   ]
 }
