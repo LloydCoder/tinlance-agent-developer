@@ -15,9 +15,23 @@ concurrency:
 
 jobs:
   integration:
-    name: TADL + Agent OS + SDK + Platform + TWI
+    name: TADL + Agent OS + SDK + Platform + TWI + World Intelligence
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 35
+    services:
+      postgres:
+        image: postgis/postgis:16-3.5
+        env:
+          POSTGRES_DB: world_intelligence_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d world_intelligence_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: Checkout TADL
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v6.0.1
@@ -52,6 +66,8 @@ jobs:
               targets.append((item["repository"], item["ref"], Path("/tmp") / f"tinlance-{name}"))
           twi = lock["integrations"]["twi"]
           targets.append((twi["repository"], twi["ref"], Path("/tmp/tinlance-twi")))
+          world_intelligence = lock["integrations"]["world_intelligence"]
+          targets.append((world_intelligence["repository"], world_intelligence["ref"], Path("/tmp/tinlance-world-intelligence")))
 
           for repository, ref, target in targets:
               subprocess.run(
@@ -76,10 +92,27 @@ jobs:
           python -m pip install /tmp/tinlance-platform /tmp/tinlance-platform_sdk /tmp/tinlance-os
           python -m pip install -e "/tmp/tinlance-platform/reference_agents[test]" --no-deps
           python -m pip install -e "/tmp/tinlance-twi[dev]"
+          python -m pip install -e "/tmp/tinlance-world-intelligence[runtime]"
 
       - name: Run TWI package tests from the pinned revision
         working-directory: /tmp/tinlance-twi
         run: python -m pytest tests
+
+      - name: Apply pinned World Intelligence database migrations
+        working-directory: /tmp/tinlance-world-intelligence
+        env:
+          PGPASSWORD: postgres
+        run: |
+          set -euo pipefail
+          for migration in db/migrations/*.sql; do
+            psql "postgresql://postgres@127.0.0.1:5432/world_intelligence_test" -v ON_ERROR_STOP=1 -f "$migration"
+          done
+
+      - name: Run pinned World Intelligence source-evidence HTTP and PostgreSQL integration tests
+        working-directory: /tmp/tinlance-world-intelligence
+        env:
+          WORLD_INTELLIGENCE_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/world_intelligence_test
+        run: python -m pytest -q tests/integration/test_twi_source_evidence.py tests/integration/test_twi_source_evidence_postgres.py
 
       - name: Run Platform-owned TWI MCP and API adapter tests
         run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py
