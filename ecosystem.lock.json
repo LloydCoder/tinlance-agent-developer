@@ -60,7 +60,7 @@
     },
     "world_intelligence": {
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "ref": "dafcb4656cfc329c979660e02e70e555b5d26042",
+      "ref": "a156844575795b5fe9ce80b6e090a0d828e592d4",
       "role": "canonical temporal world-state and candidate source-evidence intake; not execution or authorization authority",
       "source_evidence_contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
       "integration_tests": [
