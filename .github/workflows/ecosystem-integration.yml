@@ -15,9 +15,9 @@ concurrency:
 
 jobs:
   integration:
-    name: TADL + Agent OS + Platform SDK + Platform
+    name: TADL + Agent OS + SDK + Platform + TWI
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout TADL
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v6.0.1
@@ -32,6 +32,7 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
+          cache: pip
 
       - name: Install TADL
         run: npm ci --ignore-scripts && npm run build
@@ -47,33 +48,40 @@ jobs:
 
           lock = json.loads(Path("ecosystem.lock.json").read_text())
           authority = lock["integration_authority"]
-          tsic_target = Path("/tmp/tinlance-tsic")
-          subprocess.run(
-              ["git", "clone", "--quiet", f"https://github.com/{authority['repository']}.git", str(tsic_target)],
-              check=True,
-          )
-          subprocess.run(
-              ["git", "-C", str(tsic_target), "checkout", "--quiet", authority["ref"]],
-              check=True,
-          )
+          targets = [(authority["repository"], authority["ref"], Path("/tmp/tinlance-tsic"))]
           for name, item in lock["repositories"].items():
-              target = Path("/tmp") / f"tinlance-{name}"
+              target_name = "twi" if name == "web_intelligence" else name
+              targets.append((item["repository"], item["ref"], Path("/tmp") / f"tinlance-{target_name}"))
+
+          for repository, ref, target in targets:
               subprocess.run(
-                  ["git", "clone", "--quiet", f"https://github.com/{item['repository']}.git", str(target)],
+                  ["git", "clone", "--quiet", f"https://github.com/{repository}.git", str(target)],
                   check=True,
               )
-              subprocess.run(["git", "-C", str(target), "checkout", "--quiet", item["ref"]], check=True)
+              subprocess.run(["git", "-C", str(target), "checkout", "--quiet", ref], check=True)
+              actual = subprocess.check_output(
+                  ["git", "-C", str(target), "rev-parse", "HEAD"], text=True
+              ).strip()
+              if actual != ref:
+                  raise SystemExit(f"pinned checkout mismatch for {repository}: {actual} != {ref}")
           PY
 
       - name: Run canonical TSIC authority gate
         run: python scripts/tsic_conformance.py
 
-      - name: Install Python integration components
+      - name: Install cross-repository integration components
         run: |
           python -m pip install --upgrade pip
           python -m pip install "pytest>=8.4" "jsonschema>=4.23,<5"
           python -m pip install /tmp/tinlance-platform /tmp/tinlance-platform_sdk /tmp/tinlance-os
           python -m pip install -e "/tmp/tinlance-platform/reference_agents[test]" --no-deps
+          python -m pip install -e "/tmp/tinlance-twi[dev]"
+
+      - name: Run TWI package tests from the pinned revision
+        run: python -m pytest /tmp/tinlance-twi/tests
+
+      - name: Run Platform-owned TWI MCP and API adapter tests
+        run: python -m pytest /tmp/tinlance-platform/tests/test_twi_mcp_integration.py /tmp/tinlance-platform/tests/test_twi_api_handler.py
 
       - name: Run end-to-end contract smoke test
         run: python scripts/ecosystem_smoke.py
