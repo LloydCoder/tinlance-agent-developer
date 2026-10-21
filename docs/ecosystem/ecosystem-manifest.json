@@ -173,7 +173,7 @@
     {
       "id": "twi",
       "repository": "LloydCoder/tinlance-web-intelligence",
-      "reviewed_sha": "cf992a6fd11b0ff44e6de377af40812af1221790",
+      "reviewed_sha": "47b2b2d459b1f751c4152301e81212376a941762",
       "status": "required",
       "role": "web acquisition, source provenance and evidence export",
       "authority": "no identity, authorization, policy, execution or canonical world-state authority",
