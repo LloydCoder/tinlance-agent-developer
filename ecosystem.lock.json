@@ -14,7 +14,7 @@
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "db8473b452701d9b3807797ab1bc178b58feb96d",
+      "ref": "c5a080c1fb4df68e45070f8cddfc30bf81edd7bb",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
@@ -38,7 +38,7 @@
     "a2a_http_content_type": "application/a2a+json",
     "recovery_certification": "ecosystem-p10-recovery-certification/v1",
     "twi_api": "versioned internal API; see pinned TWI repository contracts",
-    "twi_platform_adapter": "Platform-owned MCP adapter; 8 registered tools",
+    "twi_platform_adapter": "Platform-owned MCP adapter; 15 registered tools (search, fetch, browser, jobs, verification, evidence export, and monitor operations)",
     "world_intelligence_query_api": "Platform-owned read-only query adapter; signed tenant, subject, purpose, request and trace context",
     "world_intelligence_platform_adapter": "Platform MCP protocol dispatch; eight fixed-resource read-only tools; purpose-bound signed HTTP queries; no canonical writes"
   },
@@ -51,7 +51,7 @@
   "integrations": {
     "twi": {
       "repository": "LloydCoder/tinlance-web-intelligence",
-      "ref": "cf992a6fd11b0ff44e6de377af40812af1221790",
+      "ref": "47b2b2d459b1f751c4152301e81212376a941762",
       "role": "web acquisition, source provenance, and evidence export; not an execution authority",
       "platform_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/twi.py",
       "platform_adapter_tests": [
