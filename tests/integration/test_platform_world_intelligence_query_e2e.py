@@ -84,6 +84,7 @@ def test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy() -
             request_id: str,
             traceparent: str | None,
             expires_in_seconds: int,
+            principal_type: str = "user",
         ) -> str:
             now = int(time.time())
             claims = {
@@ -92,7 +93,7 @@ def test_platform_mcp_to_world_intelligence_signed_query_and_postgres_policy() -
                 "sub": subject_id,
                 "client_id": "tinlance-agent-platform-e2e",
                 "jti": uuid.uuid4().hex,
-                "principal_type": "agent",
+                "principal_type": principal_type,
                 "tenant_id": tenant_id,
                 "scope": " ".join(sorted(scopes)),
                 "purpose": purpose,
