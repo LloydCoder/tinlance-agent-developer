@@ -54,7 +54,7 @@
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
-      "reviewed_sha": "c5a080c1fb4df68e45070f8cddfc30bf81edd7bb",
+      "reviewed_sha": "dc07315a4e0efc332c9aae701eb2c82560e70df0",
       "role": "sole governed execution and authority plane",
       "publisher": {
         "publisher_id": "LloydCoder",
@@ -68,8 +68,8 @@
         "replacement_id": null
       },
       "supply_chain": {
-        "reviewed_sha": "c5a080c1fb4df68e45070f8cddfc30bf81edd7bb",
-        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/c5a080c1fb4df68e45070f8cddfc30bf81edd7bb",
+        "reviewed_sha": "dc07315a4e0efc332c9aae701eb2c82560e70df0",
+        "provenance_uri": "https://github.com/LloydCoder/tinlance-agent-platform/commit/dc07315a4e0efc332c9aae701eb2c82560e70df0",
         "sbom_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "signature_uri": "https://github.com/LloydCoder/tinlance-agent-platform/attestations",
         "verification_status": "pending"
