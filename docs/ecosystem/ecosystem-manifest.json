@@ -125,7 +125,7 @@
     "p9": "certified",
     "p10": "certified",
     "production": "unverified",
-    "note": "P0-P10 repository/reference-scope certification is recorded against the exact immutable references in ecosystem.lock.json. FCP-01 refreshes and revalidates those references across the current Platform, OS, SDK, TADL, TSIC, TWI and World Intelligence baselines. This is repository-level conformance evidence only; production deployment and independent assurance remain separate acceptance gates.",
+    "note": "The manifest phase P10 denotes the canonical contract-surface scope, not a certification status. P0-P10 repository/reference-scope certification is recorded against the exact immutable references in ecosystem.lock.json. FCP-01 refreshes and revalidates those references across the current Platform, OS, SDK, TADL, TSIC, TWI and World Intelligence baselines. This is repository-level conformance evidence only; production deployment and independent assurance remain separate acceptance gates.",
     "sequence_release": "all_phases_certified"
   },
   "trace_context_contract": {
