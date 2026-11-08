@@ -29,28 +29,28 @@
       "repository": "LloydCoder/tinlance-agent-developer",
       "role": "developer validation consumer",
       "authority": "declares and validates intent; never grants execution authority",
-      "reviewed_sha": "74fb6f441b19966c07010d30fe94c99d3cca1a29"
+      "reviewed_sha": "5e28c5f0b923b3eeef44f3714dfacea1c1c49220"
     },
     {
       "id": "os",
       "repository": "LloydCoder/tinlance-agent-os",
       "role": "operating environment and lifecycle plane",
       "authority": "owns workspace/session/task/workflow/lifecycle composition; never grants execution authority",
-      "reviewed_sha": "642d2c78810ff4eb6b9ec69e2fa1b4b5775b6b4f"
+      "reviewed_sha": "aafce0b0d8029e6bac1cf335af24d3da8c6455e0"
     },
     {
       "id": "platform_sdk",
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
       "role": "typed developer API surface",
       "authority": "transports typed requests and opaque authoritative results; never authorizes",
-      "reviewed_sha": "9d12512bc1446133890e62ed0c3072ca28e623b7"
+      "reviewed_sha": "e418f9de6639779381a0cebc746991a52a8df1ce"
     },
     {
       "id": "platform",
       "repository": "LloydCoder/tinlance-agent-platform",
       "role": "sole governed execution and authority plane",
       "authority": "sole authority for identity, tenancy, authorization, policy, approvals, budgets, sandbox/tool authority, secrets, execution and authoritative evidence",
-      "reviewed_sha": "dc07315a4e0efc332c9aae701eb2c82560e70df0"
+      "reviewed_sha": "15caa3ebd65e5f569347aa5db01bb90af6e65c6a"
     }
   ],
   "gate": {
@@ -70,7 +70,7 @@
   ],
   "tsic_integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "d30d5a6ec9a19c6de7d373cba578cbd9cdc26451",
+    "ref": "f021d09cddd68d731c88cd5209c33789e78b4ae5",
     "adapter": "tsic-agent-developer-reference"
   },
   "transformation_contract": {
@@ -125,7 +125,7 @@
     "p9": "certified",
     "p10": "certified",
     "production": "unverified",
-    "note": "The manifest phase remains P10 as a contract-surface marker, not the active certification phase or completion status. P0-P10 are repository-certified for the exact reviewed repository and TSIC references. P10 recovery certification passed the exact-lock cross-repository gate and all post-merge CI, security, CodeQL, secret-scan, Scorecard, supply-chain attestation, release-attestation and Ecosystem Integration workflows on the P10 merge commit. This certifies repository-level recovery, replay isolation, bounded retry, budget settlement and replica invariants only. External production TLS/OAuth/JWKS, egress policy, live provider access, production backup/restore, telemetry, capacity and incident-response evidence remain unverified; repository conformance does not certify a deployed production environment.",
+    "note": "P0-P10 repository/reference-scope certification is recorded against the exact immutable references in ecosystem.lock.json. FCP-01 refreshes and revalidates those references across the current Platform, OS, SDK, TADL, TSIC, TWI and World Intelligence baselines. This is repository-level conformance evidence only; production deployment and independent assurance remain separate acceptance gates.",
     "sequence_release": "all_phases_certified"
   },
   "trace_context_contract": {
@@ -173,7 +173,7 @@
     {
       "id": "twi",
       "repository": "LloydCoder/tinlance-web-intelligence",
-      "reviewed_sha": "47b2b2d459b1f751c4152301e81212376a941762",
+      "reviewed_sha": "48a89f64a77d125e07ac9816b73738e4e6106dc8",
       "status": "required",
       "role": "web acquisition, source provenance and evidence export",
       "authority": "no identity, authorization, policy, execution or canonical world-state authority",
@@ -189,7 +189,7 @@
     {
       "id": "world_intelligence",
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "reviewed_sha": "a564816faffa5be8e970eae5127f3a504d0a1729",
+      "reviewed_sha": "57d326553c0bbebe4d0ad5cb947e7cab38f947ab",
       "status": "required",
       "role": "canonical temporal world-state and source-evidence intake",
       "authority": "candidate evidence intake and canonicalization only; no identity, authorization or execution authority",
