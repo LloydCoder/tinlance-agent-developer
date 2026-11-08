@@ -4,22 +4,22 @@
   "repositories": {
     "developer": {
       "repository": "LloydCoder/tinlance-agent-developer",
-      "ref": "74fb6f441b19966c07010d30fe94c99d3cca1a29",
+      "ref": "5e28c5f0b923b3eeef44f3714dfacea1c1c49220",
       "role": "developer validation consumer"
     },
     "os": {
       "repository": "LloydCoder/tinlance-agent-os",
-      "ref": "642d2c78810ff4eb6b9ec69e2fa1b4b5775b6b4f",
+      "ref": "aafce0b0d8029e6bac1cf335af24d3da8c6455e0",
       "role": "operating environment and lifecycle plane"
     },
     "platform": {
       "repository": "LloydCoder/tinlance-agent-platform",
-      "ref": "dc07315a4e0efc332c9aae701eb2c82560e70df0",
+      "ref": "b2b5d61c7094ca3f31121ce33a4222d3fe994835",
       "role": "sole governed execution and authority plane"
     },
     "platform_sdk": {
       "repository": "LloydCoder/tinlance-agent-platform-sdk",
-      "ref": "9d12512bc1446133890e62ed0c3072ca28e623b7",
+      "ref": "e418f9de6639779381a0cebc746991a52a8df1ce",
       "role": "typed developer API surface"
     }
   },
@@ -45,13 +45,13 @@
   "baseline_id": "ecosystem-p10-recovery-2026-10-18",
   "integration_authority": {
     "repository": "LloydCoder/tinlance-system-integration",
-    "ref": "d30d5a6ec9a19c6de7d373cba578cbd9cdc26451",
+    "ref": "f021d09cddd68d731c88cd5209c33789e78b4ae5",
     "adapter": "tsic-agent-developer-reference"
   },
   "integrations": {
     "twi": {
       "repository": "LloydCoder/tinlance-web-intelligence",
-      "ref": "47b2b2d459b1f751c4152301e81212376a941762",
+      "ref": "48a89f64a77d125e07ac9816b73738e4e6106dc8",
       "role": "web acquisition, source provenance, and evidence export; not an execution authority",
       "platform_adapter": "LloydCoder/tinlance-agent-platform/packages/mcp/src/tinlance_agent_platform_mcp/twi.py",
       "platform_adapter_tests": [
@@ -62,7 +62,7 @@
     },
     "world_intelligence": {
       "repository": "LloydCoder/tinlance-world-intelligence",
-      "ref": "a564816faffa5be8e970eae5127f3a504d0a1729",
+      "ref": "57d326553c0bbebe4d0ad5cb947e7cab38f947ab",
       "role": "canonical temporal world-state and candidate source-evidence intake; not execution or authorization authority",
       "source_evidence_contract": "POST /v1/source-evidence; schema 1.0.0; candidate evidence only",
       "integration_tests": [

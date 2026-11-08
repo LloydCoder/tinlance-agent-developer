@@ -437,7 +437,7 @@ def run_contract_checks() -> None:
         assert_equal(second_status, 200, "idempotent replay")
         assert_equal(second_body, first_body, "idempotent replay body")
         assert_equal(conflict_status, 409, "idempotency conflict status")
-        assert_equal(conflict_body["error"], "IDEMPOTENCY_CONFLICT", "idempotency conflict error")
+        assert_equal(conflict_body["error"], "idempotency_conflict", "idempotency conflict error")
 
         # SDK and OS must propagate the version and trace/idempotency metadata.
         if not handler.requests:

@@ -267,7 +267,7 @@ def main() -> None:
             idempotency_key=create_key,
         )
         assert_status(status, 409, "idempotency-key payload conflict", conflict)
-        assert conflict.get("error") == "IDEMPOTENCY_CONFLICT"
+        assert conflict.get("error") == "idempotency_conflict"
 
         status, body = post(
             endpoint,
